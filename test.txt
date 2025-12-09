@@ -1,0 +1,5 @@
+﻿// Update all project images to lazy load
+const images = document.querySelectorAll('img[src^="foto/"]');
+images.forEach(img => {
+    img.setAttribute('loading', 'lazy');
+});
