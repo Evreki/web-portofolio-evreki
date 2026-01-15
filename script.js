@@ -10,6 +10,72 @@ const scrollProgress = document.querySelector('.scroll-progress'); // Changed se
 
 // --- 1. LOADER & INITIALIZATION ---
 window.addEventListener('load', () => {
+    // Lock scroll while loading
+    document.body.style.overflow = 'hidden';
+
+    // --- MAGNETIC BUTTONS (Universal Support) ---
+    const magneticButtons = document.querySelectorAll('.btn, .social-icons a, .nav-links a');
+
+    magneticButtons.forEach(btn => {
+        // Desktop Mouse Interaction
+        if (window.matchMedia('(hover: hover)').matches) {
+            btn.addEventListener('mousemove', (e) => {
+                const rect = btn.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                btn.style.transition = 'transform 0.1s ease-out';
+                btn.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+            });
+
+            btn.addEventListener('mouseleave', () => {
+                btn.style.transition = 'transform 0.5s cubic-bezier(0.25, 1, 0.5, 1)';
+                btn.style.transform = 'translate(0px, 0px)';
+            });
+        }
+
+        // Mobile Touch Interaction
+        btn.addEventListener('touchmove', (e) => {
+            const touch = e.touches[0];
+            const rect = btn.getBoundingClientRect();
+            // Calculate distance from center
+            const x = touch.clientX - rect.left - rect.width / 2;
+            const y = touch.clientY - rect.top - rect.height / 2;
+
+            // Limit the magnetic pull on mobile to keep it contained
+            // Only move if touch is relatively close/inside (touchmove fires even if outside if started inside)
+            btn.style.transition = 'transform 0.1s ease-out';
+            btn.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+        }, { passive: true });
+
+        btn.addEventListener('touchend', () => {
+            btn.style.transition = 'transform 0.5s cubic-bezier(0.25, 1, 0.5, 1)';
+            btn.style.transform = 'translate(0px, 0px)';
+        });
+    });
+
+    // --- LOAD MORE CERTIFICATES ---
+    const loadMoreBtn = document.getElementById('load-more-certs');
+    if (loadMoreBtn) {
+        loadMoreBtn.addEventListener('click', () => {
+            const hiddenCerts = document.querySelectorAll('.hidden-cert');
+            hiddenCerts.forEach(cert => {
+                cert.style.display = 'flex'; // Restore display flex (since it's a card)
+                // Add fade-in animation
+                cert.style.opacity = '0';
+                cert.style.transform = 'translateY(20px)';
+                cert.style.transition = 'all 0.5s ease';
+
+                setTimeout(() => {
+                    cert.style.opacity = '1';
+                    cert.style.transform = 'translateY(0)';
+                }, 50);
+            });
+
+            // Hide button after loading
+            loadMoreBtn.style.display = 'none';
+        });
+    }
+
     // Scroll Progress Logic
     window.addEventListener('scroll', () => {
         const scrollTop = window.scrollY;
@@ -20,30 +86,15 @@ window.addEventListener('load', () => {
         }
     });
 
-    // Magnetic Button Effect
-    const magneticBtns = document.querySelectorAll('.btn, .nav-links a, .social-icons a');
-    magneticBtns.forEach(btn => {
-        btn.addEventListener('mousemove', (e) => {
-            const rect = btn.getBoundingClientRect();
-            const x = e.clientX - rect.left - rect.width / 2;
-            const y = e.clientY - rect.top - rect.height / 2;
-
-            // Magnetic pull strength (lower is weaker)
-            btn.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px)`;
-        });
-
-        btn.addEventListener('mouseleave', () => {
-            btn.style.transform = 'translate(0, 0)';
-        });
-    });
-
-    // Loader logic (Moved from window.load to DOMContentLoaded)
+    // Loader logic
     setTimeout(() => {
-        if (loader) { // Added check for loader existence
+        if (loader) {
             loader.classList.add('hidden');
+            // Unlock scroll
+            document.body.style.overflow = '';
         }
         // Trigger generic animations if needed
-    }, 1500); // 1.5s simulated load
+    }, 2000); // 2s visual duration
     // Check if device supports hover (Desktop)
     const isDesktop = window.matchMedia('(hover: hover)').matches;
 
@@ -70,43 +121,55 @@ window.addEventListener('load', () => {
             });
         });
 
-        // --- DESKTOP ONLY: MAGNETIC BUTTONS ---
-        const magneticButtons = document.querySelectorAll('.btn, .social-icons a, .nav-links a');
-        magneticButtons.forEach(btn => {
-            btn.addEventListener('mousemove', (e) => {
-                const rect = btn.getBoundingClientRect();
-                const x = e.clientX - rect.left - rect.width / 2;
-                const y = e.clientY - rect.top - rect.height / 2;
-                btn.style.transition = 'transform 0.1s ease-out';
-                btn.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
-            });
-            btn.addEventListener('mouseleave', () => {
-                btn.style.transition = 'transform 0.5s cubic-bezier(0.25, 1, 0.5, 1)';
-                btn.style.transform = 'translate(0px, 0px)';
-            });
-        });
+        // (Magnetic Buttons moved to Universal block above)
+    } // END DESKTOP ONLY BLOCK
 
-        // --- DESKTOP ONLY: 3D TILT EFFECT ---
-        const card = document.querySelector('.profile-card');
-        const heroSection = document.querySelector('.hero-section');
-        if (card && heroSection) {
+    // --- 3D TILT EFFECT (Universal Support) ---
+    const card = document.querySelector('.profile-card');
+    const heroSection = document.querySelector('.hero-section');
+
+    if (card && heroSection) {
+        // Function to apply tilt
+        const applyTilt = (cx, cy) => {
+            const cardRect = card.getBoundingClientRect();
+            const cardCenterX = cardRect.left + cardRect.width / 2;
+            const cardCenterY = cardRect.top + cardRect.height / 2;
+            const x = cx - cardCenterX;
+            const y = cy - cardCenterY;
+            // Limit rotation on mobile to be subtle
+            const divisor = window.innerWidth < 768 ? 20 : 15;
+            const rotateY = x / divisor;
+            const rotateX = -y / divisor;
+
+            card.style.transition = 'none';
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        };
+
+        const resetTilt = () => {
+            card.style.transition = 'transform 0.5s ease';
+            card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
+        };
+
+        // Desktop Interaction
+        if (window.matchMedia('(hover: hover)').matches) {
             heroSection.addEventListener('mousemove', (e) => {
-                const cardRect = card.getBoundingClientRect();
-                const cardCenterX = cardRect.left + cardRect.width / 2;
-                const cardCenterY = cardRect.top + cardRect.height / 2;
-                const x = e.clientX - cardCenterX;
-                const y = e.clientY - cardCenterY;
-                const rotateY = x / 15;
-                const rotateX = -y / 15;
-                card.style.transition = 'none';
-                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                applyTilt(e.clientX, e.clientY);
             });
-            heroSection.addEventListener('mouseleave', () => {
-                card.style.transition = 'transform 0.5s ease';
-                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
-            });
+            heroSection.addEventListener('mouseleave', resetTilt);
         }
+
+        // Mobile Touch Interaction
+        card.addEventListener('touchmove', (e) => {
+            // Check if user is scrolling page (touch moving vertically fast? or multiple touches?)
+            // We just allow it. 'passive: true' allows scroll.
+            const touch = e.touches[0];
+            applyTilt(touch.clientX, touch.clientY);
+        }, { passive: true });
+
+        card.addEventListener('touchend', resetTilt);
     }
+
+
 
     // --- CONSTELLATION BACKGROUND EFFECT (Optimized for Mobile) ---
     const canvas = document.getElementById('bg-canvas');
@@ -337,6 +400,15 @@ window.addEventListener('load', () => {
             });
         });
     }
+
+    //* --- MOBILE BOTTOM NAVIGATION --- */
+    const mobileNavItems = document.querySelectorAll('.mob-key');
+    mobileNavItems.forEach(item => {
+        item.addEventListener('click', function () {
+            mobileNavItems.forEach(nav => nav.classList.remove('active'));
+            this.classList.add('active');
+        });
+    });
 
     // --- Smooth Scroll ---
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
