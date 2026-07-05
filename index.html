@@ -1,432 +1,372 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Evreki Wan Refanja | Portfolio</title>
-    <link rel="icon" href="favicon.png">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
+    <title>Evreki Wan Refanja - NeoBrutalism Portfolio</title>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- CSS -->
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-    <!-- Scroll Progress Bar -->
-    <div class="scroll-progress"></div>
+    <!-- TV NOISE OVERLAY -->
+    <div class="noise-overlay"></div>
 
-    <!-- Constellation Background -->
-    <canvas id="bg-canvas"></canvas>
+    <!-- CUSTOM BRUTAL CURSOR -->
+    <div class="brutal-cursor"></div>
 
-    <!-- Loader -->
-    <div id="loader">
-        <div class="equalizer">
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
+    <!-- BRUTAL PRELOADER -->
+    <div id="brutal-loader">
+        <div class="loader-content">
+            <div class="loader-box"></div>
+            <h1 class="loader-text">INITIALIZING...</h1>
         </div>
     </div>
 
-    <!-- Background Elements -->
-    <div class="cursor-dot" id="cursor-dot"></div>
-    <div class="cursor-outline" id="cursor-outline"></div>
-    <div class="noise-overlay"></div>
-    <div class="glow-blob g1"></div>
-    <div class="glow-blob g2"></div>
-
-    <!-- Navigation -->
+    <!-- NAVBAR -->
     <nav class="navbar">
         <div class="container nav-container">
-            <a href="#" class="logo">evreki<span class="accent">.</span></a>
-            <ul class="nav-links">
-                <li><a href="#about">About</a></li>
-                <li><a href="#work">Work</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
+            <a href="#" class="nav-logo">
+                <span class="nav-logo-icon"></span>
+                Evreki.
+            </a>
+            <div class="nav-links">
+                <a href="#about" class="nav-link">About</a>
+                <a href="#journey" class="nav-link">Journey</a>
+                <a href="#projects" class="nav-link">Projects</a>
+                <a href="#skills" class="nav-link">Skills</a>
+                <a href="#certificates" class="nav-link">Certificates</a>
+                <a href="#contact" class="brutal-btn" style="padding: 10px 20px; font-size: 0.8rem;">Let's Talk</a>
+            </div>
+            <button class="hamburger"><i data-lucide="menu"></i></button>
         </div>
     </nav>
 
-    <!-- Mobile Bottom Navigation -->
-    <!-- Mobile Bottom Navigation (Renamed classes to fix ghost CSS) -->
-    <!-- Mobile Bottom Navigation (Renamed classes to fix ghost CSS) -->
-    <nav class="mobile-bottom-nav">
-        <a href="#hero" class="mob-key active">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                stroke-linejoin="round">
-                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                <polyline points="9 22 9 12 15 12 15 22"></polyline>
-            </svg>
-        </a>
-        <a href="#about" class="mob-key">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                stroke-linejoin="round">
-                <circle cx="12" cy="12" r="10"></circle>
-                <line x1="12" y1="16" x2="12" y2="12"></line>
-                <line x1="12" y1="8" x2="12.01" y2="8"></line>
-            </svg>
-        </a>
-        <a href="#work" class="mob-key">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                stroke-linejoin="round">
-                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
-                <line x1="8" y1="21" x2="16" y2="21"></line>
-                <line x1="12" y1="17" x2="12" y2="21"></line>
-            </svg>
-        </a>
-        <a href="#contact" class="mob-key">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                stroke-linejoin="round">
-                <path
-                    d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
-                </path>
-            </svg>
-        </a>
-    </nav>
-
-    <main>
-        <!-- Hero Section -->
-        <section id="hero" class="hero-section">
-            <!-- Global Background Animation -->
-            <div class="neon-particles">
-                <div class="particle p1"></div>
-                <div class="particle p2"></div>
-                <div class="particle p3"></div>
-                <div class="particle p4"></div>
-                <div class="particle p5"></div>
-                <div class="particle p6"></div>
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="container" style="position: relative; width: 100%;">
+            
+            <!-- Decorative Shapes -->
+            <div class="geo-shape geo-circle"></div>
+            <div class="geo-shape geo-square"></div>
+            
+            <!-- Center Avatar (Zine Pop-Out) -->
+        <div class="geo-avatar">
+            <!-- Layer 0: Background -->
+            <div class="geo-avatar-bg"></div>
+            
+            <!-- Layer 1: Body (Clipped into circle) -->
+            <div class="geo-avatar-body">
+                <img class="avatar-filter" src="foto/profile-transparent.png" alt="Evreki Body" onerror="this.src='https://placehold.co/350x350/F4E409/000000?text=Evreki'">
             </div>
-
-            <div class="container hero-container">
-                <div class="hero-content">
-                    <span class="greeting reveal">👋 Hello, I'm</span>
-                    <h1 class="hero-name reveal delay-100">Evreki Wan<br>Refanja</h1>
-                    <h2 class="hero-role reveal delay-200">
-                        <span id="typewriter">Software Engineer</span><span class="cursor-blink">|</span>
-                    </h2>
-                    <p class="hero-desc reveal delay-300">
-                        Building immersive digital experiences with clean code and modern technologies.
-                        Based in <strong>Bandung, Indonesia</strong>.
-                    </p>
-                    <div class="hero-actions">
-                        <a href="#work" class="btn btn-primary">View My Work</a>
-                        <a href="#contact" class="btn btn-outline">Let's Connect</a>
-                    </div>
-                </div>
-
-                <!-- Profile Card inspired by Reference -->
-                <div class="hero-image-wrapper">
-                    <div class="profile-card">
-                        <div class="card-border-glow"></div>
-                        <div class="card-content">
-                            <div class="profile-img-container">
-                                <img src="foto/profile-final.png" alt="Evreki Profile" class="profile-img">
-                                <div class="profile-gradient-overlay"></div>
-                            </div>
-
-                            <!-- Bottom Action Bar -->
-                            <div class="card-action-bar">
-                                <div class="action-info">
-                                    <div class="avatar-mini">
-                                        <i class="devicon-github-original"></i>
-                                    </div>
-                                    <div class="info-text">
-                                        <span class="handle">@evreki</span>
-                                        <span class="status">Open to Work</span>
-                                    </div>
-                                </div>
-                                <a href="#contact" class="btn-card-contact">Contact Me</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            
+            <!-- Layer 2: Circle Border -->
+            <div class="geo-avatar-border"></div>
+            
+            <!-- Layer 3: Head Pop-out (Clipped at bottom) -->
+            <div class="geo-avatar-head">
+                <img class="avatar-filter" src="foto/profile-transparent.png" alt="Evreki Head" onerror="this.src='https://placehold.co/350x350/F4E409/000000?text=Evreki'">
             </div>
+        </div>
 
-            <div class="scroll-downs">
-                <div class="mousey">
-                    <div class="scroller"></div>
-                </div>
-            </div>
-        </section>
-
-        <!-- About Section -->
-        <section id="about" class="section">
-            <div class="container">
-                <div class="section-header reveal">
-                    <span class="section-subtitle">01 — About Me</span>
-                    <h2 class="section-title">Who I Am</h2>
-                </div>
-                <div class="about-grid reveal delay-200">
-                    <div class="about-text">
-                        <p>I am a passionate <strong>Software Engineer & Mobile Developer</strong> pursuing a Bachelor's
-                            degree in Informatics Engineering at <strong>Langlangbuana University</strong>.</p>
-                        <p>With over 4 years of experience in the field, I specialize in building robust applications
-                            using <strong>Laravel, Flutter, and JavaScript</strong>. I love solving complex problems and
-                            turning ideas into reality through code.</p>
-
-                        <div class="stats-grid">
-                            <div class="stat-item">
-                                <span class="stat-number">10+</span>
-                                <span class="stat-label">Projects Completed</span>
-                            </div>
-                            <div class="stat-item">
-                                <span class="stat-number">4+</span>
-                                <span class="stat-label">Years Experience</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="about-timeline">
-                        <h3 class="timeline-title">Journey</h3>
-                        <div class="timeline-item">
-                            <span class="timeline-year">2022 — Present</span>
-                            <div class="timeline-content">
-                                <h4>Langlangbuana University</h4>
-                                <p>Bachelor of Informatics Engineering</p>
-                            </div>
-                        </div>
-                        <div class="timeline-item">
-                            <span class="timeline-year">2019 — 2022</span>
-                            <div class="timeline-content">
-                                <h4>MAN 2 Kab Bandung</h4>
-                                <p>Science Major</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Work Section -->
-        <section id="work" class="section">
-            <div class="container">
-                <div class="section-header">
-                    <span class="section-subtitle">02 — Portfolio</span>
-                    <h2 class="section-title reveal">Featured <span class="accent">Projects</span></h2>
-                </div>
-                <!-- RESTORED: Original Projects -->
-                <div class="projects-grid">
-                    <!-- Project 1: KKNM Registration System -->
-                    <div class="project-card reveal delay-100" onclick="openModal('kknm')">
-                        <div class="project-image">
-                            <!-- Overlay with Action Button -->
-                            <div class="project-overlay">
-                                <a href="https://github.com/Lightdraa511/WebsitePendaftaranKKNM.git" target="_blank"
-                                    class="btn-project" onclick="event.stopPropagation()">
-                                    <i class="devicon-github-original"></i> View Code
-                                </a>
-                            </div>
-                            <img src="foto/Picture1.png" alt="KKNM Registration System">
-                        </div>
-                        <div class="project-content">
-                            <h3>KKNM System</h3>
-                            <p>A comprehensive web application for managing student community service registrations with
-                                admin dashboard and real-time validation.</p>
-                            <div class="project-tags">
-                                <span>Laravel</span>
-                                <span>PHP</span>
-                                <span>MySQL</span>
-                                <span>Bootstrap</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Project 2: AI Image Detector -->
-                    <div class="project-card reveal delay-200" onclick="openModal('flutter')">
-                        <div class="project-image">
-                            <!-- Overlay with Action Button -->
-                            <div class="project-overlay">
-                                <a href="https://github.com/Evreki/aplikasi-image-detector.git" target="_blank"
-                                    class="btn-project" onclick="event.stopPropagation()">
-                                    <i class="devicon-github-original"></i> View Code
-                                </a>
-                            </div>
-                            <img src="foto/WhatsApp Image 2025-12-07 at 15.35.05_7f45f625.jpg" alt="AI Image Detector">
-                        </div>
-                        <div class="project-content">
-                            <h3>AI Image Detector</h3>
-                            <p>Mobile application harnessing TensorFlow Lite to detect AI-generated images with high
-                                accuracy. Built with Flutter.</p>
-                            <div class="project-tags">
-                                <span>Flutter</span>
-                                <span>TensorFlow</span>
-                                <span>Dart</span>
-                                <span>Firebase</span>
-                            </div>
-                        </div>
-                    </div>
+            <div class="hero-content">
+                <div class="hero-badge reveal-element">👋 HELLO, WORLD</div>
+                <h1 class="hero-title reveal-element" style="transition-delay: 0.1s;">EVREKI WAN REFANJA</h1>
+                <h3 class="hero-subtitle reveal-element" style="transition-delay: 0.2s;">
+                    <span style="color: var(--secondary);">SOFTWARE ENGINEER</span><br>
+                    <span style="color: var(--secondary);">& MOBILE DEV</span>
+                </h3>
+                
+                <div class="social-links-hero reveal-element" style="transition-delay: 0.3s;">
+                    <a href="https://github.com/Evreki" target="_blank" class="social-btn github">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+                    </a>
+                    <a href="https://linkedin.com/in/evreki" target="_blank" class="social-btn linkedin">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+                    </a>
+                    <a href="https://instagram.com/evrekii" target="_blank" class="social-btn instagram">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+                    </a>
                 </div>
 
-                <!-- ADDED BUTTON: More on GitHub -->
-                <div class="center-btn-wrapper reveal delay-200" style="text-align: center; margin-top: 3rem;">
-                    <a href="https://github.com/evreki" target="_blank" class="btn btn-outline magnetic-btn">
-                        <i class="devicon-github-original"></i> More on GitHub
+                <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+                    <a href="#projects" class="brutal-btn">
+                        <i data-lucide="folder-code"></i> View Projects
+                    </a>
+                    <a href="https://github.com/Evreki" target="_blank" class="brutal-btn secondary">
+                        <i data-lucide="github"></i> GitHub
                     </a>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Certificates Section (Updated with Load More) -->
-        <section id="certificates" class="section">
-            <div class="container">
-                <div class="section-header">
-                    <span class="section-subtitle">03 — Credentials</span>
-                    <h2 class="section-title reveal">My <span class="accent">Certificates</span></h2>
-                </div>
-
-                <div class="certificates-grid" id="certificates-grid">
-                    <!-- Cert 1 (New) -->
-                    <div class="certificate-card reveal delay-100">
-                        <div class="cert-image">
-                            <img src="foto/sertifikat-vinix.jpg" alt="Magang PT VINIX SEVEN AURUM">
-                        </div>
-                        <div class="cert-info">
-                            <h4>Magang PT VINIX SEVEN AURUM</h4>
-                            <p>Peserta MSIB Batch 3</p>
-                        </div>
-                    </div>
-
-                    <!-- Cert 2 -->
-                    <div class="certificate-card reveal delay-200">
-                        <div class="cert-image">
-                            <img src="foto/certificate1.jpg" alt="Certificate 1">
-                        </div>
-                        <div class="cert-info">
-                            <h4>Full Stack Web Development</h4>
-                            <p>BuildWithAngga</p>
-                        </div>
-                    </div>
-
-                    <!-- Cert 3 -->
-                    <div class="certificate-card reveal delay-300">
-                        <div class="cert-image">
-                            <img src="foto/certificate2.png" alt="Certificate 2">
-                        </div>
-                        <div class="cert-info">
-                            <h4>JavaScript Algorithms</h4>
-                            <p>FreeCodeCamp</p>
-                        </div>
-                    </div>
-
-                    <!-- Hidden Certs (Revealed by Button) -->
-                    <div class="certificate-card hidden-cert" style="display: none;">
-                        <div class="cert-image">
-                            <img src="foto/certificate3.jpg" alt="Certificate 3">
-                        </div>
-                        <div class="cert-info">
-                            <h4>React Native Mastery</h4>
-                            <p>Udemy</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- ADDED BUTTON: Load More -->
-                <div class="center-btn-wrapper reveal delay-200" style="text-align: center; margin-top: 3rem;">
-                    <button id="load-more-certs" class="btn btn-outline magnetic-btn">
-                        Load More Credentials
-                    </button>
-                </div>
-            </div>
-        </section>
-
-        <!-- Skills Section -->
-        <section id="skills" class="section">
-            <div class="container">
-                <div class="section-header reveal">
-                    <span class="section-subtitle">04 — Expertise</span>
-                    <h2 class="section-title">Tech Stack</h2>
-                </div>
-                <div class="skills-wrapper">
-                    <div class="skill-card reveal delay-100"><i
-                            class="devicon-laravel-original colored"></i><span>Laravel</span></div>
-                    <div class="skill-card reveal delay-100"><i
-                            class="devicon-flutter-plain colored"></i><span>Flutter</span></div>
-                    <div class="skill-card reveal delay-100"><i
-                            class="devicon-javascript-plain colored"></i><span>JavaScript</span>
-                    </div>
-                    <div class="skill-card reveal delay-200"><i class="devicon-php-plain colored"></i><span>PHP</span>
-                    </div>
-                    <div class="skill-card reveal delay-200"><i class="devicon-java-plain colored"></i><span>Java</span>
-                    </div>
-                    <div class="skill-card reveal delay-200"><i
-                            class="devicon-mysql-plain colored"></i><span>MySQL</span></div>
-                    <div class="skill-card reveal delay-300"><i
-                            class="devicon-firebase-plain colored"></i><span>Firebase</span></div>
-                    <div class="skill-card reveal delay-300"><i
-                            class="devicon-html5-plain colored"></i><span>HTML5</span></div>
-                    <div class="skill-card reveal delay-300"><i class="devicon-css3-plain colored"></i><span>CSS3</span>
-                    </div>
-                    <div class="skill-card reveal delay-300"><i
-                            class="devicon-tailwindcss-original colored"></i><span>Tailwind</span>
-                    </div>
-                    <div class="skill-card reveal delay-300"><i
-                            class="devicon-bootstrap-plain colored"></i><span>Bootstrap</span></div>
-                    <div class="skill-card reveal delay-300"><i class="devicon-git-plain colored"></i><span>Git</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Contact Section -->
-        <section id="contact" class="section">
-            <div class="container">
-                <div class="section-header reveal">
-                    <span class="section-subtitle">05 — Contact</span>
-                    <h2 class="section-title">Get In Touch</h2>
-                </div>
-                <div class="contact-container reveal delay-200">
-                    <div class="contact-info">
-                        <h3>Let's build something amazing together!</h3>
-                        <p>I'm available for freelance work and full-time opportunities. Drop me a line if you want to
-                            collaborate.</p>
-                        <div class="social-icons">
-                            <a href="https://github.com/evreki" target="_blank">GitHub</a>
-                            <a href="https://instagram.com/evreky" target="_blank">Instagram</a>
-                            <a href="https://linkedin.com/in/evreki-wan-refanja" target="_blank">LinkedIn</a>
-                        </div>
-                    </div>
-                    <form class="contact-form" id="contactForm">
-                        <div class="form-group">
-                            <input type="text" name="name" placeholder="Your Name" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="email" name="email" placeholder="Your Email" required>
-                        </div>
-                        <div class="form-group">
-                            <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Send Message</button>
-                    </form>
-                </div>
-            </div>
-        </section>
-
-        <footer>
-            <div class="container">
-                <p>&copy; 2024 Evreki Wan Refanja.</p>
-                <div class="system-status">
-                    <span class="status-dot"></span>
-                    <span class="status-text">SYSTEM ONLINE</span>
-                </div>
-            </div>
-        </footer>
-    </main>
-
-    <!-- Image Modal -->
-    <div id="imageModal" class="modal">
-        <span class="close-modal">&times;</span>
-        <div class="modal-content">
-            <img class="modal-image" id="modalImg">
-            <button class="nav-btn prev-btn">&#10094;</button>
-            <button class="nav-btn next-btn">&#10095;</button>
-            <div class="modal-caption" id="modalCaption"></div>
+    <!-- GIANT MARQUEE DIVIDER -->
+    <div class="giant-marquee">
+        <div class="marquee-content">
+            <span>✦ AVAILABLE FOR WORK ✦ SOFTWARE ENGINEER ✦ CREATIVE DEVELOPER ✦ BACKEND DEV ✦ FLUTTER DEV &nbsp;</span>
+            <span>✦ AVAILABLE FOR WORK ✦ SOFTWARE ENGINEER ✦ CREATIVE DEVELOPER ✦ BACKEND DEV ✦ FLUTTER DEV &nbsp;</span>
         </div>
     </div>
 
+    <!-- ABOUT SECTION (WITH EXTRA PHOTO) -->
+    <section id="about" class="section">
+        <div class="container">
+            <h2 class="section-header reveal-element">WHO AM I?</h2>
+            <div class="about-grid">
+                <div class="about-text reveal-element">
+                    <p>Hello! I'm a passionate software developer specializing in mobile app development with Flutter and back-end web development. I love building tools that solve real problems.</p>
+                    <p>My approach is simple: clean architecture, robust code, and an eye-catching interface. Welcome to my digital playground.</p>
+                </div>
+                <div class="polaroid-frame reveal-element">
+                    <img src="foto/foto final 2.jpeg" alt="Evreki" onerror="this.src='https://placehold.co/400x500/FFFFFF/000000?text=Evreki'">
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- MY SKILLS SECTION -->
+    <section id="skills" class="section">
+        <div class="container">
+            <h2 class="section-header reveal-element">MY SKILLS</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+                
+                <!-- Frontend -->
+                <div class="brutal-card reveal-element" style="background-color: var(--primary); transform: rotate(-1deg);">
+                    <h3 style="font-size: 1.5rem; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; border-bottom: 4px solid #000; padding-bottom: 10px;">
+                        <i data-lucide="layout"></i> Frontend Dev
+                    </h3>
+                    <div class="skill-item">
+                        <div class="skill-info"><span>HTML & CSS</span> <span>90%</span></div>
+                        <div class="progress-bar"><div class="progress-fill" data-width="90%" style="background-color: #fff;"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info"><span>React & JavaScript</span> <span>85%</span></div>
+                        <div class="progress-bar"><div class="progress-fill" data-width="85%" style="background-color: var(--accent);"></div></div>
+                    </div>
+                </div>
+
+                <!-- Backend -->
+                <div class="brutal-card reveal-element" style="background-color: var(--secondary); color: white; transform: rotate(1deg);">
+                    <h3 style="font-size: 1.5rem; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; border-bottom: 4px solid #000; padding-bottom: 10px;">
+                        <i data-lucide="server"></i> Backend Dev
+                    </h3>
+                    <div class="skill-item">
+                        <div class="skill-info"><span>PHP & Laravel</span> <span>88%</span></div>
+                        <div class="progress-bar"><div class="progress-fill" data-width="88%" style="background-color: var(--danger);"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info"><span>MySQL</span> <span>85%</span></div>
+                        <div class="progress-bar"><div class="progress-fill" data-width="85%" style="background-color: var(--primary);"></div></div>
+                    </div>
+                </div>
+
+                <!-- Mobile -->
+                <div class="brutal-card reveal-element" style="background-color: var(--danger); color: white; transform: rotate(-1deg);">
+                    <h3 style="font-size: 1.5rem; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; border-bottom: 4px solid #000; padding-bottom: 10px;">
+                        <i data-lucide="smartphone"></i> Mobile Dev
+                    </h3>
+                    <div class="skill-item">
+                        <div class="skill-info"><span>Flutter & Dart</span> <span>85%</span></div>
+                        <div class="progress-bar"><div class="progress-fill" data-width="85%" style="background-color: var(--primary);"></div></div>
+                    </div>
+                </div>
+
+                <!-- Design & Tools -->
+                <div class="brutal-card reveal-element" style="background-color: var(--accent); color: black; transform: rotate(1deg);">
+                    <h3 style="font-size: 1.5rem; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; border-bottom: 4px solid #000; padding-bottom: 10px;">
+                        <i data-lucide="pen-tool"></i> Design & Tools
+                    </h3>
+                    <div class="skill-item">
+                        <div class="skill-info"><span>UI/UX Design</span> <span>80%</span></div>
+                        <div class="progress-bar"><div class="progress-fill" data-width="80%" style="background-color: #fff;"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info"><span>Git & GitHub</span> <span>88%</span></div>
+                        <div class="progress-bar"><div class="progress-fill" data-width="88%" style="background-color: var(--danger);"></div></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- MY JOURNEY SECTION -->
+    <section id="journey" class="section">
+        <div class="container">
+            <h2 class="section-header reveal-element">MY JOURNEY</h2>
+            <div style="display: flex; flex-direction: column; gap: 40px; max-width: 800px; margin: 0 auto;">
+                
+                <div class="brutal-card reveal-element" style="background-color: var(--primary); transform: rotate(-1deg);">
+                    <div style="margin-bottom: 15px;">
+                        <span class="brutal-badge badge-blue"><i data-lucide="calendar"></i> 2022 - 2026</span>
+                    </div>
+                    <h3 style="font-size: 1.8rem; margin-bottom: 10px;">Langlangbuana University</h3>
+                    <p style="font-weight: 700; margin-bottom: 10px;">Bachelor of Informatics Engineering</p>
+                    <p style="background: var(--bg); padding: 10px; border: 2px solid var(--border-color);">
+                        Specialized in software development, mobile applications, and web technologies. Developed multiple real-world projects using modern frameworks and technologies.
+                    </p>
+                </div>
+
+                <div class="brutal-card reveal-element" style="background-color: var(--danger); color: white; transform: rotate(1deg);">
+                    <div style="margin-bottom: 15px;">
+                        <span class="brutal-badge badge-yellow" style="color: black;"><i data-lucide="calendar"></i> 2019 - 2022</span>
+                    </div>
+                    <h3 style="font-size: 1.8rem; margin-bottom: 10px;">MAN 2 Kab Bandung</h3>
+                    <p style="font-weight: 700; margin-bottom: 10px;">Science Major</p>
+                    <p style="background: var(--bg); color: var(--text); padding: 10px; border: 2px solid var(--border-color);">
+                        Graduated with a focus on Science Major. Built a strong foundation in mathematics, physics, and analytical thinking.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- PROJECTS SECTION -->
+    <section id="projects" class="section" style="background-color: #f0f0f0; border-top: var(--border-width) solid #000; border-bottom: var(--border-width) solid #000;">
+        <div class="container">
+            <h2 class="section-header reveal-element">PROJECTS</h2>
+            
+            <div class="projects-grid">
+                <!-- KKNM System -->
+                <div class="brutal-card project-card reveal-element" style="background-color: var(--primary);">
+                    <div class="project-img-box">
+                        <img src="foto/Picture1.png" alt="KKNM System" onerror="this.src='https://placehold.co/600x400/FFFFFF/000000?text=KKNM+Project'">
+                    </div>
+                    <h3>KKNM System</h3>
+                    <p>A comprehensive web application for managing student community service registrations with admin dashboard and real-time validation.</p>
+                    <div class="tech-stack">
+                        <span class="brutal-badge badge-blue">Laravel</span>
+                        <span class="brutal-badge badge-pink">PHP</span>
+                        <span class="brutal-badge">MySQL</span>
+                    </div>
+                    <a href="https://github.com/Lightdraa511/WebsitePendaftaranKKNM.git" target="_blank" class="brutal-btn" style="width: 100%;">
+                        View Details <i data-lucide="arrow-up-right"></i>
+                    </a>
+                </div>
+                
+                <!-- AI Image Detector -->
+                <div class="brutal-card project-card reveal-element" style="background-color: var(--danger); color: white;">
+                    <div class="project-img-box">
+                        <img src="foto/WhatsApp Image 2025-12-07 at 15.35.05_7f45f625.jpg" alt="AI Image Detector" onerror="this.src='https://placehold.co/600x400/FFFFFF/000000?text=AI+Image+Detector'">
+                    </div>
+                    <h3>AI vs Real Image Detector</h3>
+                    <p style="color: var(--text);">A mobile application built with Flutter that detects whether an image is AI-generated or real using TensorFlow Lite and CNN algorithm trained with Google Colab. Features real-time image analysis and classification.</p>
+                    <div class="tech-stack">
+                        <span class="brutal-badge badge-yellow" style="color: black;">Flutter</span>
+                        <span class="brutal-badge badge-blue">TensorFlow</span>
+                        <span class="brutal-badge badge-pink" style="background: black; color: white;">CNN</span>
+                        <span class="brutal-badge">Firebase</span>
+                    </div>
+                    <a href="https://github.com/Evreki/aplikasi-image-detector.git" target="_blank" class="brutal-btn" style="width: 100%;">
+                        View Details <i data-lucide="arrow-up-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- CERTIFICATES SECTION -->
+    <section id="certificates" class="section" style="background-color: #f0f0f0; border-top: var(--border-width) solid #000; border-bottom: var(--border-width) solid #000;">
+        <div class="container">
+            <h2 class="section-header reveal-element">CERTIFICATES</h2>
+            
+            <div class="certificates-scroll brutal-scroll">
+                <!-- Cert 1 -->
+                <div class="brutal-card reveal-element" style="background-color: var(--accent);">
+                    <div class="project-img-box" style="height: auto;">
+                        <img src="foto/certificate1.jpg" alt="Dicoding - Project Management" onerror="this.src='https://placehold.co/600x400/FFFFFF/000000?text=Cert+1'">
+                    </div>
+                    <h3 style="font-size: 1.2rem;">Dicoding - Project Management</h3>
+                </div>
+                
+                <!-- Cert 2 -->
+                <div class="brutal-card reveal-element" style="background-color: var(--secondary); color: white;">
+                    <div class="project-img-box" style="height: auto;">
+                        <img src="foto/certificate2.png" alt="BISA.AI - Python Basics" onerror="this.src='https://placehold.co/600x400/FFFFFF/000000?text=Cert+2'">
+                    </div>
+                    <h3 style="font-size: 1.2rem;">BISA.AI - Python Basics</h3>
+                </div>
+
+                <!-- Cert 3 -->
+                <div class="brutal-card reveal-element" style="background-color: var(--primary);">
+                    <div class="project-img-box" style="height: auto;">
+                        <img src="foto/certificate3.jpg" alt="Langlangbuana - Leadership" onerror="this.src='https://placehold.co/600x400/FFFFFF/000000?text=Cert+3'">
+                    </div>
+                    <h3 style="font-size: 1.2rem;">Langlangbuana University - Leadership</h3>
+                </div>
+                
+                <!-- Cert 4 -->
+                <div class="brutal-card reveal-element" style="background-color: #FF5722;">
+                    <div class="project-img-box" style="height: auto;">
+                        <img src="foto/sertifikat-vinix.jpg" alt="Certificate Vinix" onerror="this.src='https://placehold.co/600x400/FFFFFF/000000?text=Cert+4'">
+                    </div>
+                    <h3 style="font-size: 1.2rem; color: #000;">Vinix - Certificate</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="contact" class="section">
+        <div class="container contact-grid">
+            <div class="reveal-element">
+                <h2 style="font-size: 3rem; margin-bottom: 20px;">LET'S WORK TOGETHER.</h2>
+                <p style="font-size: 1.2rem; margin-bottom: 30px;">Got a project in mind? Let's build something awesome with clean code and bold design.</p>
+                <div style="display: flex; gap: 20px; font-size: 1.5rem;">
+                    <a href="https://github.com/Evreki" target="_blank" style="color: var(--text);">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+                    </a>
+                    <a href="https://linkedin.com/in/evreki" target="_blank" style="color: var(--text);">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+                    </a>
+                    <a href="https://www.instagram.com/evreky?igsh=bTQ4enczaG91MzI5" target="_blank" style="color: var(--text);">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+                    </a>
+                    <a href="mailto:evreki@example.com" style="color: var(--text);">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="contact-form reveal-element">
+                <form action="https://formsubmit.co/GANTI_DENGAN_EMAIL_ANDA@gmail.com" method="POST">
+                    <!-- Konfigurasi FormSubmit -->
+                    <input type="hidden" name="_subject" value="Pesan Baru dari Portfolio Anda!">
+                    <input type="hidden" name="_captcha" value="false">
+                    <input type="hidden" name="_template" value="table">
+                    
+                    <div class="input-group">
+                        <label>Your Name</label>
+                        <input type="text" name="name" class="brutal-input" placeholder="John Doe" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Your Email</label>
+                        <input type="email" name="email" class="brutal-input" placeholder="john@example.com" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Your Message</label>
+                        <textarea name="message" class="brutal-input" rows="4" placeholder="Let's build something cool..." required></textarea>
+                    </div>
+                    <button type="submit" class="brutal-btn danger" style="width: 100%;">
+                        SEND MESSAGE <i data-lucide="send"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <h2 style="color: var(--primary); margin-bottom: 20px;">EVREKI.</h2>
+            <p class="footer-text">&copy; 2026 Evreki Wan Refanja. Built with NeoBrutalism.</p>
+        </div>
+    </footer>
+
+    <!-- Initialize Icons & Scripts -->
     <script src="script.js"></script>
 </body>
-
 </html>
