@@ -631,6 +631,21 @@ ul {
     .hero { flex-direction: column; text-align: center; justify-content: center; padding-top: 100px; }
     .geo-avatar { position: relative; top: 0; right: 0; transform: none; width: 250px; height: 250px; margin: 0 auto 30px auto; }
     
+    /* Alternatif Ornamen HP: Dikecilkan dan dipindah ke ruang kosong, tidak dihapus */
+    .geo-circle {
+        width: 100px; height: 100px;
+        top: 60px; right: 5%;
+        box-shadow: 4px 4px 0 #000;
+    }
+    .geo-square {
+        display: block;
+        width: 60px; height: 60px;
+        top: 220px; left: 10%;
+        right: auto; bottom: auto;
+        box-shadow: 4px 4px 0 #000;
+        transform: rotate(-25deg);
+    }
+    
     .about-grid, .contact-grid { grid-template-columns: 1fr; }
 }
 
@@ -683,7 +698,7 @@ ul {
     display: flex;
     overflow-x: auto;
     gap: 30px;
-    padding-bottom: 20px;
+    padding: 20px 20px 40px 20px; /* Memberi ruang untuk animasi hover agar tidak kepotong */
     scroll-snap-type: x mandatory;
 }
 .certificates-scroll .brutal-card {
