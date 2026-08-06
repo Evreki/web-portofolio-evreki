@@ -50,6 +50,18 @@
 
     <!-- HERO SECTION -->
     <section class="hero">
+        <!-- Floating Particles -->
+        <div class="particle particle-1"></div>
+        <div class="particle particle-2"></div>
+        <div class="particle particle-3"></div>
+        <div class="particle particle-4"></div>
+        <div class="particle particle-5"></div>
+        <div class="particle particle-6"></div>
+        <div class="particle particle-7"></div>
+        <div class="particle particle-8"></div>
+        <div class="particle particle-9"></div>
+        <div class="particle particle-10"></div>
+
         <div class="container" style="position: relative; width: 100%;">
             
             <!-- Decorative Shapes -->
@@ -77,10 +89,9 @@
 
             <div class="hero-content">
                 <div class="hero-badge reveal-element">HELLO!</div>
-                <h1 class="hero-title reveal-element" style="transition-delay: 0.1s;">EVREKI WAN REFANJA</h1>
+                <h1 class="hero-title glitch reveal-element" data-text="EVREKI WAN REFANJA" style="transition-delay: 0.1s;">EVREKI WAN REFANJA</h1>
                 <h3 class="hero-subtitle reveal-element" style="transition-delay: 0.2s;">
-                    <span style="color: var(--secondary);">SOFTWARE ENGINEER</span><br>
-                    <span style="color: var(--secondary);">& MOBILE DEV</span>
+                    <span style="color: var(--secondary);">I'M A <span id="typed-role"></span><span class="typed-cursor">|</span></span>
                 </h3>
                 
                 <div class="social-links-hero reveal-element" style="transition-delay: 0.3s;">
@@ -121,11 +132,23 @@
             <h2 class="section-header reveal-element">WHO AM I?</h2>
             <div class="about-grid">
                 <div class="about-text reveal-element">
-                    <p>Hello! I'm a passionate software developer specializing in mobile app development with Flutter and back-end web development. I love building tools that solve real problems.</p>
-                    <p>My approach is simple: clean architecture, robust code, and an eye-catching interface. Welcome to my digital playground.</p>
+                    <p>Bachelor of Informatics Engineering with experience as a Fullstack Developer. Skilled in modern web application development, REST API integration, and geospatial data processing using Leaflet.js and QGIS.</p>
+                    <p>Experienced in building efficient, scalable, and user-friendly systems. Strong analytical skills and solution-oriented mindset.</p>
+                    <!-- Fun Facts Ticker -->
+                    <div class="about-ticker">
+                        <div class="about-ticker-inner">
+                            <span>☕ Coffee Drinker &nbsp;·&nbsp; 📱 Flutter Enthusiast &nbsp;·&nbsp; 🎮 Gamer at Heart &nbsp;·&nbsp; 🚀 Always Learning &nbsp;·&nbsp; 🎨 Design Lover &nbsp;·&nbsp; 💡 Problem Solver &nbsp;·&nbsp; 🌐 Open Source Fan &nbsp;&nbsp;</span>
+                            <span>☕ Coffee Drinker &nbsp;·&nbsp; 📱 Flutter Enthusiast &nbsp;·&nbsp; 🎮 Gamer at Heart &nbsp;·&nbsp; 🚀 Always Learning &nbsp;·&nbsp; 🎨 Design Lover &nbsp;·&nbsp; 💡 Problem Solver &nbsp;·&nbsp; 🌐 Open Source Fan &nbsp;&nbsp;</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="polaroid-frame reveal-element">
-                    <img src="foto/foto final 2.jpeg" alt="Evreki" onerror="this.src='https://placehold.co/400x500/FFFFFF/000000?text=Evreki'">
+                <div class="polaroid-wrapper reveal-element">
+                    <!-- Accent shape behind the polaroid -->
+                    <div class="polaroid-accent"></div>
+                    <div class="polaroid-frame">
+                        <img src="foto/foto final 2.jpeg" alt="Evreki" onerror="this.src='https://placehold.co/400x500/FFFFFF/000000?text=Evreki'">
+                        <div class="polaroid-sticker">✦ Bandung, ID</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -196,13 +219,22 @@
         </div>
     </section>
 
+    <!-- SECOND MARQUEE DIVIDER (reversed, danger bg) -->
+    <div class="giant-marquee marquee-reverse">
+        <div class="marquee-content-reverse">
+            <span>★ FLUTTER DEV ★ LARAVEL ★ REACT ★ MYSQL ★ TENSORFLOW ★ UI/UX ★ GIT ★ PYTHON &nbsp;</span>
+            <span>★ FLUTTER DEV ★ LARAVEL ★ REACT ★ MYSQL ★ TENSORFLOW ★ UI/UX ★ GIT ★ PYTHON &nbsp;</span>
+        </div>
+    </div>
+
     <!-- MY JOURNEY SECTION -->
     <section id="journey" class="section">
         <div class="container">
             <h2 class="section-header reveal-element">MY JOURNEY</h2>
-            <div style="display: flex; flex-direction: column; gap: 40px; max-width: 800px; margin: 0 auto;">
+            <div class="timeline-wrapper">
                 
-                <div class="brutal-card reveal-element" style="background-color: var(--primary); transform: rotate(-1deg);">
+                <div class="brutal-card reveal-element timeline-card" style="background-color: var(--primary); transform: rotate(-1deg);">
+                    <div class="timeline-year-badge" style="background: var(--secondary); color: #fff;">2022–2026</div>
                     <div style="margin-bottom: 15px;">
                         <span class="brutal-badge badge-blue"><i data-lucide="calendar"></i> 2022 - 2026</span>
                     </div>
@@ -213,7 +245,8 @@
                     </p>
                 </div>
 
-                <div class="brutal-card reveal-element" style="background-color: var(--danger); color: white; transform: rotate(1deg);">
+                <div class="brutal-card reveal-element timeline-card" style="background-color: var(--danger); color: white; transform: rotate(1deg);">
+                    <div class="timeline-year-badge" style="background: var(--primary); color: #000;">2019–2022</div>
                     <div style="margin-bottom: 15px;">
                         <span class="brutal-badge badge-yellow" style="color: black;"><i data-lucide="calendar"></i> 2019 - 2022</span>
                     </div>
@@ -237,7 +270,7 @@
                 <!-- KKNM System -->
                 <div class="brutal-card project-card reveal-element" style="background-color: var(--primary);">
                     <div class="project-img-box">
-                        <img src="foto/Picture1.png" alt="KKNM System" onerror="this.src='https://placehold.co/600x400/FFFFFF/000000?text=KKNM+Project'">
+                        <img src="foto/project/webkknm/Picture1.png" alt="KKNM System" onerror="this.src='https://placehold.co/600x400/FFFFFF/000000?text=KKNM+Project'">
                     </div>
                     <h3>KKNM System</h3>
                     <p>A comprehensive web application for managing student community service registrations with admin dashboard and real-time validation.</p>
@@ -246,15 +279,20 @@
                         <span class="brutal-badge badge-pink">PHP</span>
                         <span class="brutal-badge">MySQL</span>
                     </div>
-                    <a href="https://github.com/Lightdraa511/WebsitePendaftaranKKNM.git" target="_blank" class="brutal-btn" style="width: 100%;">
+                    <button class="brutal-btn open-modal-btn" style="width: 100%;"
+                        data-title="KKNM System"
+                        data-desc="A comprehensive web application for managing student community service (KKNM) registrations. Features include an admin dashboard, student registration flow, real-time validation, data export, and notification system. Built as a full-stack web application during university."
+                        data-images="foto/project/webkknm/Picture1.png,foto/project/webkknm/Picture2.png,foto/project/webkknm/Picture3.png,foto/project/webkknm/Picture4.png,foto/project/webkknm/Picture5.png"
+                        data-tech="Laravel,PHP,MySQL,Bootstrap"
+                        data-link="https://github.com/Lightdraa511/WebsitePendaftaranKKNM.git">
                         View Details <i data-lucide="arrow-up-right"></i>
-                    </a>
+                    </button>
                 </div>
                 
                 <!-- AI Image Detector -->
                 <div class="brutal-card project-card reveal-element" style="background-color: var(--danger); color: white;">
                     <div class="project-img-box">
-                        <img src="foto/WhatsApp Image 2025-12-07 at 15.35.05_7f45f625.jpg" alt="AI Image Detector" onerror="this.src='https://placehold.co/600x400/FFFFFF/000000?text=AI+Image+Detector'">
+                        <img src="foto/project/ai detector/WhatsApp Image 2025-12-07 at 15.35.05_7f45f625.jpg" alt="AI Image Detector" onerror="this.src='https://placehold.co/600x400/FFFFFF/000000?text=AI+Image+Detector'">
                     </div>
                     <h3>AI vs Real Image Detector</h3>
                     <p style="color: var(--text);">A mobile application built with Flutter that detects whether an image is AI-generated or real using TensorFlow Lite and CNN algorithm trained with Google Colab. Features real-time image analysis and classification.</p>
@@ -264,9 +302,37 @@
                         <span class="brutal-badge badge-pink" style="background: black; color: white;">CNN</span>
                         <span class="brutal-badge">Firebase</span>
                     </div>
-                    <a href="https://github.com/Evreki/aplikasi-image-detector.git" target="_blank" class="brutal-btn" style="width: 100%;">
+                    <button class="brutal-btn open-modal-btn" style="width: 100%;"
+                        data-title="AI vs Real Image Detector"
+                        data-desc="A mobile application built with Flutter that detects whether an image is AI-generated or a real photograph. Uses a CNN (Convolutional Neural Network) model trained with Google Colab and TensorFlow, then converted to TensorFlow Lite for on-device inference. Features real-time camera integration, image library picking, and confidence score display."
+                        data-images="foto/project/ai detector/WhatsApp Image 2025-12-07 at 15.35.05_7f45f625.jpg,foto/project/ai detector/WhatsApp Image 2025-12-07 at 15.35.05_b15b0462.jpg,foto/project/ai detector/WhatsApp Image 2025-12-07 at 15.35.14_61830844.jpg"
+                        data-tech="Flutter,Dart,TensorFlow Lite,CNN,Firebase,Google Colab"
+                        data-link="https://github.com/Evreki/aplikasi-image-detector.git">
                         View Details <i data-lucide="arrow-up-right"></i>
-                    </a>
+                    </button>
+                </div>
+
+                <!-- SITEPAD -->
+                <div class="brutal-card project-card reveal-element" style="background-color: var(--secondary); color: white;">
+                    <div class="project-img-box">
+                        <img src="foto/project/sitepad/WhatsApp Image 2026-04-10 at 16.44.44.jpeg" alt="Sitepad" onerror="this.src='https://placehold.co/600x400/FFFFFF/000000?text=Sitepad'">
+                    </div>
+                    <h3>SITEPAD</h3>
+                    <p style="color: var(--text);">A geospatial web application for land site monitoring and mapping. Features interactive maps powered by Leaflet.js with spatial data management and QGIS integration.</p>
+                    <div class="tech-stack">
+                        <span class="brutal-badge badge-yellow" style="color: black;">Laravel</span>
+                        <span class="brutal-badge badge-pink">Leaflet.js</span>
+                        <span class="brutal-badge" style="background: #fff; color: #000;">QGIS</span>
+                        <span class="brutal-badge badge-blue">MySQL</span>
+                    </div>
+                    <button class="brutal-btn open-modal-btn" style="width: 100%; background: var(--primary);"
+                        data-title="SITEPAD"
+                        data-desc="A geospatial web application for land site monitoring and spatial data management. Built with Laravel on the backend and Leaflet.js for interactive mapping. Integrates QGIS for geospatial data processing and supports real-time location tracking, spatial queries, and layered map visualization."
+                        data-images="foto/project/sitepad/WhatsApp Image 2026-04-10 at 16.44.44.jpeg,foto/project/sitepad/WhatsApp Image 2026-04-10 at 16.44.45 (1).jpeg,foto/project/sitepad/WhatsApp Image 2026-04-10 at 16.44.46 (1).jpeg,foto/project/sitepad/WhatsApp Image 2026-04-10 at 16.44.46 (2).jpeg,foto/project/sitepad/WhatsApp Image 2026-04-10 at 16.44.46 (3).jpeg,foto/project/sitepad/WhatsApp Image 2026-04-10 at 16.44.46.jpeg,foto/project/sitepad/WhatsApp Image 2026-04-10 at 16.44.47 (1).jpeg,foto/project/sitepad/WhatsApp Image 2026-04-10 at 16.44.47 (2).jpeg,foto/project/sitepad/WhatsApp Image 2026-04-10 at 16.44.47.jpeg"
+                        data-tech="Laravel,PHP,Leaflet.js,QGIS,MySQL,Bootstrap"
+                        data-link="#">
+                        View Details <i data-lucide="arrow-up-right"></i>
+                    </button>
                 </div>
             </div>
         </div>
@@ -280,7 +346,7 @@
                 <!-- Cert 1 -->
                 <div class="brutal-card reveal-element" style="background-color: var(--accent);">
                     <div class="project-img-box" style="height: auto;">
-                        <img src="foto/certificate1.jpg" alt="Dicoding - Project Management" onerror="this.src='https://placehold.co/600x400/FFFFFF/000000?text=Cert+1'">
+                        <img src="foto/certificate/certificate1.jpg" alt="Dicoding - Project Management" onerror="this.src='https://placehold.co/600x400/FFFFFF/000000?text=Cert+1'">
                     </div>
                     <h3 style="font-size: 1.2rem;">Dicoding - Project Management</h3>
                 </div>
@@ -288,7 +354,7 @@
                 <!-- Cert 2 -->
                 <div class="brutal-card reveal-element" style="background-color: var(--secondary); color: white;">
                     <div class="project-img-box" style="height: auto;">
-                        <img src="foto/certificate2.png" alt="BISA.AI - Python Basics" onerror="this.src='https://placehold.co/600x400/FFFFFF/000000?text=Cert+2'">
+                        <img src="foto/certificate/certificate2.png" alt="BISA.AI - Python Basics" onerror="this.src='https://placehold.co/600x400/FFFFFF/000000?text=Cert+2'">
                     </div>
                     <h3 style="font-size: 1.2rem;">BISA.AI - Python Basics</h3>
                 </div>
@@ -296,7 +362,7 @@
                 <!-- Cert 3 -->
                 <div class="brutal-card reveal-element" style="background-color: var(--primary);">
                     <div class="project-img-box" style="height: auto;">
-                        <img src="foto/certificate3.jpg" alt="Langlangbuana - Leadership" onerror="this.src='https://placehold.co/600x400/FFFFFF/000000?text=Cert+3'">
+                        <img src="foto/certificate/certificate3.jpg" alt="Langlangbuana - Leadership" onerror="this.src='https://placehold.co/600x400/FFFFFF/000000?text=Cert+3'">
                     </div>
                     <h3 style="font-size: 1.2rem;">Langlangbuana University - Leadership</h3>
                 </div>
@@ -304,7 +370,7 @@
                 <!-- Cert 4 -->
                 <div class="brutal-card reveal-element" style="background-color: #FF5722;">
                     <div class="project-img-box" style="height: auto;">
-                        <img src="foto/sertifikat-vinix.jpg" alt="Certificate Vinix" onerror="this.src='https://placehold.co/600x400/FFFFFF/000000?text=Cert+4'">
+                        <img src="foto/certificate/sertifikat-vinix.jpg" alt="Certificate Vinix" onerror="this.src='https://placehold.co/600x400/FFFFFF/000000?text=Cert+4'">
                     </div>
                     <h3 style="font-size: 1.2rem; color: #000;">Vinix - Certificate</h3>
                 </div>
@@ -316,6 +382,9 @@
     <section id="contact" class="section">
         <div class="container contact-grid">
             <div class="reveal-element">
+                <div class="availability-badge">
+                    <span class="avail-dot"></span> Available for work
+                </div>
                 <h2 style="font-size: 3rem; margin-bottom: 20px;">LET'S WORK TOGETHER.</h2>
                 <p style="font-size: 1.2rem; margin-bottom: 30px;">Got a project in mind? Let's build something awesome with clean code and bold design.</p>
                 <div style="display: flex; gap: 20px; font-size: 1.5rem;">
@@ -351,7 +420,8 @@
                     </div>
                     <div class="input-group">
                         <label>Your Message</label>
-                        <textarea name="message" class="brutal-input" rows="4" placeholder="Let's build something cool..." required></textarea>
+                        <textarea name="message" id="msg-textarea" class="brutal-input" rows="4" placeholder="Let's build something cool..." required maxlength="500"></textarea>
+                        <div class="char-counter"><span id="char-count">0</span>/500</div>
                     </div>
                     <button type="submit" class="brutal-btn danger" style="width: 100%;">
                         SEND MESSAGE <i data-lucide="send"></i>
@@ -365,9 +435,49 @@
     <footer class="footer">
         <div class="container">
             <h2 style="color: var(--primary); margin-bottom: 20px;">EVREKI.</h2>
-            <p class="footer-text">&copy; 2026 Evreki Wan Refanja. Built with NeoBrutalism.</p>
+            <p class="footer-text" id="footer-typing"></p>
         </div>
     </footer>
+
+    <!-- BACK TO TOP BUTTON -->
+    <button id="back-to-top" aria-label="Back to top">
+        <i data-lucide="arrow-up"></i>
+    </button>
+
+    <!-- PROJECT MODAL -->
+    <div id="project-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <div class="modal-overlay" id="modal-overlay"></div>
+        <div class="modal-box">
+            <button class="modal-close" id="modal-close" aria-label="Close modal">
+                <i data-lucide="x"></i>
+            </button>
+
+            <!-- Gallery area -->
+            <div class="modal-gallery">
+                <div class="modal-gallery-track" id="modal-gallery-track"></div>
+                <!-- Prev / Next -->
+                <button class="gallery-nav gallery-prev" id="gallery-prev" aria-label="Previous image">
+                    <i data-lucide="chevron-left"></i>
+                </button>
+                <button class="gallery-nav gallery-next" id="gallery-next" aria-label="Next image">
+                    <i data-lucide="chevron-right"></i>
+                </button>
+                <!-- Dots -->
+                <div class="gallery-dots" id="gallery-dots"></div>
+                <!-- Counter -->
+                <div class="gallery-counter" id="gallery-counter"></div>
+            </div>
+
+            <div class="modal-body">
+                <h3 id="modal-title"></h3>
+                <p id="modal-desc"></p>
+                <div id="modal-tech" class="tech-stack" style="margin: 20px 0;"></div>
+                <a id="modal-link" href="#" target="_blank" class="brutal-btn">
+                    <i data-lucide="github"></i> View on GitHub
+                </a>
+            </div>
+        </div>
+    </div>
 
     <!-- Initialize Icons & Scripts -->
     <script src="script.js"></script>
