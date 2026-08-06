@@ -597,3 +597,97 @@ function animateCounter(el) {
 
     footerObserver.observe(el);
 })();
+
+
+// ================= SCROLLSPY: active nav link =================
+(function() {
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-link');
+    if (!sections.length || !navLinks.length) return;
+
+    const spy = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            const id = entry.target.getAttribute('id');
+            navLinks.forEach(link => {
+                link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
+            });
+        });
+    }, {
+        rootMargin: '-40% 0px -55% 0px', // fires when section is in the middle band of viewport
+        threshold: 0
+    });
+
+    sections.forEach(s => spy.observe(s));
+})();
+
+// ================= 3D TILT on project cards =================
+(function() {
+    const cards = document.querySelectorAll('.project-card');
+    if (!cards.length) return;
+
+    // Only on devices with a fine pointer (mouse), skip touch/mobile
+    if (!window.matchMedia('(pointer: fine)').matches) return;
+
+    const MAX_TILT  = 10;   // degrees
+    const SCALE     = 1.03;
+    const EASING    = 'cubic-bezier(0.22, 1, 0.36, 1)';
+
+    cards.forEach(card => {
+        card.style.transition = `transform 0.12s ${EASING}, box-shadow 0.12s ease`;
+        card.style.willChange = 'transform';
+
+        card.addEventListener('mousemove', (e) => {
+            const rect   = card.getBoundingClientRect();
+            const x      = e.clientX - rect.left;   // mouse X inside card
+            const y      = e.clientY - rect.top;    // mouse Y inside card
+            const cx     = rect.width  / 2;
+            const cy     = rect.height / 2;
+            const rotateX = ((y - cy) / cy) * -MAX_TILT;  // tilt up/down
+            const rotateY = ((x - cx) / cx) *  MAX_TILT;  // tilt left/right
+
+            card.style.transform =
+                `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(${SCALE}) translate(-4px, -4px)`;
+            card.style.boxShadow = `12px 12px 0 #000`;
+        });
+
+        card.addEventListener('mouseleave', () => {
+            card.style.transition = `transform 0.4s ${EASING}, box-shadow 0.4s ease`;
+            card.style.transform  = '';
+            card.style.boxShadow  = '';
+        });
+
+        card.addEventListener('mouseenter', () => {
+            card.style.transition = `transform 0.12s ${EASING}, box-shadow 0.12s ease`;
+        });
+    });
+})();
+
+// ================= PROGRESS BAR: add .filled after animation =================
+(function() {
+    // Mark bars as filled after their width transition completes
+    document.querySelectorAll('.progress-fill').forEach(bar => {
+        bar.addEventListener('transitionend', () => {
+            bar.classList.add('filled');
+        });
+    });
+})();
+
+// ================= CARD HOVER: preserve inline rotation =================
+// Cards yang punya inline transform: rotate() — saat hover lift, rotation dipertahankan
+(function() {
+    document.querySelectorAll('.brutal-card').forEach(card => {
+        const inlineTransform = card.style.transform; // e.g. "rotate(-1deg)"
+        if (!inlineTransform || !inlineTransform.includes('rotate')) return;
+
+        // Extract the rotate value to blend into hover state
+        card.addEventListener('mouseenter', () => {
+            card.style.transform = `translate(-4px, -4px) ${inlineTransform}`;
+            card.style.boxShadow = '12px 12px 0 #000';
+        });
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = inlineTransform;
+            card.style.boxShadow = '';
+        });
+    });
+})();
