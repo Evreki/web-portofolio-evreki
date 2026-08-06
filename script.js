@@ -158,6 +158,70 @@ document.addEventListener('mousemove', (e) => {
 // VISUAL UPGRADE — TASKS 2–7
 // =================================================================================
 
+// ================= GLOBAL PARTICLE SYSTEM =================
+// Injects floating particles into every section + hero
+(function() {
+    const COLORS = ['var(--primary)', 'var(--accent)', 'var(--danger)', 'var(--secondary)'];
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+    const COUNT_DESKTOP = 8;
+    const COUNT_MOBILE  = 4;
+
+    // Sections to inject particles into
+    const targets = document.querySelectorAll('.hero, .section');
+
+    targets.forEach(section => {
+        // Make sure section has position relative for absolute children
+        const pos = window.getComputedStyle(section).position;
+        if (pos === 'static') section.style.position = 'relative';
+
+        // Only clip overflow on sections where it's safe
+        // (skip about & journey which have polaroid/timeline elements that intentionally overflow)
+        const id = section.id || '';
+        const isSafeToClip = !['about', 'journey'].includes(id) && !section.classList.contains('hero');
+        if (isSafeToClip) {
+            section.style.overflow = 'hidden';
+        }
+
+        const count = isMobile ? COUNT_MOBILE : COUNT_DESKTOP;
+
+        for (let i = 0; i < count; i++) {
+            const p = document.createElement('div');
+            p.className = 'particle';
+
+            // Random size 8–22px
+            const size = Math.floor(Math.random() * 15) + 8;
+            // Random shape: 0=square, 1=circle, 2=diamond (square rotated)
+            const shape = Math.floor(Math.random() * 3);
+            const borderRadius = shape === 1 ? '50%' : '0';
+
+            // Random position within section
+            const top  = Math.floor(Math.random() * 90) + 2;   // 2%–92%
+            const left = Math.floor(Math.random() * 88) + 2;   // 2%–90%
+
+            // Random color
+            const color = COLORS[Math.floor(Math.random() * COLORS.length)];
+
+            // Random animation duration 5s–11s, random delay 0–5s
+            const duration = (Math.random() * 6 + 5).toFixed(1);
+            const delay    = (Math.random() * 5).toFixed(1);
+
+            p.style.cssText = `
+                width: ${size}px;
+                height: ${size}px;
+                top: ${top}%;
+                left: ${left}%;
+                background: ${color};
+                border-radius: ${borderRadius};
+                animation-duration: ${duration}s;
+                animation-delay: -${delay}s;
+                ${shape === 2 ? 'transform: rotate(45deg);' : ''}
+            `;
+
+            section.appendChild(p);
+        }
+    });
+})();
+
 // ================= HERO TYPED ROLE ANIMATION =================
 (function() {
     const el = document.getElementById('typed-role');

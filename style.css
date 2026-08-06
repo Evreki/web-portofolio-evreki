@@ -981,37 +981,30 @@ ul {
     93% { opacity: 0; transform: none; }
 }
 
-/* ================= TASK 1: FLOATING PARTICLES ================= */
+/* ================= TASK 1: FLOATING PARTICLES (Global) ================= */
 .particle {
     position: absolute;
     border: 3px solid #000;
     pointer-events: none;
     z-index: 2;
-    opacity: 0.7;
+    opacity: 0;
     animation: float-particle linear infinite;
+    /* position, size, color, duration, delay all set via JS inline style */
 }
-.particle-1  { width: 14px; height: 14px; background: var(--primary);   top: 15%; left: 8%;   animation-duration: 6s;  animation-delay: 0s;    border-radius: 0; }
-.particle-2  { width: 10px; height: 10px; background: var(--accent);    top: 70%; left: 12%;  animation-duration: 8s;  animation-delay: 1s;    border-radius: 50%; }
-.particle-3  { width: 18px; height: 18px; background: var(--danger);    top: 30%; left: 20%;  animation-duration: 7s;  animation-delay: 2s;    border-radius: 0; transform: rotate(45deg); }
-.particle-4  { width: 8px;  height: 8px;  background: var(--secondary); top: 55%; left: 5%;   animation-duration: 9s;  animation-delay: 0.5s;  border-radius: 50%; }
-.particle-5  { width: 20px; height: 20px; background: var(--primary);   top: 80%; left: 25%;  animation-duration: 5s;  animation-delay: 3s;    border-radius: 0; }
-.particle-6  { width: 12px; height: 12px; background: var(--accent);    top: 10%; left: 35%;  animation-duration: 7.5s;animation-delay: 1.5s;  border-radius: 0; transform: rotate(20deg); }
-.particle-7  { width: 16px; height: 16px; background: var(--danger);    top: 90%; left: 40%;  animation-duration: 6.5s;animation-delay: 2.5s;  border-radius: 50%; }
-.particle-8  { width: 10px; height: 10px; background: var(--primary);   top: 40%; left: 3%;   animation-duration: 8.5s;animation-delay: 0.8s;  border-radius: 0; }
-.particle-9  { width: 22px; height: 22px; background: var(--secondary); top: 20%; left: 42%;  animation-duration: 10s; animation-delay: 4s;    border-radius: 0; transform: rotate(30deg); }
-.particle-10 { width: 9px;  height: 9px;  background: var(--accent);    top: 65%; left: 30%;  animation-duration: 7s;  animation-delay: 1.2s;  border-radius: 50%; }
 
 @keyframes float-particle {
-    0%   { transform: translateY(0px) rotate(0deg); opacity: 0.7; }
-    25%  { transform: translateY(-20px) rotate(90deg); opacity: 1; }
+    0%   { transform: translateY(0px)   rotate(0deg);   opacity: 0.7; }
+    25%  { transform: translateY(-22px) rotate(90deg);  opacity: 1;   }
     50%  { transform: translateY(-10px) rotate(180deg); opacity: 0.5; }
-    75%  { transform: translateY(-25px) rotate(270deg); opacity: 0.9; }
-    100% { transform: translateY(0px) rotate(360deg); opacity: 0.7; }
+    75%  { transform: translateY(-28px) rotate(270deg); opacity: 0.9; }
+    100% { transform: translateY(0px)   rotate(360deg); opacity: 0.7; }
 }
 
-/* Hide particles on mobile for performance */
+/* On mobile: fewer, smaller particles — still visible */
 @media (max-width: 768px) {
-    .particle { display: none; }
+    .particle {
+        transform: scale(0.7);
+    }
 }
 
 /* ================= TASK 2: NAVBAR SCROLL SHADOW ================= */
