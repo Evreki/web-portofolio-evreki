@@ -97,7 +97,7 @@
                     </a>
                 </div>
 
-                <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+                <div class="hero-btn-row">
                     <a href="#projects" class="brutal-btn">
                         <i data-lucide="folder-code"></i> View Projects
                     </a>
@@ -125,6 +125,46 @@
                 <div class="about-text reveal-element">
                     <p>Bachelor of Informatics Engineering with experience as a Fullstack Developer. Skilled in modern web application development, REST API integration, and geospatial data processing using Leaflet.js and QGIS.</p>
                     <p>Experienced in building efficient, scalable, and user-friendly systems. Strong analytical skills and solution-oriented mindset.</p>
+
+                    <!-- Info Cards -->
+                    <div class="about-info-grid">
+                        <a href="https://maps.google.com/?q=Bandung,Indonesia" target="_blank" class="about-info-card" style="--ic: #F4E409; --ic-text: #000;">
+                            <span class="about-info-icon"><i data-lucide="map-pin"></i></span>
+                            <span class="about-info-text">
+                                <span class="about-info-label">Location</span>
+                                <span class="about-info-value">Bandung, Indonesia</span>
+                            </span>
+                        </a>
+                        <a href="mailto:evrekiwanrefanja@gmail.com" class="about-info-card" style="--ic: #4D7CFE; --ic-text: #fff;">
+                            <span class="about-info-icon"><i data-lucide="mail"></i></span>
+                            <span class="about-info-text">
+                                <span class="about-info-label">Email</span>
+                                <span class="about-info-value">evrekiwanrefanja@gmail.com</span>
+                            </span>
+                        </a>
+                        <a href="https://web-portofolio-evreki.vercel.app" target="_blank" class="about-info-card" style="--ic: #35E86B; --ic-text: #000;">
+                            <span class="about-info-icon"><i data-lucide="globe"></i></span>
+                            <span class="about-info-text">
+                                <span class="about-info-label">Website</span>
+                                <span class="about-info-value">web-portofolio-evreki.vercel.app</span>
+                            </span>
+                        </a>
+                        <a href="tel:+6283147499369" class="about-info-card" style="--ic: #FF5D73; --ic-text: #fff;">
+                            <span class="about-info-icon"><i data-lucide="phone"></i></span>
+                            <span class="about-info-text">
+                                <span class="about-info-label">Phone</span>
+                                <span class="about-info-value">+62 831-4749-9369</span>
+                            </span>
+                        </a>
+                        <div class="about-info-card about-info-card--static" style="--ic: #FF8C00; --ic-text: #000;">
+                            <span class="about-info-icon"><i data-lucide="graduation-cap"></i></span>
+                            <span class="about-info-text">
+                                <span class="about-info-label">Major</span>
+                                <span class="about-info-value">Informatics Engineering</span>
+                            </span>
+                        </div>
+                    </div>
+
                     <!-- Fun Facts Ticker -->
                     <div class="about-ticker">
                         <div class="about-ticker-inner">
@@ -148,7 +188,7 @@
     <section id="skills" class="section">
         <div class="container">
             <h2 class="section-header reveal-element">MY SKILLS</h2>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+            <div class="skills-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
                 
                 <!-- Frontend -->
                 <div class="brutal-card reveal-element" style="background-color: var(--primary); transform: rotate(-1deg);">

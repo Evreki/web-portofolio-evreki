@@ -1,5 +1,7 @@
-// Initialize Lucide Icons
-lucide.createIcons();
+// Initialize Lucide Icons — after DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+    lucide.createIcons();
+});
 
 // Mobile Hamburger Menu (basic toggle functionality)
 const hamburger = document.querySelector('.hamburger');
