@@ -693,3 +693,173 @@ function animateCounter(el) {
         });
     });
 })();
+
+
+// =================================================================================
+// WOW-FACTOR UPGRADE — Canvas, Letter Split, Stats Counter, Magnetic
+// =================================================================================
+
+// ── TASK 1: HERO CANVAS DOT-GRID ──────────────────────────────────────────────
+(function() {
+    const canvas = document.getElementById('hero-canvas');
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    const COLORS = ['#F4E409', '#4D7CFE', '#35E86B', '#FF5D73'];
+    let mouse = { x: -9999, y: -9999 };
+    let dots = [];
+
+    function resize() {
+        canvas.width  = canvas.offsetWidth;
+        canvas.height = canvas.offsetHeight;
+        buildDots();
+    }
+
+    function buildDots() {
+        dots = [];
+        const gap = window.innerWidth < 768 ? 50 : 36;
+        const cols = Math.ceil(canvas.width  / gap) + 1;
+        const rows = Math.ceil(canvas.height / gap) + 1;
+        for (let r = 0; r < rows; r++) {
+            for (let c = 0; c < cols; c++) {
+                dots.push({
+                    ox: c * gap,         // origin x
+                    oy: r * gap,         // origin y
+                    x:  c * gap,
+                    y:  r * gap,
+                    color: COLORS[Math.floor(Math.random() * COLORS.length)],
+                    baseR: 1.5,
+                });
+            }
+        }
+    }
+
+    function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        const RADIUS = 120;   // influence radius
+        const PUSH   = 40;    // max push distance
+
+        dots.forEach(dot => {
+            const dx   = mouse.x - dot.ox;
+            const dy   = mouse.y - dot.oy;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+
+            if (dist < RADIUS) {
+                const force = (1 - dist / RADIUS);
+                dot.x = dot.ox - (dx / dist) * force * PUSH;
+                dot.y = dot.oy - (dy / dist) * force * PUSH;
+            } else {
+                // Ease back to origin
+                dot.x += (dot.ox - dot.x) * 0.12;
+                dot.y += (dot.oy - dot.y) * 0.12;
+            }
+
+            const r = dist < RADIUS
+                ? dot.baseR + (1 - dist / RADIUS) * 3.5
+                : dot.baseR;
+
+            ctx.beginPath();
+            ctx.arc(dot.x, dot.y, r, 0, Math.PI * 2);
+            ctx.fillStyle = dot.color;
+            ctx.globalAlpha = dist < RADIUS ? 0.55 + (1 - dist / RADIUS) * 0.45 : 0.18;
+            ctx.fill();
+        });
+        ctx.globalAlpha = 1;
+
+        requestAnimationFrame(draw);
+    }
+
+    window.addEventListener('mousemove', e => {
+        const rect = canvas.getBoundingClientRect();
+        mouse.x = e.clientX - rect.left;
+        mouse.y = e.clientY - rect.top;
+    });
+    window.addEventListener('mouseleave', () => {
+        mouse.x = -9999; mouse.y = -9999;
+    });
+
+    window.addEventListener('resize', resize);
+    resize();
+    draw();
+})();
+
+// ── TASK 4: HERO TITLE LETTER SPLIT DROP-IN ───────────────────────────────────
+(function() {
+    const title = document.getElementById('hero-title-split');
+    if (!title) return;
+
+    const text = title.textContent;
+    title.textContent = '';
+    title.style.opacity = '1';
+
+    let delay = 300; // start delay in ms after page load
+
+    text.split('').forEach((char) => {
+        const span = document.createElement('span');
+        span.className = 'letter' + (char === ' ' ? ' space' : '');
+        span.textContent = char === ' ' ? '\u00A0' : char;
+        span.style.animationDelay = delay + 'ms';
+        title.appendChild(span);
+        delay += char === ' ' ? 80 : 45;
+    });
+})();
+
+// ── TASK 2: STATS COUNTER ANIMATE ─────────────────────────────────────────────
+(function() {
+    const statNumbers = document.querySelectorAll('.stat-number');
+    if (!statNumbers.length) return;
+
+    function animateStat(el) {
+        const target = parseInt(el.dataset.target, 10);
+        if (isNaN(target)) return;
+        const duration = 1400;
+        const startTime = performance.now();
+
+        function step(now) {
+            const elapsed  = now - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            // Ease-out cubic
+            const eased = 1 - Math.pow(1 - progress, 3);
+            el.textContent = Math.round(eased * target);
+            if (progress < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+    }
+
+    const statObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.querySelectorAll('.stat-number').forEach(animateStat);
+                statObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.4 });
+
+    // Observe the stats strip
+    const strip = document.querySelector('.stats-strip');
+    if (strip) statObserver.observe(strip);
+})();
+
+// ── TASK 3: MAGNETIC BUTTONS ──────────────────────────────────────────────────
+(function() {
+    if (!window.matchMedia('(pointer: fine)').matches) return; // skip touch
+
+    const STRENGTH = 0.35; // 0 = no pull, 1 = full cursor follow
+
+    document.querySelectorAll('.magnet-btn').forEach(btn => {
+        btn.addEventListener('mousemove', e => {
+            const rect = btn.getBoundingClientRect();
+            const cx   = rect.left + rect.width  / 2;
+            const cy   = rect.top  + rect.height / 2;
+            const dx   = (e.clientX - cx) * STRENGTH;
+            const dy   = (e.clientY - cy) * STRENGTH;
+            btn.style.transform = `translate(${dx}px, ${dy}px) translate(-4px, -4px)`;
+            btn.style.boxShadow = `${8 - dx * 0.2}px ${8 - dy * 0.2}px 0 #000`;
+        });
+
+        btn.addEventListener('mouseleave', () => {
+            btn.style.transform = '';
+            btn.style.boxShadow = '';
+        });
+    });
+})();
