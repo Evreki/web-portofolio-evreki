@@ -783,26 +783,7 @@ function animateCounter(el) {
     draw();
 })();
 
-// ── TASK 4: HERO TITLE LETTER SPLIT DROP-IN ───────────────────────────────────
-(function() {
-    const title = document.getElementById('hero-title-split');
-    if (!title) return;
-
-    const text = title.textContent;
-    title.textContent = '';
-    title.style.opacity = '1';
-
-    let delay = 300; // start delay in ms after page load
-
-    text.split('').forEach((char) => {
-        const span = document.createElement('span');
-        span.className = 'letter' + (char === ' ' ? ' space' : '');
-        span.textContent = char === ' ' ? '\u00A0' : char;
-        span.style.animationDelay = delay + 'ms';
-        title.appendChild(span);
-        delay += char === ' ' ? 80 : 45;
-    });
-})();
+// ── TASK 4: HERO TITLE LETTER SPLIT — REMOVED ────────────────────────────────
 
 // ── TASK 2: STATS COUNTER ANIMATE ─────────────────────────────────────────────
 (function() {
