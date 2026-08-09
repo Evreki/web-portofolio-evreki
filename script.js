@@ -844,3 +844,114 @@ function animateCounter(el) {
         });
     });
 })();
+
+
+// =================================================================================
+// NEW INTERACTIVE FEATURES — Progress Bar, Toast, Directional Reveal,
+// Touch Swipe, Button Ripple, Skill Tag Cloud
+// =================================================================================
+
+// ── TASK 1: SCROLL PROGRESS BAR ───────────────────────────────────────────────
+(function() {
+    const bar = document.getElementById('scroll-progress');
+    if (!bar) return;
+    window.addEventListener('scroll', () => {
+        const scrollTop  = window.scrollY;
+        const docHeight  = document.documentElement.scrollHeight - window.innerHeight;
+        const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+        bar.style.width = pct + '%';
+    }, { passive: true });
+})();
+
+// ── TASK 2: COPY TO CLIPBOARD + TOAST ─────────────────────────────────────────
+(function() {
+    const toast   = document.getElementById('toast');
+    const toastMsg = document.getElementById('toast-msg');
+    if (!toast) return;
+
+    let hideTimer;
+
+    function showToast(msg) {
+        toastMsg.textContent = msg;
+        toast.classList.add('show');
+        clearTimeout(hideTimer);
+        hideTimer = setTimeout(() => toast.classList.remove('show'), 2200);
+    }
+
+    document.querySelectorAll('[data-copy]').forEach(el => {
+        el.addEventListener('click', (e) => {
+            const text  = el.dataset.copy;
+            const label = el.dataset.copyLabel || 'Copied!';
+            if (!text) return;
+
+            // preventDefault only if it's a link we don't want to navigate
+            // For email/tel we still want copy, not navigation
+            e.preventDefault();
+
+            navigator.clipboard.writeText(text).then(() => {
+                showToast('✓ ' + label);
+            }).catch(() => {
+                // Fallback for older browsers
+                const ta = document.createElement('textarea');
+                ta.value = text;
+                ta.style.cssText = 'position:fixed;opacity:0;top:0;left:0';
+                document.body.appendChild(ta);
+                ta.focus();
+                ta.select();
+                try { document.execCommand('copy'); showToast('✓ ' + label); } catch(_) {}
+                document.body.removeChild(ta);
+            });
+        });
+    });
+})();
+
+// ── TASK 3: DIRECTIONAL REVEAL — extend existing observer ─────────────────────
+// The existing reveal observer already handles .reveal-element.
+// Directional elements use data-direction CSS transforms — they just need
+// the same .reveal-visible class. The existing observer handles this automatically
+// since directional elements also have .reveal-element class.
+// Nothing extra needed in JS — CSS handles the different starting transform.
+
+// ── TASK 4: TOUCH SWIPE — certificates ────────────────────────────────────────
+(function() {
+    const slider = document.querySelector('.certificates-scroll');
+    if (!slider) return;
+
+    let touchStartX = 0;
+    let touchScrollLeft = 0;
+
+    slider.addEventListener('touchstart', (e) => {
+        touchStartX = e.touches[0].clientX;
+        touchScrollLeft = slider.scrollLeft;
+    }, { passive: true });
+
+    slider.addEventListener('touchmove', (e) => {
+        const dx = touchStartX - e.touches[0].clientX;
+        slider.scrollLeft = touchScrollLeft + dx;
+    }, { passive: true });
+})();
+
+// ── TASK 5: BUTTON RIPPLE ─────────────────────────────────────────────────────
+(function() {
+    document.querySelectorAll('.brutal-btn').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            const rect   = btn.getBoundingClientRect();
+            const size   = Math.max(rect.width, rect.height) * 1.5;
+            const x      = e.clientX - rect.left - size / 2;
+            const y      = e.clientY - rect.top  - size / 2;
+
+            const ripple = document.createElement('span');
+            ripple.className = 'btn-ripple';
+            ripple.style.cssText = `
+                width:${size}px; height:${size}px;
+                left:${x}px; top:${y}px;
+            `;
+            btn.appendChild(ripple);
+            ripple.addEventListener('animationend', () => ripple.remove());
+        });
+    });
+})();
+
+// ── TASK 6: SKILL TAGS — hover pop (handled purely in CSS) ────────────────────
+// Tags already added in HTML with .skill-tag class. CSS handles hover.
+// No extra JS needed.

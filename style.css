@@ -2054,3 +2054,133 @@ ul {
     .footer-inner { flex-direction: column; align-items: flex-start; gap: 12px; }
     .footer-logo { font-size: 1.3rem; }
 }
+
+/* =================================================================================
+   NEW INTERACTIVE FEATURES — Progress Bar, Toast, Directional Reveal,
+   Touch Swipe, Button Ripple, Skill Tag Cloud
+   ================================================================================= */
+
+/* ── TASK 1: SCROLL PROGRESS BAR ── */
+#scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 4px;
+    width: 0%;
+    background: linear-gradient(90deg, var(--primary), var(--accent), var(--secondary), var(--danger));
+    z-index: 9999;
+    transition: width 0.1s linear;
+    border-right: 2px solid #000;
+}
+
+/* ── TASK 2: COPY TOAST ── */
+#toast {
+    position: fixed;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--text);
+    color: var(--primary);
+    font-family: var(--font-code);
+    font-weight: 700;
+    font-size: 0.85rem;
+    padding: 10px 22px;
+    border: 3px solid var(--primary);
+    box-shadow: 4px 4px 0 var(--primary);
+    border-radius: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 9998;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    white-space: nowrap;
+}
+#toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+/* Cards with data-copy: show subtle "click to copy" hint */
+.about-info-card[data-copy]::after {
+    content: 'click to copy';
+    position: absolute;
+    bottom: 6px;
+    right: 10px;
+    font-family: var(--font-code);
+    font-size: 0.55rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0;
+    color: inherit;
+    transition: opacity 0.2s ease;
+}
+.about-info-card[data-copy]:hover::after {
+    opacity: 0.45;
+}
+
+/* ── TASK 3: DIRECTIONAL REVEAL ── */
+.reveal-element[data-direction="left"] {
+    transform: translateX(-60px);
+    opacity: 0;
+    transition: transform 0.65s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+                opacity 0.65s ease-out;
+}
+.reveal-element[data-direction="right"] {
+    transform: translateX(60px);
+    opacity: 0;
+    transition: transform 0.65s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+                opacity 0.65s ease-out;
+}
+.reveal-element[data-direction="left"].reveal-visible,
+.reveal-element[data-direction="right"].reveal-visible {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+/* ── TASK 5: BUTTON RIPPLE ── */
+.brutal-btn {
+    overflow: hidden;
+}
+.btn-ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.4);
+    transform: scale(0);
+    animation: ripple-expand 0.55s ease-out forwards;
+    pointer-events: none;
+}
+@keyframes ripple-expand {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+/* ── TASK 6: SKILL TAG CLOUD ── */
+.skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 2px dashed rgba(0,0,0,0.2);
+}
+.skill-tag {
+    font-family: var(--font-code);
+    font-size: 0.68rem;
+    font-weight: 700;
+    padding: 4px 10px;
+    background: rgba(0,0,0,0.12);
+    border: 2px solid rgba(0,0,0,0.25);
+    border-radius: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: inherit;
+    cursor: default;
+    transition: background 0.15s ease, transform 0.15s ease;
+}
+.skill-tag:hover {
+    background: rgba(0,0,0,0.22);
+    transform: translateY(-2px);
+}

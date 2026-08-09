@@ -15,6 +15,12 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- SCROLL PROGRESS BAR -->
+    <div id="scroll-progress"></div>
+
+    <!-- COPY TOAST -->
+    <div id="toast"><span id="toast-msg">Copied!</span></div>
+
     <!-- TV NOISE OVERLAY -->
     <div class="noise-overlay"></div>
 
@@ -171,7 +177,7 @@
                                 <span class="about-info-value">Bandung, Indonesia</span>
                             </span>
                         </a>
-                        <a href="mailto:evrekiwanrefanja@gmail.com" class="about-info-card" style="--ic: #4D7CFE; --ic-text: #fff;">
+                        <a href="mailto:evrekiwanrefanja@gmail.com" class="about-info-card" style="--ic: #4D7CFE; --ic-text: #fff;" data-copy="evrekiwanrefanja@gmail.com" data-copy-label="Email copied!">
                             <span class="about-info-icon"><i data-lucide="mail"></i></span>
                             <span class="about-info-text">
                                 <span class="about-info-label">Email</span>
@@ -185,7 +191,7 @@
                                 <span class="about-info-value">web-portofolio-evreki.vercel.app</span>
                             </span>
                         </a>
-                        <a href="tel:+6283147499369" class="about-info-card" style="--ic: #FF5D73; --ic-text: #fff;">
+                        <a href="tel:+6283147499369" class="about-info-card" style="--ic: #FF5D73; --ic-text: #fff;" data-copy="+6283147499369" data-copy-label="Phone copied!">
                             <span class="about-info-icon"><i data-lucide="phone"></i></span>
                             <span class="about-info-text">
                                 <span class="about-info-label">Phone</span>
@@ -227,7 +233,7 @@
             <div class="skills-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
                 
                 <!-- Frontend -->
-                <div class="brutal-card reveal-element" style="background-color: var(--primary); transform: rotate(-1deg);">
+                <div class="brutal-card reveal-element" data-direction="left" style="background-color: var(--primary); transform: rotate(-1deg);">
                     <h3 style="font-size: 1.5rem; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; border-bottom: 4px solid #000; padding-bottom: 10px;">
                         <i data-lucide="layout"></i> Frontend Dev
                     </h3>
@@ -239,10 +245,17 @@
                         <div class="skill-info"><span>React & JavaScript</span> <span>85%</span></div>
                         <div class="progress-bar"><div class="progress-fill" data-width="85%" style="background-color: var(--accent);"></div></div>
                     </div>
+                    <div class="skill-tags">
+                        <span class="skill-tag">HTML5</span>
+                        <span class="skill-tag">CSS3</span>
+                        <span class="skill-tag">React</span>
+                        <span class="skill-tag">JavaScript</span>
+                        <span class="skill-tag">Tailwind</span>
+                    </div>
                 </div>
 
                 <!-- Backend -->
-                <div class="brutal-card reveal-element" style="background-color: var(--secondary); color: white; transform: rotate(1deg);">
+                <div class="brutal-card reveal-element" data-direction="right" style="background-color: var(--secondary); color: white; transform: rotate(1deg);">
                     <h3 style="font-size: 1.5rem; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; border-bottom: 4px solid #000; padding-bottom: 10px;">
                         <i data-lucide="server"></i> Backend Dev
                     </h3>
@@ -254,10 +267,17 @@
                         <div class="skill-info"><span>MySQL</span> <span>85%</span></div>
                         <div class="progress-bar"><div class="progress-fill" data-width="85%" style="background-color: var(--primary);"></div></div>
                     </div>
+                    <div class="skill-tags">
+                        <span class="skill-tag">PHP</span>
+                        <span class="skill-tag">Laravel</span>
+                        <span class="skill-tag">MySQL</span>
+                        <span class="skill-tag">REST API</span>
+                        <span class="skill-tag">Python</span>
+                    </div>
                 </div>
 
                 <!-- Mobile -->
-                <div class="brutal-card reveal-element" style="background-color: var(--danger); color: white; transform: rotate(-1deg);">
+                <div class="brutal-card reveal-element" data-direction="left" style="background-color: var(--danger); color: white; transform: rotate(-1deg);">
                     <h3 style="font-size: 1.5rem; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; border-bottom: 4px solid #000; padding-bottom: 10px;">
                         <i data-lucide="smartphone"></i> Mobile Dev
                     </h3>
@@ -265,10 +285,16 @@
                         <div class="skill-info"><span>Flutter & Dart</span> <span>85%</span></div>
                         <div class="progress-bar"><div class="progress-fill" data-width="85%" style="background-color: var(--primary);"></div></div>
                     </div>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Flutter</span>
+                        <span class="skill-tag">Dart</span>
+                        <span class="skill-tag">TensorFlow Lite</span>
+                        <span class="skill-tag">Firebase</span>
+                    </div>
                 </div>
 
                 <!-- Design & Tools -->
-                <div class="brutal-card reveal-element" style="background-color: var(--accent); color: black; transform: rotate(1deg);">
+                <div class="brutal-card reveal-element" data-direction="right" style="background-color: var(--accent); color: black; transform: rotate(1deg);">
                     <h3 style="font-size: 1.5rem; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; border-bottom: 4px solid #000; padding-bottom: 10px;">
                         <i data-lucide="pen-tool"></i> Design & Tools
                     </h3>
@@ -279,6 +305,13 @@
                     <div class="skill-item">
                         <div class="skill-info"><span>Git & GitHub</span> <span>88%</span></div>
                         <div class="progress-bar"><div class="progress-fill" data-width="88%" style="background-color: var(--danger);"></div></div>
+                    </div>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Figma</span>
+                        <span class="skill-tag">Git</span>
+                        <span class="skill-tag">GitHub</span>
+                        <span class="skill-tag">QGIS</span>
+                        <span class="skill-tag">Leaflet.js</span>
                     </div>
                 </div>
 
