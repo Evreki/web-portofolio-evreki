@@ -780,24 +780,24 @@ button, input, textarea {
 }
 .hero-badge {
     font-family: var(--font-mono);
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     font-weight: 800;
     letter-spacing: 2px;
-    padding: 6px 12px;
-    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-    color: #FFFFFF;
-    border: 2.5px solid #FFFFFF;
-    box-shadow: 4px 4px 0 var(--secondary);
-    margin-bottom: 16px;
+    padding: 4px 12px;
+    background: #0E1630;
+    color: #38BDF8;
+    border: 1.5px solid #2563EB;
+    box-shadow: 2.5px 2.5px 0 #000000;
+    margin-bottom: 12px;
     display: inline-block;
 }
 .hero-title {
     font-family: var(--font-display);
-    font-size: clamp(3rem, 7.2vw, 5.8rem);
-    line-height: 0.95;
+    font-size: clamp(3.2rem, 7.8vw, 6.2rem);
+    line-height: 0.92;
     letter-spacing: 0.03em;
     color: #FFFFFF;
-    margin-bottom: 20px;
+    margin-bottom: 14px;
     text-shadow: 4px 4px 0 #E50914, 8px 8px 0 #2563EB, 12px 12px 0 #000000;
     position: relative;
     display: inline-block;
@@ -861,63 +861,41 @@ button, input, textarea {
     color: #38BDF8;
 }
 
-/* ── Hero Subtitle Comic Dialogue Badge ── */
-.hero-subtitle-badge {
-    background: linear-gradient(135deg, #09122C 0%, #18091E 100%);
-    border: 3px solid #2563EB;
-    box-shadow: 5px 5px 0 #000000, 8px 8px 0 #E50914;
-    padding: 10px 22px;
-    margin-bottom: 26px;
-    display: inline-flex;
+/* ── Hero Subtitle Streamline ── */
+.hero-subtitle-line {
+    display: flex;
     align-items: center;
-    gap: 12px;
-    max-width: 100%;
-    box-sizing: border-box;
-    position: relative;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-.hero-subtitle-badge:hover {
-    transform: translate(-2px, -2px);
-    box-shadow: 7px 7px 0 #000000, 11px 11px 0 #38BDF8;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+    min-height: 32px;
 }
 
-.sub-badge-icon {
-    font-size: 1.2rem;
-    color: #38BDF8;
-    animation: sparkPulse 1.2s infinite alternate;
-}
-@keyframes sparkPulse {
-    0% { transform: scale(0.9); opacity: 0.8; }
-    100% { transform: scale(1.2); opacity: 1; filter: drop-shadow(0 0 6px #38BDF8); }
-}
-
-.sub-badge-label {
+.sub-line-prefix {
     font-family: var(--font-mono);
-    font-size: clamp(0.82rem, 1.8vw, 0.95rem);
-    font-weight: 900;
-    color: #FFFFFF;
-    letter-spacing: 2px;
+    font-size: clamp(0.95rem, 2vw, 1.2rem);
+    font-weight: 800;
+    color: #A0A0BC;
+    letter-spacing: 1.5px;
     text-transform: uppercase;
-    white-space: nowrap;
 }
 
-.sub-badge-role {
+.sub-line-role {
     font-family: var(--font-mono);
-    font-size: clamp(0.95rem, 2.2vw, 1.25rem);
+    font-size: clamp(1.05rem, 2.4vw, 1.45rem);
     font-weight: 900;
     color: #38BDF8;
     letter-spacing: 1px;
     text-transform: uppercase;
-    text-shadow: 0 0 12px rgba(56, 189, 248, 0.7);
-    white-space: nowrap;
+    text-shadow: 0 0 14px rgba(56, 189, 248, 0.6);
 }
 
 .typed-cursor {
     font-family: var(--font-mono);
-    font-size: clamp(1.1rem, 2.4vw, 1.4rem);
+    font-size: clamp(1.2rem, 2.6vw, 1.6rem);
     font-weight: 900;
     color: #E50914;
-    text-shadow: 0 0 8px #E50914;
+    text-shadow: 0 0 10px #E50914;
     animation: brutal-blink 0.7s infinite;
     margin-left: 2px;
 }

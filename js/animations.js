@@ -74,8 +74,7 @@ window.SpiderAnimations = (function () {
         const avatar = document.querySelector('.geo-avatar');
         const badge = document.querySelector('.hero-badge');
         const title = document.querySelector('.hero-title');
-        const words = document.querySelectorAll('.hero-title-word');
-        const subBadge = document.querySelector('.hero-subtitle-badge');
+        const subLine = document.querySelector('.hero-subtitle-line') || document.querySelector('.hero-subtitle-badge');
         const social = document.querySelector('.social-links-hero');
         const btns = document.querySelector('.hero-btn-row');
 
@@ -96,7 +95,7 @@ window.SpiderAnimations = (function () {
             tl.from(title, { y: 40, opacity: 0, duration: 0.6, ease: 'power3.out', clearProps: 'all' }, '-=0.3');
         }
 
-        if (subBadge) tl.from(subBadge, { scale: 0.8, opacity: 0, x: 30, duration: 0.5, ease: 'back.out(1.8)', clearProps: 'all' }, '-=0.25');
+        if (subLine) tl.from(subLine, { opacity: 0, x: 25, duration: 0.5, ease: 'power3.out', clearProps: 'all' }, '-=0.25');
         if (social) tl.from(social.querySelectorAll('.social-btn'), { scale: 0, opacity: 0, stagger: 0.06, duration: 0.35, ease: 'back.out(2)', clearProps: 'all' }, '-=0.2');
         if (btns) tl.from(btns.querySelectorAll('.brutal-btn'), { y: 30, opacity: 0, stagger: 0.1, duration: 0.45, ease: 'back.out(1.7)', clearProps: 'all' }, '-=0.15');
     }
