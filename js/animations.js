@@ -74,29 +74,31 @@ window.SpiderAnimations = (function () {
         const avatar = document.querySelector('.geo-avatar');
         const badge = document.querySelector('.hero-badge');
         const title = document.querySelector('.hero-title');
-        const sub = document.querySelector('.hero-subtitle');
+        const words = document.querySelectorAll('.hero-title-word');
+        const subBadge = document.querySelector('.hero-subtitle-badge');
         const social = document.querySelector('.social-links-hero');
         const btns = document.querySelector('.hero-btn-row');
-        const stickers = document.querySelectorAll('.draggable-sticker');
 
         if (avatar) tl.from(avatar, { scale: 0.3, opacity: 0, rotation: -10, duration: 0.8, ease: 'elastic.out(1, 0.5)', clearProps: 'all' });
         if (badge) tl.from(badge, { x: -60, opacity: 0, duration: 0.4, clearProps: 'all' }, '-=0.4');
-        if (title) tl.from(title, { y: 40, opacity: 0, duration: 0.6, ease: 'power3.out', clearProps: 'all' }, '-=0.3');
-        if (sub) tl.from(sub, { x: 40, opacity: 0, duration: 0.45, clearProps: 'all' }, '-=0.25');
+        
+        if (words.length > 0) {
+            tl.from(words, {
+                y: 50,
+                rotationX: -60,
+                opacity: 0,
+                stagger: 0.12,
+                duration: 0.7,
+                ease: 'back.out(2)',
+                clearProps: 'all'
+            }, '-=0.3');
+        } else if (title) {
+            tl.from(title, { y: 40, opacity: 0, duration: 0.6, ease: 'power3.out', clearProps: 'all' }, '-=0.3');
+        }
+
+        if (subBadge) tl.from(subBadge, { scale: 0.8, opacity: 0, x: 30, duration: 0.5, ease: 'back.out(1.8)', clearProps: 'all' }, '-=0.25');
         if (social) tl.from(social.querySelectorAll('.social-btn'), { scale: 0, opacity: 0, stagger: 0.06, duration: 0.35, ease: 'back.out(2)', clearProps: 'all' }, '-=0.2');
         if (btns) tl.from(btns.querySelectorAll('.brutal-btn'), { y: 30, opacity: 0, stagger: 0.1, duration: 0.45, ease: 'back.out(1.7)', clearProps: 'all' }, '-=0.15');
-        if (stickers.length) {
-            stickers.forEach((s, i) => {
-                tl.from(s, {
-                    x: i % 2 === 0 ? -120 : 120,
-                    y: -40,
-                    opacity: 0,
-                    duration: 0.5,
-                    ease: 'back.out(1.5)',
-                    clearProps: 'opacity'
-                }, '-=0.3');
-            });
-        }
     }
 
     function initHeroAnimations() {
@@ -105,6 +107,58 @@ window.SpiderAnimations = (function () {
             setTimeout(triggerHeroEntrance, 300);
         }
         initTypedRole();
+        initTitleGlitchAndParallax();
+    }
+
+    function initTitleGlitchAndParallax() {
+        const title = document.querySelector('.hero-title');
+        const hero = document.getElementById('hero-section');
+        if (!title) return;
+
+        // Periodic Spider-Sense Glitch Pulse
+        setInterval(() => {
+            title.classList.add('is-glitching');
+            setTimeout(() => {
+                title.classList.remove('is-glitching');
+            }, 380);
+        }, 4200);
+
+        // Click on title -> trigger instant burst + sound
+        title.addEventListener('click', () => {
+            title.classList.add('is-glitching');
+            if (typeof confetti === 'function') {
+                confetti({
+                    particleCount: 40,
+                    spread: 60,
+                    origin: { y: 0.4 },
+                    colors: ['#E50914', '#2563EB', '#38BDF8', '#FFFFFF']
+                });
+            }
+            if (window.SpiderCore && window.SpiderCore.playSound) {
+                window.SpiderCore.playSound('web');
+            }
+            setTimeout(() => title.classList.remove('is-glitching'), 600);
+        });
+
+        // 3D Parallax on Mouse Move
+        if (hero) {
+            hero.addEventListener('mousemove', (e) => {
+                const rect = hero.getBoundingClientRect();
+                const xPct = (e.clientX - rect.left) / rect.width - 0.5;
+                const yPct = (e.clientY - rect.top) / rect.height - 0.5;
+
+                const shadowX1 = 4 + xPct * 8;
+                const shadowY1 = 4 + yPct * 8;
+                const shadowX2 = 8 + xPct * 16;
+                const shadowY2 = 8 + yPct * 16;
+
+                title.style.textShadow = `${shadowX1}px ${shadowY1}px 0 #E50914, ${shadowX2}px ${shadowY2}px 0 #2563EB, 14px 14px 0 #000000`;
+            }, { passive: true });
+
+            hero.addEventListener('mouseleave', () => {
+                title.style.textShadow = '4px 4px 0 #E50914, 8px 8px 0 #2563EB, 12px 12px 0 #000000';
+            });
+        }
     }
 
     function initTypedRole() {
@@ -119,7 +173,7 @@ window.SpiderAnimations = (function () {
                 el.textContent = currentRole.slice(0, ++charIdx);
                 if (charIdx === currentRole.length) {
                     isDeleting = true;
-                    return setTimeout(tick, 1800);
+                    return setTimeout(tick, 2000);
                 }
             } else {
                 el.textContent = currentRole.slice(0, --charIdx);
@@ -128,7 +182,7 @@ window.SpiderAnimations = (function () {
                     roleIdx = (roleIdx + 1) % roles.length;
                 }
             }
-            setTimeout(tick, isDeleting ? 35 : 75);
+            setTimeout(tick, isDeleting ? 30 : 65);
         }
         setTimeout(tick, 1000);
     }
