@@ -2,106 +2,132 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Evreki Wan Refanja - NeoBrutalism Portfolio</title>
-    
-    <!-- Favicon -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>Evreki Wan Refanja — Spider-Man NeoBrutalism Portfolio</title>
     <link rel="icon" type="image/png" href="favicon.png">
-    
-    <!-- Lucide Icons -->
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:wght@400;600;700;800&family=Lexend:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+
+    <!-- Icons: Lucide -->
     <script src="https://unpkg.com/lucide@latest"></script>
-    
-    <!-- CSS -->
+
+    <!-- Lenis Smooth Scroll -->
+    <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
+
+    <!-- Three.js (3D Web Hero) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <!-- GSAP & ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+    <!-- Swiper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <!-- Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+    <!-- Main Stylesheet -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- SCROLL PROGRESS BAR -->
+
+    <!-- SCROLL PROGRESS BAR (SPIDER RED & WEB BLUE GLOW) -->
     <div id="scroll-progress"></div>
 
     <!-- COPY TOAST -->
-    <div id="toast"><span id="toast-msg">Copied!</span></div>
+    <div id="toast"><i data-lucide="check-circle-2"></i> <span id="toast-msg">COPIED TO CLIPBOARD!</span></div>
 
-    <!-- TV NOISE OVERLAY -->
-    <div class="noise-overlay"></div>
+    <!-- TV NOISE / HALFTONE OVERLAY -->
+    <div class="noise-overlay" aria-hidden="true"></div>
 
-    <!-- CUSTOM BRUTAL CURSOR -->
-    <div class="brutal-cursor"></div>
+    <!-- CUSTOM SPIDER-WEB CURSOR -->
+    <div class="brutal-cursor" aria-hidden="true"></div>
 
-    <!-- BRUTAL PRELOADER -->
-    <div id="brutal-loader">
+    <!-- PRELOADER (SPIDER-VERSE HUD) -->
+    <div id="brutal-loader" aria-hidden="true">
         <div class="loader-content">
-            <div class="loader-box"></div>
-            <h1 class="loader-text">INITIALIZING...</h1>
+            <div class="loader-spider-logo">🕷</div>
+            <p class="loader-text">01 // INITIALIZING SPIDER SYSTEM...</p>
+            <div class="loader-progress-track">
+                <div class="loader-progress-bar"></div>
+            </div>
         </div>
     </div>
 
-    <!-- NAVBAR -->
-    <nav class="navbar">
+    <!-- ===================== NAVBAR (SPIDER RED & WEB BLUE GRADIENT NEOBRUTALISM) ===================== -->
+    <nav class="navbar" role="navigation" aria-label="Main navigation">
         <div class="container nav-container">
-            <a href="#" class="nav-logo">
-                <span class="nav-logo-icon"></span>
-                <span class="nav-logo-text">
-                    <span class="nl" style="--c: var(--primary);">E</span><span class="nl" style="--c: var(--accent);">v</span><span class="nl" style="--c: var(--secondary);">r</span><span class="nl" style="--c: var(--danger);">e</span><span class="nl" style="--c: var(--primary);">k</span><span class="nl" style="--c: var(--accent);">i</span><span class="nl" style="--c: var(--secondary);">.</span>
-                </span>
+            <a href="#" class="nav-logo" aria-label="Evreki home">
+                <span class="nav-logo-badge" aria-hidden="true">🕷</span>
+                <span class="nav-logo-text">EVREKI<span class="logo-dot">.</span></span>
             </a>
-            <div class="nav-links">
-                <a href="#about" class="nav-link">About</a>
-                <a href="#journey" class="nav-link">Journey</a>
-                <a href="#projects" class="nav-link">Projects</a>
-                <a href="#skills" class="nav-link">Skills</a>
-                <a href="#certificates" class="nav-link">Certificates</a>
-                <a href="#contact" class="brutal-btn" style="padding: 10px 20px; font-size: 0.8rem;">Let's Talk</a>
+            <ul class="nav-links" role="list">
+                <li><a href="#about"        class="nav-link">About</a></li>
+                <li><a href="#skills"       class="nav-link">Skills</a></li>
+                <li><a href="#journey"      class="nav-link">Journey</a></li>
+                <li><a href="#interactive-terminal" class="nav-link">Terminal</a></li>
+                <li><a href="#projects"     class="nav-link">Projects</a></li>
+                <li><a href="#certificates" class="nav-link">Certificates</a></li>
+                <li><a href="#contact"      class="brutal-btn nav-cta">Let's Talk</a></li>
+            </ul>
+            <div class="nav-extra-controls">
+                <button id="sound-btn" class="nav-ctrl-btn" aria-label="Toggle sound effects" title="Toggle Sound FX">
+                    <span id="sound-icon">🔊</span>
+                </button>
+                <button class="hamburger" aria-label="Toggle navigation menu" aria-expanded="false">
+                    <i data-lucide="menu"></i>
+                </button>
             </div>
-            <button class="hamburger"><i data-lucide="menu"></i></button>
         </div>
     </nav>
 
-    <!-- HERO SECTION -->
-    <section class="hero">
-        <!-- Canvas dot-grid background -->
-        <canvas id="hero-canvas"></canvas>
+    <!-- ===================== HERO SECTION ===================== -->
+    <section class="hero" id="hero-section" aria-label="Hero introduction">
+        <!-- Three.js 3D Web Canvas -->
+        <canvas id="hero-three-canvas" aria-hidden="true"></canvas>
 
-        <div class="container" style="position: relative; width: 100%;">
-            
-            <!-- Decorative Shapes -->
-            <div class="geo-shape geo-circle"></div>
-            <div class="geo-shape geo-square"></div>
-            
-            <!-- Center Avatar (Zine Pop-Out) -->
-        <div class="geo-avatar">
-            <!-- Layer 0: Background -->
-            <div class="geo-avatar-bg"></div>
-            
-            <!-- Layer 1: Body (Clipped into circle) -->
-            <div class="geo-avatar-body">
-                <img class="avatar-filter" src="foto/profile-transparent.png" alt="Evreki Body" onerror="this.src='https://placehold.co/350x350/F4E409/000000?text=Evreki'">
-            </div>
-            
-            <!-- Layer 2: Circle Border -->
-            <div class="geo-avatar-border"></div>
-            
-            <!-- Layer 3: Head Pop-out (Clipped at bottom) -->
-            <div class="geo-avatar-head">
-                <img class="avatar-filter" src="foto/profile-transparent.png" alt="Evreki Head" onerror="this.src='https://placehold.co/350x350/F4E409/000000?text=Evreki'">
-            </div>
-        </div>
+        <div class="container hero-inner">
 
+            <!-- Avatar Side -->
+            <div class="geo-avatar-container" aria-hidden="true">
+                <div class="geo-avatar">
+                    <div class="geo-avatar-bg"></div>
+                    <img class="avatar-img" src="foto/profile-transparent.png" alt="Evreki Wan Refanja Avatar" loading="eager">
+                    <div class="avatar-badge-spider">✦ EARTH-616 // DEV</div>
+                </div>
+            </div>
+
+            <!-- Content Side -->
             <div class="hero-content">
-                <div class="hero-badge reveal-element">HELLO!</div>
-                <h1 class="hero-title glitch reveal-element" data-text="EVREKI WAN REFANJA" style="transition-delay: 0.1s;">EVREKI WAN REFANJA</h1>
-                <h3 class="hero-subtitle reveal-element" style="transition-delay: 0.2s;">
-                    <span style="color: var(--secondary);">I'M A <span id="typed-role"></span><span class="typed-cursor">|</span></span>
-                </h3>
-                
-                <div class="social-links-hero reveal-element" style="transition-delay: 0.3s;">
-                    <a href="https://github.com/Evreki" target="_blank" class="social-btn github">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+                <div class="hero-badge">✦ MULTIVERSE // HELLO WORLD! ✦</div>
+
+                <h1 class="hero-title">
+                    EVREKI WAN REFANJA
+                </h1>
+
+                <h2 class="hero-subtitle">
+                    I'M A <span id="typed-role"></span><span class="typed-cursor" aria-hidden="true">|</span>
+                </h2>
+
+                <div class="social-links-hero">
+                    <a href="https://github.com/Evreki" target="_blank" rel="noopener" class="social-btn github" aria-label="GitHub" title="GitHub">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>
                     </a>
-                    <a href="https://linkedin.com/in/evreki" target="_blank" class="social-btn linkedin">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+                    <a href="https://linkedin.com/in/evreki" target="_blank" rel="noopener" class="social-btn linkedin" aria-label="LinkedIn" title="LinkedIn">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect width="4" height="12" x="2" y="9"></rect><circle cx="4" cy="4" r="2"></circle></svg>
                     </a>
-                    <a href="https://instagram.com/evrekii" target="_blank" class="social-btn instagram">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+                    <a href="https://www.instagram.com/evreky" target="_blank" rel="noopener" class="social-btn instagram" aria-label="Instagram" title="Instagram">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg>
+                    </a>
+                    <a href="mailto:evrekiwanrefanja@gmail.com" class="social-btn mail" aria-label="Email" title="Email">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>
                     </a>
                 </div>
 
@@ -109,7 +135,7 @@
                     <a href="#projects" class="brutal-btn magnet-btn">
                         <i data-lucide="folder-code"></i> View Projects
                     </a>
-                    <a href="https://github.com/Evreki" target="_blank" class="brutal-btn secondary magnet-btn">
+                    <a href="https://github.com/Evreki" target="_blank" rel="noopener" class="brutal-btn secondary magnet-btn">
                         <i data-lucide="github"></i> GitHub
                     </a>
                 </div>
@@ -117,88 +143,96 @@
         </div>
     </section>
 
-    <!-- GIANT MARQUEE DIVIDER -->
-    <div class="giant-marquee">
+    <!-- ===================== MARQUEE 1 (GRADIENT SPIDER STRIP) ===================== -->
+    <div class="giant-marquee" aria-hidden="true">
         <div class="marquee-content">
             <span>✦ AVAILABLE FOR WORK ✦ SOFTWARE ENGINEER ✦ CREATIVE DEVELOPER ✦ BACKEND DEV ✦ FLUTTER DEV &nbsp;</span>
             <span>✦ AVAILABLE FOR WORK ✦ SOFTWARE ENGINEER ✦ CREATIVE DEVELOPER ✦ BACKEND DEV ✦ FLUTTER DEV &nbsp;</span>
         </div>
     </div>
 
-    <!-- STATS STRIP -->
+    <!-- ===================== STATS STRIP ===================== -->
     <div class="stats-strip">
         <div class="container stats-grid">
-            <div class="stat-item reveal-element">
+            <div class="stat-item stat-card--red">
                 <div class="stat-number-row">
                     <span class="stat-number" data-target="3">0</span>
                     <span class="stat-plus">+</span>
                 </div>
                 <span class="stat-label">Projects Shipped</span>
             </div>
-            <div class="stat-item reveal-element" style="transition-delay:0.08s;">
+            <div class="stat-item stat-card--blue">
                 <div class="stat-number-row">
                     <span class="stat-number" data-target="4">0</span>
                     <span class="stat-plus">+</span>
                 </div>
                 <span class="stat-label">Certificates Earned</span>
             </div>
-            <div class="stat-item reveal-element" style="transition-delay:0.16s;">
+            <div class="stat-item stat-card--blue">
                 <div class="stat-number-row">
                     <span class="stat-number" data-target="3">0</span>
                     <span class="stat-plus">+</span>
                 </div>
                 <span class="stat-label">Years Learning</span>
             </div>
-            <div class="stat-item reveal-element" style="transition-delay:0.24s;">
+            <div class="stat-item stat-card--red">
                 <div class="stat-number-row">
                     <span class="stat-number" data-target="100">0</span>
                     <span class="stat-plus">%</span>
                 </div>
-                <span class="stat-label">Passion & Dedication</span>
+                <span class="stat-label">Passion &amp; Dedication</span>
             </div>
         </div>
     </div>
 
-    <!-- ABOUT SECTION (WITH EXTRA PHOTO) -->
+    <!-- ===================== ABOUT SECTION (WHO AM I?) ===================== -->
     <section id="about" class="section">
         <div class="container">
-            <h2 class="section-header reveal-element">WHO AM I?</h2>
+            <div><span class="comic-issue-tag">[ ISSUE #01: ORIGIN ]</span></div>
+            <h2 class="section-header">WHO AM I?</h2>
             <div class="about-grid">
-                <div class="about-text reveal-element">
+
+                <!-- Text side -->
+                <div class="about-text">
                     <p>Bachelor of Informatics Engineering with experience as a Fullstack Developer. Skilled in modern web application development, REST API integration, and geospatial data processing using Leaflet.js and QGIS.</p>
                     <p>Experienced in building efficient, scalable, and user-friendly systems. Strong analytical skills and solution-oriented mindset.</p>
 
-                    <!-- Info Cards -->
                     <div class="about-info-grid">
-                        <a href="https://maps.google.com/?q=Bandung,Indonesia" target="_blank" class="about-info-card" style="--ic: #F4E409; --ic-text: #000;">
+                        <a href="https://maps.google.com/?q=Bandung,Indonesia" target="_blank" rel="noopener"
+                           class="about-info-card" style="--ic:#E50914;--ic-text:#fff;border-color:#E50914;">
                             <span class="about-info-icon"><i data-lucide="map-pin"></i></span>
                             <span class="about-info-text">
                                 <span class="about-info-label">Location</span>
                                 <span class="about-info-value">Bandung, Indonesia</span>
                             </span>
                         </a>
-                        <a href="mailto:evrekiwanrefanja@gmail.com" class="about-info-card" style="--ic: #4D7CFE; --ic-text: #fff;" data-copy="evrekiwanrefanja@gmail.com" data-copy-label="Email copied!">
-                            <span class="about-info-icon"><i data-lucide="mail"></i></span>
+                        <a href="mailto:evrekiwanrefanja@gmail.com" class="about-info-card"
+                           style="--ic:#2563EB;--ic-text:#fff;border-color:#2563EB;"
+                           data-copy="evrekiwanrefanja@gmail.com" data-copy-label="Email copied!">
+                            <span class="about-info-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg></span>
                             <span class="about-info-text">
                                 <span class="about-info-label">Email</span>
                                 <span class="about-info-value">evrekiwanrefanja@gmail.com</span>
                             </span>
                         </a>
-                        <a href="https://web-portofolio-evreki.vercel.app" target="_blank" class="about-info-card" style="--ic: #35E86B; --ic-text: #000;">
+                        <a href="https://web-portofolio-evreki.vercel.app" target="_blank" rel="noopener"
+                           class="about-info-card" style="--ic:#38BDF8;--ic-text:#000;border-color:#38BDF8;">
                             <span class="about-info-icon"><i data-lucide="globe"></i></span>
                             <span class="about-info-text">
                                 <span class="about-info-label">Website</span>
                                 <span class="about-info-value">web-portofolio-evreki.vercel.app</span>
                             </span>
                         </a>
-                        <a href="tel:+6283147499369" class="about-info-card" style="--ic: #FF5D73; --ic-text: #fff;" data-copy="+6283147499369" data-copy-label="Phone copied!">
+                        <a href="tel:+6283147499369" class="about-info-card"
+                           style="--ic:#E50914;--ic-text:#fff;border-color:#E50914;"
+                           data-copy="+6283147499369" data-copy-label="Phone copied!">
                             <span class="about-info-icon"><i data-lucide="phone"></i></span>
                             <span class="about-info-text">
                                 <span class="about-info-label">Phone</span>
                                 <span class="about-info-value">+62 831-4749-9369</span>
                             </span>
                         </a>
-                        <div class="about-info-card about-info-card--static" style="--ic: #FF8C00; --ic-text: #000;">
+                        <div class="about-info-card about-info-card--static" style="--ic:#2563EB;--ic-text:#fff;border-color:#2563EB;">
                             <span class="about-info-icon"><i data-lucide="graduation-cap"></i></span>
                             <span class="about-info-text">
                                 <span class="about-info-label">Major</span>
@@ -207,43 +241,52 @@
                         </div>
                     </div>
 
-                    <!-- Fun Facts Ticker -->
-                    <div class="about-ticker">
+                    <!-- Ticker -->
+                    <div class="about-ticker" aria-hidden="true">
                         <div class="about-ticker-inner">
                             <span>☕ Coffee Drinker &nbsp;·&nbsp; 📱 Flutter Enthusiast &nbsp;·&nbsp; 🎮 Gamer at Heart &nbsp;·&nbsp; 🚀 Always Learning &nbsp;·&nbsp; 🎨 Design Lover &nbsp;·&nbsp; 💡 Problem Solver &nbsp;·&nbsp; 🌐 Open Source Fan &nbsp;&nbsp;</span>
                             <span>☕ Coffee Drinker &nbsp;·&nbsp; 📱 Flutter Enthusiast &nbsp;·&nbsp; 🎮 Gamer at Heart &nbsp;·&nbsp; 🚀 Always Learning &nbsp;·&nbsp; 🎨 Design Lover &nbsp;·&nbsp; 💡 Problem Solver &nbsp;·&nbsp; 🌐 Open Source Fan &nbsp;&nbsp;</span>
                         </div>
                     </div>
                 </div>
-                <div class="polaroid-wrapper reveal-element">
-                    <!-- Accent shape behind the polaroid -->
-                    <div class="polaroid-accent"></div>
-                    <div class="polaroid-frame">
-                        <img src="foto/foto final 2.jpeg" alt="Evreki" onerror="this.src='https://placehold.co/400x500/FFFFFF/000000?text=Evreki'">
-                        <div class="polaroid-sticker">✦ Bandung, ID</div>
+
+                <!-- Polaroid photo side — Premium Spider-Man Comic Dossier Mount -->
+                <div class="polaroid-wrapper">
+                    <div class="polaroid-frame" title="Click to view full resolution dossier">
+                        <div class="polaroid-tape-top">✦ DOSSIER #01: ORIGIN</div>
+                        <div class="polaroid-img-container">
+                            <img src="foto/whoiam.jpeg"
+                                 onerror="this.onerror=null; this.src='foto/foto-final-2.jpeg';"
+                                 alt="Evreki Wan Refanja, S.Kom"
+                                 loading="eager">
+                            <div class="polaroid-zoom-hint"><i data-lucide="maximize-2"></i> EXPAND</div>
+                        </div>
+                        <div class="polaroid-footer-badge">
+                            <span class="polaroid-name">EVREKI WAN REFANJA, S.Kom</span>
+                            <span class="polaroid-sticker">✦ UNLA · Bandung, ID</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    <!-- MY SKILLS SECTION -->
+
+    <!-- ===================== SKILLS SECTION ===================== -->
     <section id="skills" class="section">
         <div class="container">
-            <h2 class="section-header reveal-element">MY SKILLS</h2>
-            <div class="skills-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
-                
-                <!-- Frontend -->
-                <div class="brutal-card reveal-element" data-direction="left" style="background-color: var(--primary); transform: rotate(-1deg);">
-                    <h3 style="font-size: 1.5rem; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; border-bottom: 4px solid #000; padding-bottom: 10px;">
-                        <i data-lucide="layout"></i> Frontend Dev
-                    </h3>
+            <div><span class="comic-issue-tag">[ ISSUE #02: TECH ARSENAL ]</span></div>
+            <h2 class="section-header">MY SKILLS</h2>
+            <div class="skills-grid">
+
+                <div class="brutal-card skill-card skill-card--red">
+                    <h3 class="skill-card-title"><i data-lucide="layout"></i> Frontend Dev</h3>
                     <div class="skill-item">
-                        <div class="skill-info"><span>HTML & CSS</span> <span>90%</span></div>
-                        <div class="progress-bar"><div class="progress-fill" data-width="90%" style="background-color: #fff;"></div></div>
+                        <div class="skill-info"><span>HTML &amp; CSS</span><span class="skill-percent" data-target="90">0%</span></div>
+                        <div class="progress-bar"><div class="progress-fill" data-width="90%" style="background:linear-gradient(90deg, #E50914, #2563EB)"></div></div>
                     </div>
                     <div class="skill-item">
-                        <div class="skill-info"><span>React & JavaScript</span> <span>85%</span></div>
-                        <div class="progress-bar"><div class="progress-fill" data-width="85%" style="background-color: var(--accent);"></div></div>
+                        <div class="skill-info"><span>React &amp; JavaScript</span><span class="skill-percent" data-target="85">0%</span></div>
+                        <div class="progress-bar"><div class="progress-fill" data-width="85%" style="background:linear-gradient(90deg, #2563EB, #38BDF8)"></div></div>
                     </div>
                     <div class="skill-tags">
                         <span class="skill-tag">HTML5</span>
@@ -254,18 +297,15 @@
                     </div>
                 </div>
 
-                <!-- Backend -->
-                <div class="brutal-card reveal-element" data-direction="right" style="background-color: var(--secondary); color: white; transform: rotate(1deg);">
-                    <h3 style="font-size: 1.5rem; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; border-bottom: 4px solid #000; padding-bottom: 10px;">
-                        <i data-lucide="server"></i> Backend Dev
-                    </h3>
+                <div class="brutal-card skill-card skill-card--blue">
+                    <h3 class="skill-card-title"><i data-lucide="server"></i> Backend Dev</h3>
                     <div class="skill-item">
-                        <div class="skill-info"><span>PHP & Laravel</span> <span>88%</span></div>
-                        <div class="progress-bar"><div class="progress-fill" data-width="88%" style="background-color: var(--danger);"></div></div>
+                        <div class="skill-info"><span>PHP &amp; Laravel</span><span class="skill-percent" data-target="88">0%</span></div>
+                        <div class="progress-bar"><div class="progress-fill" data-width="88%" style="background:linear-gradient(90deg, #E50914, #2563EB)"></div></div>
                     </div>
                     <div class="skill-item">
-                        <div class="skill-info"><span>MySQL</span> <span>85%</span></div>
-                        <div class="progress-bar"><div class="progress-fill" data-width="85%" style="background-color: var(--primary);"></div></div>
+                        <div class="skill-info"><span>MySQL</span><span class="skill-percent" data-target="85">0%</span></div>
+                        <div class="progress-bar"><div class="progress-fill" data-width="85%" style="background:linear-gradient(90deg, #2563EB, #38BDF8)"></div></div>
                     </div>
                     <div class="skill-tags">
                         <span class="skill-tag">PHP</span>
@@ -276,14 +316,11 @@
                     </div>
                 </div>
 
-                <!-- Mobile -->
-                <div class="brutal-card reveal-element" data-direction="left" style="background-color: var(--danger); color: white; transform: rotate(-1deg);">
-                    <h3 style="font-size: 1.5rem; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; border-bottom: 4px solid #000; padding-bottom: 10px;">
-                        <i data-lucide="smartphone"></i> Mobile Dev
-                    </h3>
+                <div class="brutal-card skill-card skill-card--miles">
+                    <h3 class="skill-card-title"><i data-lucide="smartphone"></i> Mobile Dev</h3>
                     <div class="skill-item">
-                        <div class="skill-info"><span>Flutter & Dart</span> <span>85%</span></div>
-                        <div class="progress-bar"><div class="progress-fill" data-width="85%" style="background-color: var(--primary);"></div></div>
+                        <div class="skill-info"><span>Flutter &amp; Dart</span><span class="skill-percent" data-target="85">0%</span></div>
+                        <div class="progress-bar"><div class="progress-fill" data-width="85%" style="background:linear-gradient(90deg, #FF2E3B, #2563EB)"></div></div>
                     </div>
                     <div class="skill-tags">
                         <span class="skill-tag">Flutter</span>
@@ -293,18 +330,15 @@
                     </div>
                 </div>
 
-                <!-- Design & Tools -->
-                <div class="brutal-card reveal-element" data-direction="right" style="background-color: var(--accent); color: black; transform: rotate(1deg);">
-                    <h3 style="font-size: 1.5rem; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; border-bottom: 4px solid #000; padding-bottom: 10px;">
-                        <i data-lucide="pen-tool"></i> Design & Tools
-                    </h3>
+                <div class="brutal-card skill-card skill-card--blue">
+                    <h3 class="skill-card-title"><i data-lucide="pen-tool"></i> Design &amp; Tools</h3>
                     <div class="skill-item">
-                        <div class="skill-info"><span>UI/UX Design</span> <span>80%</span></div>
-                        <div class="progress-bar"><div class="progress-fill" data-width="80%" style="background-color: #fff;"></div></div>
+                        <div class="skill-info"><span>UI/UX Design</span><span class="skill-percent" data-target="80">0%</span></div>
+                        <div class="progress-bar"><div class="progress-fill" data-width="80%" style="background:linear-gradient(90deg, #38BDF8, #2563EB)"></div></div>
                     </div>
                     <div class="skill-item">
-                        <div class="skill-info"><span>Git & GitHub</span> <span>88%</span></div>
-                        <div class="progress-bar"><div class="progress-fill" data-width="88%" style="background-color: var(--danger);"></div></div>
+                        <div class="skill-info"><span>Git &amp; GitHub</span><span class="skill-percent" data-target="88">0%</span></div>
+                        <div class="progress-bar"><div class="progress-fill" data-width="88%" style="background:linear-gradient(90deg, #E50914, #2563EB)"></div></div>
                     </div>
                     <div class="skill-tags">
                         <span class="skill-tag">Figma</span>
@@ -319,40 +353,41 @@
         </div>
     </section>
 
-    <!-- SECOND MARQUEE DIVIDER (reversed, danger bg) -->
-    <div class="giant-marquee marquee-reverse">
+    <!-- ===================== MARQUEE 2 ===================== -->
+    <div class="giant-marquee marquee-reverse" aria-hidden="true">
         <div class="marquee-content-reverse">
             <span>★ FLUTTER DEV ★ LARAVEL ★ REACT ★ MYSQL ★ TENSORFLOW ★ UI/UX ★ GIT ★ PYTHON &nbsp;</span>
             <span>★ FLUTTER DEV ★ LARAVEL ★ REACT ★ MYSQL ★ TENSORFLOW ★ UI/UX ★ GIT ★ PYTHON &nbsp;</span>
         </div>
     </div>
 
-    <!-- MY JOURNEY SECTION -->
+    <!-- ===================== JOURNEY SECTION ===================== -->
     <section id="journey" class="section">
         <div class="container">
-            <h2 class="section-header reveal-element">MY JOURNEY</h2>
+            <div><span class="comic-issue-tag">[ ISSUE #03: MULTIVERSE TIMELINE ]</span></div>
+            <h2 class="section-header">MY JOURNEY</h2>
             <div class="timeline-wrapper">
-                
-                <div class="brutal-card reveal-element timeline-card" style="background-color: var(--primary); transform: rotate(-1deg);">
-                    <div class="timeline-year-badge" style="background: var(--secondary); color: #fff;">2022–2026</div>
-                    <div style="margin-bottom: 15px;">
-                        <span class="brutal-badge badge-blue"><i data-lucide="calendar"></i> 2022 - 2026</span>
+
+                <div class="brutal-card timeline-card timeline-card--blue">
+                    <div class="timeline-year-badge" style="background:var(--secondary);color:#fff">2022–2026</div>
+                    <div style="margin-bottom:12px">
+                        <span class="brutal-badge badge-blue"><i data-lucide="calendar"></i> 2022 – 2026</span>
                     </div>
-                    <h3 style="font-size: 1.8rem; margin-bottom: 10px;">Langlangbuana University</h3>
-                    <p style="font-weight: 700; margin-bottom: 10px;">Bachelor of Informatics Engineering</p>
-                    <p style="background: var(--bg); padding: 10px; border: 2px solid var(--border-color);">
+                    <h3 style="font-size:1.8rem;margin-bottom:8px">Langlangbuana University</h3>
+                    <p style="font-weight:700;margin-bottom:10px;color:var(--secondary-light);">Bachelor of Informatics Engineering</p>
+                    <p style="background:#090912;padding:12px;border:2px solid rgba(37,99,235,0.4);border-radius:0;">
                         Specialized in software development, mobile applications, and web technologies. Developed multiple real-world projects using modern frameworks and technologies.
                     </p>
                 </div>
 
-                <div class="brutal-card reveal-element timeline-card" style="background-color: var(--danger); color: white; transform: rotate(1deg);">
-                    <div class="timeline-year-badge" style="background: var(--primary); color: #000;">2019–2022</div>
-                    <div style="margin-bottom: 15px;">
-                        <span class="brutal-badge badge-yellow" style="color: black;"><i data-lucide="calendar"></i> 2019 - 2022</span>
+                <div class="brutal-card timeline-card timeline-card--red">
+                    <div class="timeline-year-badge" style="background:var(--primary);color:#fff">2019–2022</div>
+                    <div style="margin-bottom:12px">
+                        <span class="brutal-badge badge-pink"><i data-lucide="calendar"></i> 2019 – 2022</span>
                     </div>
-                    <h3 style="font-size: 1.8rem; margin-bottom: 10px;">MAN 2 Kab Bandung</h3>
-                    <p style="font-weight: 700; margin-bottom: 10px;">Science Major</p>
-                    <p style="background: var(--bg); color: var(--text); padding: 10px; border: 2px solid var(--border-color);">
+                    <h3 style="font-size:1.8rem;margin-bottom:8px">MAN 2 Kab Bandung</h3>
+                    <p style="font-weight:700;margin-bottom:10px;color:var(--secondary-light);">Science Major</p>
+                    <p style="background:#090912;padding:12px;border:2px solid rgba(229,9,20,0.4);border-radius:0;">
                         Graduated with a focus on Science Major. Built a strong foundation in mathematics, physics, and analytical thinking.
                     </p>
                 </div>
@@ -361,242 +396,365 @@
         </div>
     </section>
 
-    <!-- PROJECTS SECTION -->
-    <section id="projects" class="section" style="background-color: #f0f0f0; border-top: var(--border-width) solid #000; border-bottom: var(--border-width) solid #000;">
+    <!-- ===================== DEV TERMINAL ===================== -->
+    <section class="section terminal-section" id="interactive-terminal">
         <div class="container">
-            <h2 class="section-header reveal-element">PROJECTS</h2>
-            
-            <div class="projects-grid">
-                <!-- KKNM System -->
-                <div class="brutal-card project-card reveal-element" style="background-color: var(--primary);">
-                    <div class="project-img-box">
-                        <img src="foto/project/webkknm/Picture1.png" alt="KKNM System" onerror="this.src='https://placehold.co/600x400/FFFFFF/000000?text=KKNM+Project'">
+            <div><span class="comic-issue-tag" style="background:var(--primary);color:#fff">[ ISSUE #04: SPIDER SYSTEM ]</span></div>
+            <h2 class="section-header" style="color:#fff">DEV TERMINAL ⚡</h2>
+            <div class="terminal-container brutal-card">
+                <div class="terminal-header">
+                    <div class="terminal-dots">
+                        <span class="t-dot dot-red"></span>
+                        <span class="t-dot dot-yellow"></span>
+                        <span class="t-dot dot-green"></span>
                     </div>
-                    <h3>KKNM System</h3>
-                    <p>A comprehensive web application for managing student community service registrations with admin dashboard and real-time validation.</p>
-                    <div class="tech-stack">
-                        <span class="brutal-badge badge-blue">Laravel</span>
-                        <span class="brutal-badge badge-pink">PHP</span>
-                        <span class="brutal-badge">MySQL</span>
-                    </div>
-                    <button class="brutal-btn open-modal-btn" style="width: 100%;"
-                        data-title="KKNM System"
-                        data-desc="A comprehensive web application for managing student community service (KKNM) registrations. Features include an admin dashboard, student registration flow, real-time validation, data export, and notification system. Built as a full-stack web application during university."
-                        data-images="foto/project/webkknm/Picture1.png,foto/project/webkknm/Picture2.png,foto/project/webkknm/Picture3.png,foto/project/webkknm/Picture4.png,foto/project/webkknm/Picture5.png"
-                        data-tech="Laravel,PHP,MySQL,Bootstrap"
-                        data-link="https://github.com/Lightdraa511/WebsitePendaftaranKKNM.git">
-                        View Details <i data-lucide="arrow-up-right"></i>
-                    </button>
+                    <div class="terminal-title"><i data-lucide="terminal"></i> EVREKI // SPIDER SYSTEM</div>
+                    <div class="terminal-badge">LIVE v2.4</div>
                 </div>
-                
-                <!-- AI Image Detector -->
-                <div class="brutal-card project-card reveal-element" style="background-color: var(--danger); color: white;">
-                    <div class="project-img-box">
-                        <img src="foto/project/ai detector/WhatsApp Image 2025-12-07 at 15.35.05_7f45f625.jpg" alt="AI Image Detector" onerror="this.src='https://placehold.co/600x400/FFFFFF/000000?text=AI+Image+Detector'">
-                    </div>
-                    <h3>AI vs Real Image Detector</h3>
-                    <p style="color: var(--text);">A mobile application built with Flutter that detects whether an image is AI-generated or real using TensorFlow Lite and CNN algorithm trained with Google Colab. Features real-time image analysis and classification.</p>
-                    <div class="tech-stack">
-                        <span class="brutal-badge badge-yellow" style="color: black;">Flutter</span>
-                        <span class="brutal-badge badge-blue">TensorFlow</span>
-                        <span class="brutal-badge badge-pink" style="background: black; color: white;">CNN</span>
-                        <span class="brutal-badge">Firebase</span>
-                    </div>
-                    <button class="brutal-btn open-modal-btn" style="width: 100%;"
-                        data-title="AI vs Real Image Detector"
-                        data-desc="A mobile application built with Flutter that detects whether an image is AI-generated or a real photograph. Uses a CNN (Convolutional Neural Network) model trained with Google Colab and TensorFlow, then converted to TensorFlow Lite for on-device inference. Features real-time camera integration, image library picking, and confidence score display."
-                        data-images="foto/project/ai detector/WhatsApp Image 2025-12-07 at 15.35.05_7f45f625.jpg,foto/project/ai detector/WhatsApp Image 2025-12-07 at 15.35.05_b15b0462.jpg,foto/project/ai detector/WhatsApp Image 2025-12-07 at 15.35.14_61830844.jpg"
-                        data-tech="Flutter,Dart,TensorFlow Lite,CNN,Firebase,Google Colab"
-                        data-link="https://github.com/Evreki/aplikasi-image-detector.git">
-                        View Details <i data-lucide="arrow-up-right"></i>
-                    </button>
+                <div class="terminal-chips">
+                    <span class="chip-label">Quick Run:</span>
+                    <button class="t-chip" data-cmd="skills"><span>🚀 skills</span></button>
+                    <button class="t-chip" data-cmd="projects"><span>📁 projects</span></button>
+                    <button class="t-chip" data-cmd="hire"><span>💼 hire</span></button>
+                    <button class="t-chip" data-cmd="confetti"><span>🎉 celebrate</span></button>
+                    <button class="t-chip" data-cmd="clear"><span>🧹 clear</span></button>
                 </div>
-
-                <!-- SITEPAD -->
-                <div class="brutal-card project-card reveal-element" style="background-color: var(--secondary); color: white;">
-                    <div class="project-img-box">
-                        <img src="foto/project/sitepad/WhatsApp Image 2026-04-10 at 16.44.44.jpeg" alt="Sitepad" onerror="this.src='https://placehold.co/600x400/FFFFFF/000000?text=Sitepad'">
-                    </div>
-                    <h3>SITEPAD</h3>
-                    <p style="color: var(--text);">A geospatial web application for land site monitoring and mapping. Features interactive maps powered by Leaflet.js with spatial data management and QGIS integration.</p>
-                    <div class="tech-stack">
-                        <span class="brutal-badge badge-yellow" style="color: black;">Laravel</span>
-                        <span class="brutal-badge badge-pink">Leaflet.js</span>
-                        <span class="brutal-badge" style="background: #fff; color: #000;">QGIS</span>
-                        <span class="brutal-badge badge-blue">MySQL</span>
-                    </div>
-                    <button class="brutal-btn open-modal-btn" style="width: 100%; background: var(--primary);"
-                        data-title="SITEPAD"
-                        data-desc="A geospatial web application for land site monitoring and spatial data management. Built with Laravel on the backend and Leaflet.js for interactive mapping. Integrates QGIS for geospatial data processing and supports real-time location tracking, spatial queries, and layered map visualization."
-                        data-images="foto/project/sitepad/WhatsApp Image 2026-04-10 at 16.44.44.jpeg,foto/project/sitepad/WhatsApp Image 2026-04-10 at 16.44.45 (1).jpeg,foto/project/sitepad/WhatsApp Image 2026-04-10 at 16.44.46 (1).jpeg,foto/project/sitepad/WhatsApp Image 2026-04-10 at 16.44.46 (2).jpeg,foto/project/sitepad/WhatsApp Image 2026-04-10 at 16.44.46 (3).jpeg,foto/project/sitepad/WhatsApp Image 2026-04-10 at 16.44.46.jpeg,foto/project/sitepad/WhatsApp Image 2026-04-10 at 16.44.47 (1).jpeg,foto/project/sitepad/WhatsApp Image 2026-04-10 at 16.44.47 (2).jpeg,foto/project/sitepad/WhatsApp Image 2026-04-10 at 16.44.47.jpeg"
-                        data-tech="Laravel,PHP,Leaflet.js,QGIS,MySQL,Bootstrap"
-                        data-link="#">
-                        View Details <i data-lucide="arrow-up-right"></i>
-                    </button>
+                <div class="terminal-body" id="terminal-output">
+                    <div class="t-line t-welcome">⚡ Welcome to Evreki's Spider Console! Type <span class="t-highlight">'help'</span> or click the quick action chips above.</div>
                 </div>
-            </div>
-        </div>
-    </section>
-    <!-- CERTIFICATES SECTION -->
-    <section id="certificates" class="section" style="background-color: #f0f0f0; border-top: var(--border-width) solid #000; border-bottom: var(--border-width) solid #000;">
-        <div class="container">
-            <h2 class="section-header reveal-element">CERTIFICATES</h2>
-            
-            <div class="certificates-scroll brutal-scroll">
-                <!-- Cert 1 -->
-                <div class="brutal-card reveal-element" style="background-color: var(--accent);">
-                    <div class="project-img-box" style="height: auto;">
-                        <img src="foto/certificate/certificate1.jpg" alt="Dicoding - Project Management" onerror="this.src='https://placehold.co/600x400/FFFFFF/000000?text=Cert+1'">
-                    </div>
-                    <h3 style="font-size: 1.2rem;">Dicoding - Project Management</h3>
-                </div>
-                
-                <!-- Cert 2 -->
-                <div class="brutal-card reveal-element" style="background-color: var(--secondary); color: white;">
-                    <div class="project-img-box" style="height: auto;">
-                        <img src="foto/certificate/certificate2.png" alt="BISA.AI - Python Basics" onerror="this.src='https://placehold.co/600x400/FFFFFF/000000?text=Cert+2'">
-                    </div>
-                    <h3 style="font-size: 1.2rem;">BISA.AI - Python Basics</h3>
-                </div>
-
-                <!-- Cert 3 -->
-                <div class="brutal-card reveal-element" style="background-color: var(--primary);">
-                    <div class="project-img-box" style="height: auto;">
-                        <img src="foto/certificate/certificate3.jpg" alt="Langlangbuana - Leadership" onerror="this.src='https://placehold.co/600x400/FFFFFF/000000?text=Cert+3'">
-                    </div>
-                    <h3 style="font-size: 1.2rem;">Langlangbuana University - Leadership</h3>
-                </div>
-                
-                <!-- Cert 4 -->
-                <div class="brutal-card reveal-element" style="background-color: #FF5722;">
-                    <div class="project-img-box" style="height: auto;">
-                        <img src="foto/certificate/sertifikat-vinix.jpg" alt="Certificate Vinix" onerror="this.src='https://placehold.co/600x400/FFFFFF/000000?text=Cert+4'">
-                    </div>
-                    <h3 style="font-size: 1.2rem; color: #000;">Vinix - Certificate</h3>
+                <div class="terminal-input-row">
+                    <span class="t-prompt">guest@spider-box:~$</span>
+                    <input type="text" id="terminal-input" class="t-input" placeholder="Type a command (try: skills, hire, help)..." autocomplete="off" spellcheck="false">
+                    <button id="terminal-send" class="t-send-btn"><i data-lucide="corner-down-left"></i> Run</button>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- CONTACT SECTION -->
-    <section id="contact" class="section">
-        <div class="container contact-grid">
-            <div class="reveal-element">
-                <div class="availability-badge">
-                    <span class="avail-dot"></span> Available for work
+    <!-- ===================== PROJECTS SECTION ===================== -->
+    <section id="projects" class="section projects-section">
+        <div class="container">
+            <div><span class="comic-issue-tag">[ ISSUE #05: MISSIONS &amp; PROJECTS ]</span></div>
+            <h2 class="section-header">PROJECTS</h2>
+
+            <div class="projects-swiper-wrapper">
+                <div class="swiper projects-swiper">
+                    <div class="swiper-wrapper">
+
+                        <!-- PROJECT 1: KKNM (Spider Red & White) -->
+                        <div class="swiper-slide">
+                            <div class="brutal-card project-card" style="background:#E50914;color:#FFFFFF;">
+                                <span class="project-issue-badge" style="background:#2563EB;color:#FFFFFF;">MISSION #001</span>
+                                <div class="project-img-box">
+                                    <img src="foto/project/webkknm/Picture1.png" alt="KKNM System"
+                                         onerror="this.src='foto/project/webkknm/Picture2.png'">
+                                </div>
+                                <h3 class="project-title" style="color:#FFFFFF;">KKNM System</h3>
+                                <p class="project-desc" style="color:#FFF0F0;font-weight:500;">A comprehensive web application for managing student community service registrations with admin dashboard and real-time validation.</p>
+                                <div class="tech-stack">
+                                    <span class="brutal-badge badge-blue">Laravel</span>
+                                    <span class="brutal-badge badge-white">PHP</span>
+                                    <span class="brutal-badge badge-blue">MySQL</span>
+                                </div>
+                                <button class="brutal-btn open-modal-btn secondary"
+                                    data-title="KKNM System"
+                                    data-category="Web Application & Admin"
+                                    data-desc="A comprehensive web application for managing student community service (KKNM) registrations. Features include an admin dashboard, student registration flow, real-time validation, data export, and notification system."
+                                    data-images="foto/project/webkknm/Picture1.png,foto/project/webkknm/Picture2.png,foto/project/webkknm/Picture3.png,foto/project/webkknm/Picture4.png,foto/project/webkknm/Picture5.png"
+                                    data-tech="Laravel,PHP,MySQL,Bootstrap"
+                                    data-link="https://github.com/Lightdraa511/WebsitePendaftaranKKNM.git">
+                                    View Details <i data-lucide="arrow-up-right"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- PROJECT 2: AI Detector (Bold Web Blue) -->
+                        <div class="swiper-slide">
+                            <div class="brutal-card project-card" style="background:#2563EB;color:#FFFFFF;">
+                                <span class="project-issue-badge" style="background:#E50914;color:#FFFFFF;">MISSION #002</span>
+                                <div class="project-img-box">
+                                    <img src="foto/project/ai detector/WhatsApp Image 2025-12-07 at 15.35.05_7f45f625.jpg" alt="AI Image Detector"
+                                         onerror="this.src='foto/project/ai detector/WhatsApp Image 2025-12-07 at 15.35.05_b15b0462.jpg'">
+                                </div>
+                                <h3 class="project-title" style="color:#FFFFFF;text-shadow:2px 2px 0 #050505;">AI vs Real Image Detector</h3>
+                                <p class="project-desc" style="color:#EFF6FF;font-weight:500;">A mobile application built with Flutter that detects whether an image is AI-generated or real using TensorFlow Lite and CNN algorithm trained with Google Colab.</p>
+                                <div class="tech-stack">
+                                    <span class="brutal-badge badge-pink">Flutter</span>
+                                    <span class="brutal-badge badge-white">TensorFlow</span>
+                                    <span class="brutal-badge badge-pink">CNN</span>
+                                </div>
+                                <button class="brutal-btn open-modal-btn danger"
+                                    data-title="AI vs Real Image Detector"
+                                    data-category="Mobile AI & Deep Learning"
+                                    data-desc="A mobile application built with Flutter that detects whether an image is AI-generated or a real photograph. Uses CNN model trained with Google Colab and TensorFlow, converted to TensorFlow Lite for on-device inference. Features real-time camera integration and confidence score display."
+                                    data-images="foto/project/ai detector/WhatsApp Image 2025-12-07 at 15.35.05_7f45f625.jpg,foto/project/ai detector/WhatsApp Image 2025-12-07 at 15.35.05_b15b0462.jpg,foto/project/ai detector/WhatsApp Image 2025-12-07 at 15.35.14_61830844.jpg"
+                                    data-tech="Flutter,Dart,TensorFlow Lite,CNN,Firebase,Google Colab"
+                                    data-link="https://github.com/Evreki/aplikasi-image-detector.git">
+                                    View Details <i data-lucide="arrow-up-right"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- PROJECT 3: SITEPAD (Deep Spider Slate with Web Blue & Red) -->
+                        <div class="swiper-slide">
+                            <div class="brutal-card project-card" style="background:#131326;color:#FFFFFF;border-color:#2563EB;">
+                                <span class="project-issue-badge" style="background:#E50914;color:#FFFFFF;">MISSION #003</span>
+                                <div class="project-img-box">
+                                    <img src="foto/project/sitepad/WhatsApp Image 2026-04-10 at 16.44.44.jpeg" alt="SITEPAD"
+                                         onerror="this.src='foto/project/sitepad/WhatsApp Image 2026-04-10 at 16.44.45 (1).jpeg'">
+                                </div>
+                                <h3 class="project-title" style="color:#FFFFFF;">SITEPAD</h3>
+                                <p class="project-desc" style="color:#EFF6FF;font-weight:500;">A geospatial web application for land site monitoring and mapping. Features interactive maps powered by Leaflet.js with spatial data management and QGIS integration.</p>
+                                <div class="tech-stack">
+                                    <span class="brutal-badge badge-blue">Laravel</span>
+                                    <span class="brutal-badge badge-pink">Leaflet.js</span>
+                                    <span class="brutal-badge badge-white">QGIS</span>
+                                </div>
+                                <button class="brutal-btn open-modal-btn secondary"
+                                    data-title="SITEPAD"
+                                    data-category="Geospatial Web & GIS"
+                                    data-desc="A geospatial web application for land site monitoring and spatial data management. Built with Laravel and Leaflet.js. Integrates QGIS for geospatial data processing, supports real-time location tracking, spatial queries, and layered map visualization."
+                                    data-images="foto/project/sitepad/WhatsApp Image 2026-04-10 at 16.44.44.jpeg,foto/project/sitepad/WhatsApp Image 2026-04-10 at 16.44.45 (1).jpeg,foto/project/sitepad/WhatsApp Image 2026-04-10 at 16.44.46 (1).jpeg,foto/project/sitepad/WhatsApp Image 2026-04-10 at 16.44.46 (2).jpeg,foto/project/sitepad/WhatsApp Image 2026-04-10 at 16.44.46 (3).jpeg,foto/project/sitepad/WhatsApp Image 2026-04-10 at 16.44.46.jpeg,foto/project/sitepad/WhatsApp Image 2026-04-10 at 16.44.47 (1).jpeg,foto/project/sitepad/WhatsApp Image 2026-04-10 at 16.44.47 (2).jpeg,foto/project/sitepad/WhatsApp Image 2026-04-10 at 16.44.47.jpeg"
+                                    data-tech="Laravel,PHP,Leaflet.js,QGIS,MySQL,Bootstrap"
+                                    data-link="#">
+                                    View Details <i data-lucide="arrow-up-right"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
-                <h2 style="font-size: 3rem; margin-bottom: 20px;">LET'S WORK TOGETHER.</h2>
-                <p style="font-size: 1.2rem; margin-bottom: 30px;">Got a project in mind? Let's build something awesome with clean code and bold design.</p>
-                <div style="display: flex; gap: 20px; font-size: 1.5rem;">
-                    <a href="https://github.com/Evreki" target="_blank" style="color: var(--text);">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
-                    </a>
-                    <a href="https://linkedin.com/in/evreki" target="_blank" style="color: var(--text);">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
-                    </a>
-                    <a href="https://www.instagram.com/evreky?igsh=bTQ4enczaG91MzI5" target="_blank" style="color: var(--text);">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
-                    </a>
-                    <a href="mailto:evreki@example.com" style="color: var(--text);">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-                    </a>
+
+                <!-- Swiper Controls -->
+                <div class="swiper-controls-row">
+                    <div class="projects-pagination"></div>
+                    <div style="display:flex;gap:10px">
+                        <button class="swiper-nav-btn project-nav-prev" aria-label="Previous Project"><i data-lucide="chevron-left"></i></button>
+                        <button class="swiper-nav-btn project-nav-next" aria-label="Next Project"><i data-lucide="chevron-right"></i></button>
+                    </div>
                 </div>
             </div>
-            
-            <div class="contact-form reveal-element">
-                <form action="https://formsubmit.co/evrekiwanrefanja@gmail.com" method="POST">
-                    <!-- Konfigurasi FormSubmit -->
-                    <input type="hidden" name="_subject" value="Pesan Baru dari Portfolio Anda!">
-                    <input type="hidden" name="_captcha" value="false">
-                    <input type="hidden" name="_template" value="table">
+        </div>
+    </section>
+
+    <!-- ===================== CERTIFICATES SECTION ===================== -->
+    <section id="certificates" class="section certs-section">
+        <div class="container">
+            <div><span class="comic-issue-tag">[ ISSUE #06: ARCHIVES &amp; CERTS ]</span></div>
+            <h2 class="section-header">CERTIFICATES</h2>
+
+            <div class="swiper certs-swiper">
+                <div class="swiper-wrapper">
+
+                    <div class="swiper-slide">
+                        <div class="brutal-card cert-card cert-card--blue">
+                            <div class="cert-img-box">
+                                <img src="foto/certificate/certificate1.jpg" alt="Dicoding - Project Management" loading="lazy">
+                            </div>
+                            <h3 class="cert-title" style="color:#38BDF8;">Dicoding — Project Management</h3>
+                        </div>
+                    </div>
+
+                    <div class="swiper-slide">
+                        <div class="brutal-card cert-card cert-card--blue">
+                            <div class="cert-img-box">
+                                <img src="foto/certificate/certificate2.png" alt="BISA.AI - Python Basics" loading="lazy">
+                            </div>
+                            <h3 class="cert-title" style="color:#38BDF8;">BISA.AI — Python Basics</h3>
+                        </div>
+                    </div>
+
+                    <div class="swiper-slide">
+                        <div class="brutal-card cert-card cert-card--red">
+                            <div class="cert-img-box">
+                                <img src="foto/certificate/certificate3.jpg" alt="Langlangbuana University - Leadership" loading="lazy">
+                            </div>
+                            <h3 class="cert-title" style="color:#FF2E3B;">Langlangbuana — Leadership</h3>
+                        </div>
+                    </div>
+
+                    <div class="swiper-slide">
+                        <div class="brutal-card cert-card cert-card--cyan">
+                            <div class="cert-img-box">
+                                <img src="foto/certificate/sertifikat-vinix.jpg" alt="Vinix Certificate" loading="lazy">
+                            </div>
+                            <h3 class="cert-title" style="color:#38BDF8;">Vinix — Certificate</h3>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== CONTACT SECTION (SPIDER RED & WEB BLUE GRADIENT) ===================== -->
+    <section id="contact" class="section contact-section">
+        <div class="container">
+            <div><span class="comic-issue-tag">[ ISSUE #07: TRANSMIT SIGNAL ]</span></div>
+            <h2 class="section-header">GET IN TOUCH</h2>
+            <div class="contact-grid">
+
+                <!-- Left: Info Panel (Spider Web Blue Dossier) -->
+                <div class="contact-info-card brutal-card">
+                    <div class="availability-badge">
+                        <span class="avail-dot"></span> AVAILABLE FOR WORK
+                    </div>
+                    <h3 class="contact-heading">LET'S WORK TOGETHER.</h3>
+                    <p class="contact-subtext">Got an epic idea or project in mind? Let's team up and craft high-performance applications with clean code and Spider-Man grade aesthetics.</p>
                     
-                    <div class="input-group">
-                        <label>Your Name</label>
-                        <input type="text" name="name" class="brutal-input" placeholder="John Doe" required>
+                    <div class="contact-highlights">
+                        <div class="contact-hl-item">
+                            <i data-lucide="zap" style="color:var(--secondary-light)"></i>
+                            <span>Fast Response &amp; Agile Delivery</span>
+                        </div>
+                        <div class="contact-hl-item">
+                            <i data-lucide="check-circle" style="color:var(--primary)"></i>
+                            <span>Fullstack &amp; Mobile Specialization</span>
+                        </div>
                     </div>
-                    <div class="input-group">
-                        <label>Your Email</label>
-                        <input type="email" name="email" class="brutal-input" placeholder="john@example.com" required>
+
+                    <div class="contact-social-row">
+                        <a href="https://github.com/Evreki" target="_blank" rel="noopener" class="contact-social-btn" aria-label="GitHub" title="GitHub">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>
+                        </a>
+                        <a href="https://linkedin.com/in/evreki" target="_blank" rel="noopener" class="contact-social-btn" aria-label="LinkedIn" title="LinkedIn">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect width="4" height="12" x="2" y="9"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                        </a>
+                        <a href="https://www.instagram.com/evreky" target="_blank" rel="noopener" class="contact-social-btn" aria-label="Instagram" title="Instagram">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg>
+                        </a>
+                        <a href="mailto:evrekiwanrefanja@gmail.com" class="contact-social-btn" aria-label="Email" title="Email">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>
+                        </a>
                     </div>
-                    <div class="input-group">
-                        <label>Your Message</label>
-                        <textarea name="message" id="msg-textarea" class="brutal-input" rows="4" placeholder="Let's build something cool..." required maxlength="500"></textarea>
-                        <div class="char-counter"><span id="char-count">0</span>/500</div>
-                    </div>
-                    <button type="submit" class="brutal-btn danger" style="width: 100%;">
-                        SEND MESSAGE <i data-lucide="send"></i>
-                    </button>
-                </form>
+                </div>
+
+                <!-- Right: Form (Spider Red to Blue Comic Gradient Panel) -->
+                <div class="contact-form-wrapper">
+                    <form class="contact-form-comic" action="https://formsubmit.co/evrekiwanrefanja@gmail.com" method="POST">
+                        <input type="hidden" name="_subject" value="New message from your portfolio!">
+                        <input type="hidden" name="_captcha" value="false">
+                        <input type="hidden" name="_template" value="table">
+
+                        <div class="form-header-badge">
+                            <span>✦ DISPATCH MESSAGE // EVREKI</span>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="contact-name">Your Full Name</label>
+                            <input type="text" id="contact-name" name="name" class="brutal-input" placeholder="e.g. Peter Parker" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="contact-email">Your Email Address</label>
+                            <input type="email" id="contact-email" name="email" class="brutal-input" placeholder="e.g. peter@dailybugle.com" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="msg-textarea">Your Message / Project Scope</label>
+                            <textarea id="msg-textarea" name="message" class="brutal-input" rows="4" placeholder="Describe your project, timeline, or say hello..." required maxlength="500"></textarea>
+                            <div class="char-counter"><span id="char-count">0</span>/500</div>
+                        </div>
+                        <button type="submit" class="brutal-btn contact-submit-btn">
+                            TRANSMIT MESSAGE <i data-lucide="send"></i>
+                        </button>
+                    </form>
+                </div>
+
             </div>
         </div>
     </section>
 
-    <!-- FOOTER -->
+    <!-- ===================== FOOTER (DEEP GRADIENT SPIDER BASEPLATE) ===================== -->
     <footer class="footer">
         <div class="container footer-inner">
             <div class="footer-left">
                 <span class="footer-logo">EVREKI.</span>
-                <p class="footer-text" id="footer-typing"></p>
+                <p class="footer-copy" id="footer-typing"></p>
             </div>
             <div class="footer-right">
-                <a href="https://github.com/Evreki" target="_blank" class="footer-social-link">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+                <a href="https://github.com/Evreki" target="_blank" rel="noopener" class="footer-social-link" aria-label="GitHub" title="GitHub">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>
                 </a>
-                <a href="https://linkedin.com/in/evreki" target="_blank" class="footer-social-link">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+                <a href="https://linkedin.com/in/evreki" target="_blank" rel="noopener" class="footer-social-link" aria-label="LinkedIn" title="LinkedIn">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect width="4" height="12" x="2" y="9"></rect><circle cx="4" cy="4" r="2"></circle></svg>
                 </a>
-                <a href="https://www.instagram.com/evreky?igsh=bTQ4enczaG91MzI5" target="_blank" class="footer-social-link">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+                <a href="https://www.instagram.com/evreky" target="_blank" rel="noopener" class="footer-social-link" aria-label="Instagram" title="Instagram">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg>
                 </a>
-                <a href="mailto:evrekiwanrefanja@gmail.com" class="footer-social-link">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                <a href="mailto:evrekiwanrefanja@gmail.com" class="footer-social-link" aria-label="Email" title="Email">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>
                 </a>
-                <span class="footer-badge">Crafted with NeoBrutalism ✦</span>
+                <span class="footer-badge">Spider-Man NeoBrutalism ✦</span>
             </div>
         </div>
     </footer>
 
-    <!-- BACK TO TOP BUTTON -->
+    <!-- Back to top -->
     <button id="back-to-top" aria-label="Back to top">
         <i data-lucide="arrow-up"></i>
     </button>
 
-    <!-- PROJECT MODAL -->
+    <!-- ===================== PROJECT MODAL ===================== -->
     <div id="project-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
         <div class="modal-overlay" id="modal-overlay"></div>
         <div class="modal-box">
-            <button class="modal-close" id="modal-close" aria-label="Close modal">
-                <i data-lucide="x"></i>
-            </button>
-
-            <!-- Gallery area -->
+            <div class="modal-header">
+                <span id="modal-category" class="brutal-badge badge-blue">Project Detail</span>
+                <button class="modal-close" id="modal-close" aria-label="Close modal">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
             <div class="modal-gallery">
                 <div class="modal-gallery-track" id="modal-gallery-track"></div>
-                <!-- Prev / Next -->
-                <button class="gallery-nav gallery-prev" id="gallery-prev" aria-label="Previous image">
-                    <i data-lucide="chevron-left"></i>
-                </button>
-                <button class="gallery-nav gallery-next" id="gallery-next" aria-label="Next image">
-                    <i data-lucide="chevron-right"></i>
-                </button>
-                <!-- Dots -->
+                <button class="gallery-nav gallery-prev" id="gallery-prev" aria-label="Previous"><i data-lucide="chevron-left"></i></button>
+                <button class="gallery-nav gallery-next" id="gallery-next" aria-label="Next"><i data-lucide="chevron-right"></i></button>
                 <div class="gallery-dots" id="gallery-dots"></div>
-                <!-- Counter -->
-                <div class="gallery-counter" id="gallery-counter"></div>
+                <div class="gallery-counter" id="gallery-counter">
+                    <i data-lucide="image"></i> <span id="gallery-counter-text">1 / 1</span>
+                </div>
+                <div class="gallery-hint" id="gallery-hint"><i data-lucide="maximize-2"></i> Click to expand</div>
             </div>
-
             <div class="modal-body">
-                <h3 id="modal-title"></h3>
-                <p id="modal-desc"></p>
-                <div id="modal-tech" class="tech-stack" style="margin: 20px 0;"></div>
-                <a id="modal-link" href="#" target="_blank" class="brutal-btn">
-                    <i data-lucide="github"></i> View on GitHub
-                </a>
+                <h3 id="modal-title" class="modal-project-title"></h3>
+                <div class="modal-section">
+                    <h4 class="modal-section-heading"><i data-lucide="file-text"></i> About Project</h4>
+                    <p id="modal-desc" class="modal-desc-box"></p>
+                </div>
+                <div class="modal-section">
+                    <h4 class="modal-section-heading"><i data-lucide="cpu"></i> Technologies &amp; Tools</h4>
+                    <div id="modal-tech" class="tech-stack modal-tech-box"></div>
+                </div>
+                <div class="modal-actions">
+                    <a id="modal-link" href="#" target="_blank" rel="noopener" class="brutal-btn modal-cta-btn">
+                        <i data-lucide="github"></i> View Source Code
+                    </a>
+                    <button class="brutal-btn modal-dismiss-btn" id="modal-dismiss" style="background:#fff;color:#000">
+                        <i data-lucide="check"></i> Done
+                    </button>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Initialize Icons & Scripts -->
+    <!-- ===================== FULLSCREEN LIGHTBOX ===================== -->
+    <div id="image-lightbox" class="image-lightbox" role="dialog" aria-modal="true" aria-label="Fullscreen image">
+        <div class="lightbox-overlay" id="lightbox-overlay"></div>
+        <button class="lightbox-close" id="lightbox-close" aria-label="Close fullscreen">
+            <i data-lucide="x"></i>
+        </button>
+        <div class="lightbox-content">
+            <img id="lightbox-img" src="" alt="Fullscreen preview">
+            <div class="lightbox-caption" id="lightbox-caption"></div>
+        </div>
+    </div>
+
+    <!-- Modular JavaScript Scripts -->
+    <script src="js/core.js"></script>
+    <script src="js/hero-three.js"></script>
+    <script src="js/animations.js"></script>
+    <script src="js/interactions.js"></script>
+    <script src="js/projects.js"></script>
+    <script src="js/modal.js"></script>
+    <script src="js/terminal.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
