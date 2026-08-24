@@ -55,7 +55,9 @@
     <!-- PRELOADER (SPIDER-VERSE HUD) -->
     <div id="brutal-loader" aria-hidden="true">
         <div class="loader-content">
-            <div class="loader-spider-logo">🕷</div>
+            <div class="loader-spider-logo">
+                <img src="foto/spider-emblem-white.png" alt="Spider-Man Logo" class="loader-spider-img">
+            </div>
             <p class="loader-text">01 // INITIALIZING SPIDER SYSTEM...</p>
             <div class="loader-progress-track">
                 <div class="loader-progress-bar"></div>
@@ -67,7 +69,9 @@
     <nav class="navbar" role="navigation" aria-label="Main navigation">
         <div class="container nav-container">
             <a href="#" class="nav-logo" aria-label="Evreki home">
-                <span class="nav-logo-badge" aria-hidden="true">🕷</span>
+                <span class="nav-logo-badge" aria-hidden="true">
+                    <img src="foto/spider-emblem-white.png" alt="Spider-Man Logo" class="nav-spider-img">
+                </span>
                 <span class="nav-logo-text">EVREKI<span class="logo-dot">.</span></span>
             </a>
             <ul class="nav-links" role="list">
@@ -81,7 +85,8 @@
             </ul>
             <div class="nav-extra-controls">
                 <button id="sound-btn" class="nav-ctrl-btn" aria-label="Toggle sound effects" title="Toggle Sound FX">
-                    <span id="sound-icon">🔊</span>
+                    <i data-lucide="volume-2" id="sound-icon-on"></i>
+                    <i data-lucide="volume-x" id="sound-icon-off" style="display:none"></i>
                 </button>
                 <button class="hamburger" aria-label="Toggle navigation menu" aria-expanded="false">
                     <i data-lucide="menu"></i>
@@ -99,10 +104,12 @@
 
             <!-- Avatar Side -->
             <div class="geo-avatar-container" aria-hidden="true">
-                <div class="geo-avatar">
+                <div class="geo-avatar" id="hero-avatar" title="Hover or Touch to reveal Spider-Man!">
                     <div class="geo-avatar-bg"></div>
-                    <img class="avatar-img" src="foto/profile-transparent.png" alt="Evreki Wan Refanja Avatar" loading="eager">
-                    <div class="avatar-badge-spider">✦ EARTH-616 // DEV</div>
+                    <img class="avatar-img" id="avatar-human-img" src="foto/profile-transparent.png" alt="Evreki Wan Refanja Avatar" loading="eager">
+                    <img class="avatar-spidey-hero" id="avatar-spidey-hero" src="foto/spiderman-hero.png" alt="Spider-Man Hero Reveal" loading="eager">
+                    <div class="spidey-lens-ring" id="spidey-lens-ring" aria-hidden="true"></div>
+                    <div class="avatar-badge-spider" id="avatar-badge-spider">✦ EARTH-616 // DEV</div>
                 </div>
             </div>
 

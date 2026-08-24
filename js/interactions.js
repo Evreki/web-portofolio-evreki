@@ -108,6 +108,7 @@ window.SpiderInteractions = (function () {
     function init() {
         initCustomCursor();
         initSoundControls();
+        initAvatarSpiderSense();
         initMagneticButtons();
         init3DCardTilt();
         initDraggableStickers();
@@ -171,14 +172,23 @@ window.SpiderInteractions = (function () {
     // ── SOUND FX CONTROLS ──────────────────────────────────────
     function initSoundControls() {
         const btn = document.getElementById('sound-btn');
-        const icon = document.getElementById('sound-icon');
+        const iconOn = document.getElementById('sound-icon-on');
+        const iconOff = document.getElementById('sound-icon-off');
         if (!btn) return;
 
-        icon.textContent = SpiderAudio.isOn() ? '🔊' : '🔇';
+        function updateIcon(isOn) {
+            if (iconOn && iconOff) {
+                iconOn.style.display = isOn ? 'block' : 'none';
+                iconOff.style.display = isOn ? 'none' : 'block';
+                if (typeof lucide !== 'undefined') lucide.createIcons();
+            }
+        }
+
+        updateIcon(SpiderAudio.isOn());
 
         btn.addEventListener('click', () => {
             const isOn = SpiderAudio.toggle();
-            icon.textContent = isOn ? '🔊' : '🔇';
+            updateIcon(isOn);
             if (isOn) SpiderAudio.coin();
         });
 
@@ -437,6 +447,128 @@ window.SpiderInteractions = (function () {
                 }
             });
         }
+    }
+
+    // ── AVATAR DYNAMIC SPIDER-MAN SPOTLIGHT LENS REVEAL ───────────
+    function initAvatarSpiderSense() {
+        const avatar = document.getElementById('hero-avatar');
+        const badge = document.getElementById('avatar-badge-spider');
+        if (!avatar) return;
+
+        // Compact & refined radius: perfect for revealing eyes, nose, or chest spider
+        const RADIUS_DESKTOP = 52;
+        const RADIUS_MOBILE = 45;
+
+        let targetX = 0, targetY = 0;
+        let currentX = 0, currentY = 0;
+        let targetRadius = 0, currentRadius = 0;
+        let isHovered = false;
+        let isTouchActive = false;
+        let animId = null;
+        let audioPlayed = false;
+
+        function render() {
+            // Linear Interpolation (LERP) for silky 60-120fps physics glide
+            const ease = 0.22;
+            const radiusEase = 0.16;
+
+            currentX += (targetX - currentX) * ease;
+            currentY += (targetY - currentY) * ease;
+            currentRadius += (targetRadius - currentRadius) * radiusEase;
+
+            // Apply smooth CSS properties
+            avatar.style.setProperty('--spider-x', `${currentX.toFixed(2)}px`);
+            avatar.style.setProperty('--spider-y', `${currentY.toFixed(2)}px`);
+            avatar.style.setProperty('--spider-radius', `${Math.max(0, currentRadius).toFixed(2)}px`);
+
+            // Keep animating while active or while smoothly shrinking to 0
+            if (isHovered || isTouchActive || currentRadius > 0.4) {
+                animId = requestAnimationFrame(render);
+            } else {
+                avatar.style.setProperty('--spider-radius', '0px');
+                avatar.classList.remove('is-spidey-lens-active');
+                if (badge) badge.textContent = '✦ EARTH-616 // DEV';
+                audioPlayed = false;
+                animId = null;
+            }
+        }
+
+        function startTracking() {
+            if (!animId) {
+                animId = requestAnimationFrame(render);
+            }
+        }
+
+        function updateCoords(clientX, clientY, isMobile = false) {
+            const rect = avatar.getBoundingClientRect();
+            targetX = Math.max(0, Math.min(rect.width, clientX - rect.left));
+            targetY = Math.max(0, Math.min(rect.height, clientY - rect.top));
+            targetRadius = isMobile ? RADIUS_MOBILE : RADIUS_DESKTOP;
+
+            if (!avatar.classList.contains('is-spidey-lens-active')) {
+                avatar.classList.add('is-spidey-lens-active');
+                if (badge) badge.textContent = '⚡ SPIDER-SENSE REVEAL! ⚡';
+                if (!audioPlayed && window.SpiderAudio) {
+                    SpiderAudio.thwip();
+                    audioPlayed = true;
+                }
+            }
+
+            startTracking();
+        }
+
+        // Desktop Mouse Tracking
+        avatar.addEventListener('mouseenter', e => {
+            isHovered = true;
+            const rect = avatar.getBoundingClientRect();
+            targetX = e.clientX - rect.left;
+            targetY = e.clientY - rect.top;
+            currentX = targetX;
+            currentY = targetY;
+            updateCoords(e.clientX, e.clientY, false);
+        });
+
+        avatar.addEventListener('mousemove', e => {
+            isHovered = true;
+            updateCoords(e.clientX, e.clientY, false);
+        });
+
+        avatar.addEventListener('mouseleave', () => {
+            isHovered = false;
+            targetRadius = 0;
+            startTracking();
+        });
+
+        // Mobile Touch Tracking
+        avatar.addEventListener('touchstart', e => {
+            if (e.touches && e.touches.length > 0) {
+                isTouchActive = true;
+                const rect = avatar.getBoundingClientRect();
+                targetX = e.touches[0].clientX - rect.left;
+                targetY = e.touches[0].clientY - rect.top;
+                currentX = targetX;
+                currentY = targetY;
+                updateCoords(e.touches[0].clientX, e.touches[0].clientY, true);
+            }
+        }, { passive: true });
+
+        avatar.addEventListener('touchmove', e => {
+            if (isTouchActive && e.touches && e.touches.length > 0) {
+                updateCoords(e.touches[0].clientX, e.touches[0].clientY, true);
+            }
+        }, { passive: true });
+
+        avatar.addEventListener('touchend', () => {
+            isTouchActive = false;
+            targetRadius = 0;
+            startTracking();
+        });
+
+        avatar.addEventListener('touchcancel', () => {
+            isTouchActive = false;
+            targetRadius = 0;
+            startTracking();
+        });
     }
 
     return {
