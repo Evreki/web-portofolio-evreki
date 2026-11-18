@@ -64,8 +64,9 @@ window.SpiderTerminal = (function () {
 
         skills: () => {
             addLine(`<span style="color:#F4E409;font-weight:700">⚡ TECH ARSENAL MATRIX:</span>`);
-            addLine(`[FRONTEND] HTML5, CSS3, React, JavaScript, Tailwind (90%)`);
-            addLine(`[BACKEND]  Laravel, PHP, MySQL, REST API, Python (88%)`);
+            addLine(`[FRONTEND] HTML5, CSS3, React, Vue.js, JavaScript, Tailwind (90%)`);
+            addLine(`[BACKEND]  Laravel, PHP, CodeIgniter, Golang, REST API, Python (88%)`);
+            addLine(`[DATABASE] MySQL, SQL Server, PostgreSQL, Firebase (85%)`);
             addLine(`[MOBILE]   Flutter, Dart, TensorFlow Lite, Firebase (85%)`);
             addLine(`[TOOLS]    Figma, Git & GitHub, QGIS, Leaflet.js (88%)`);
         },

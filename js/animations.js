@@ -17,6 +17,7 @@ window.SpiderAnimations = (function () {
         initStatsCounter();
         initSkillsCounters();
         initTimelineAnimations();
+        initExperienceAnimations();
         initMarquees();
         initGenericScrollReveals();
         initFooterTyping();
@@ -77,6 +78,7 @@ window.SpiderAnimations = (function () {
         const subLine = document.querySelector('.hero-subtitle-line') || document.querySelector('.hero-subtitle-badge');
         const social = document.querySelector('.social-links-hero');
         const btns = document.querySelector('.hero-btn-row');
+        const words = document.querySelectorAll('.hero-title .hero-title-word');
 
         if (avatar) tl.from(avatar, { scale: 0.3, opacity: 0, rotation: -10, duration: 0.8, ease: 'elastic.out(1, 0.5)', clearProps: 'all' });
         if (badge) tl.from(badge, { x: -60, opacity: 0, duration: 0.4, clearProps: 'all' }, '-=0.4');
@@ -331,6 +333,67 @@ window.SpiderAnimations = (function () {
                 ease: 'power3.out',
                 clearProps: 'all'
             });
+        });
+    }
+
+    // ── EXPERIENCE (WEB-THREAD SPIN + SWINGING LOGOS) ───────────
+    // Different from the slide-in used elsewhere: the web thread is "spun"
+    // down as you scroll (scrubbed), each company logo drops in and swings
+    // on its strand, and the text is wiped in from the left.
+    function initExperienceAnimations() {
+        const section = document.getElementById('experience');
+        if (!section || typeof ScrollTrigger === 'undefined') return;
+
+        const list = section.querySelector('.exp-list');
+        const fill = section.querySelector('.exp-thread-fill');
+        const items = gsap.utils.toArray('#experience .exp-item');
+        const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        if (reduce) {
+            if (fill) fill.style.transform = 'scaleY(1)';
+            return;
+        }
+
+        if (fill && list) {
+            gsap.to(fill, {
+                scaleY: 1,
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: list,
+                    start: 'top 70%',
+                    end: 'bottom 60%',
+                    scrub: 0.6
+                }
+            });
+        }
+
+        items.forEach(item => {
+            const logo = item.querySelector('.exp-logo');
+            const body = item.querySelector('.exp-body');
+            const bits = item.querySelectorAll('.exp-points li, .exp-chip');
+
+            const tl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: item,
+                    start: 'top 78%',
+                    toggleActions: 'play none none none',
+                    onEnter: () => item.classList.add('is-active'),
+                    onLeaveBack: () => item.classList.remove('is-active')
+                }
+            });
+
+            if (logo) {
+                tl.from(logo, { y: -70, rotation: -28, opacity: 0, duration: 1.1, ease: 'elastic.out(1, 0.45)', clearProps: 'transform,opacity' });
+            }
+            if (body) {
+                tl.fromTo(body,
+                    { clipPath: 'inset(0 100% 0 0)', opacity: 0.2 },
+                    { clipPath: 'inset(0 0% 0 0)', opacity: 1, duration: 0.7, ease: 'power3.out', clearProps: 'clipPath,opacity' },
+                    '-=0.85');
+            }
+            if (bits.length) {
+                tl.from(bits, { x: -14, opacity: 0, stagger: 0.05, duration: 0.35, ease: 'power2.out', clearProps: 'transform,opacity' }, '-=0.35');
+            }
         });
     }
 

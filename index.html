@@ -14,10 +14,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:wght@400;600;700;800&family=Lexend:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 
     <!-- Swiper CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11.1.14/swiper-bundle.min.css">
 
     <!-- Icons: Lucide -->
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
 
     <!-- Lenis Smooth Scroll -->
     <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
@@ -30,7 +30,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 
     <!-- Swiper.js -->
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11.1.14/swiper-bundle.min.js"></script>
 
     <!-- Canvas Confetti -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
@@ -62,6 +62,16 @@
             <div class="loader-progress-track">
                 <div class="loader-progress-bar"></div>
             </div>
+            <!-- Skeleton shimmer preview of the page -->
+            <div class="loader-skeleton">
+                <div class="sk-row">
+                    <span class="sk sk-avatar"></span>
+                    <span class="sk-col"><span class="sk sk-line w70"></span><span class="sk sk-line w45"></span></span>
+                </div>
+                <span class="sk sk-line w90"></span>
+                <span class="sk sk-line w80"></span>
+                <div class="sk-cards"><span class="sk sk-card"></span><span class="sk sk-card"></span><span class="sk sk-card"></span></div>
+            </div>
         </div>
     </div>
 
@@ -77,6 +87,7 @@
             <ul class="nav-links" role="list">
                 <li><a href="#about"        class="nav-link">About</a></li>
                 <li><a href="#skills"       class="nav-link">Skills</a></li>
+                <li><a href="#experience"   class="nav-link">Experience</a></li>
                 <li><a href="#journey"      class="nav-link">Journey</a></li>
                 <li><a href="#interactive-terminal" class="nav-link">Terminal</a></li>
                 <li><a href="#projects"     class="nav-link">Projects</a></li>
@@ -299,10 +310,15 @@
                         <div class="skill-info"><span>React &amp; JavaScript</span><span class="skill-percent" data-target="85">0%</span></div>
                         <div class="progress-bar"><div class="progress-fill" data-width="85%" style="background:linear-gradient(90deg, #2563EB, #38BDF8)"></div></div>
                     </div>
+                    <div class="skill-item">
+                        <div class="skill-info"><span>Vue.js</span><span class="skill-percent" data-target="78">0%</span></div>
+                        <div class="progress-bar"><div class="progress-fill" data-width="78%" style="background:linear-gradient(90deg, #22C55E, #38BDF8)"></div></div>
+                    </div>
                     <div class="skill-tags">
                         <span class="skill-tag">HTML5</span>
                         <span class="skill-tag">CSS3</span>
                         <span class="skill-tag">React</span>
+                        <span class="skill-tag">Vue.js</span>
                         <span class="skill-tag">JavaScript</span>
                         <span class="skill-tag">Tailwind</span>
                     </div>
@@ -315,15 +331,48 @@
                         <div class="progress-bar"><div class="progress-fill" data-width="88%" style="background:linear-gradient(90deg, #E50914, #2563EB)"></div></div>
                     </div>
                     <div class="skill-item">
-                        <div class="skill-info"><span>MySQL</span><span class="skill-percent" data-target="85">0%</span></div>
-                        <div class="progress-bar"><div class="progress-fill" data-width="85%" style="background:linear-gradient(90deg, #2563EB, #38BDF8)"></div></div>
+                        <div class="skill-info"><span>CodeIgniter</span><span class="skill-percent" data-target="82">0%</span></div>
+                        <div class="progress-bar"><div class="progress-fill" data-width="82%" style="background:linear-gradient(90deg, #E50914, #FF2E3B)"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info"><span>Golang</span><span class="skill-percent" data-target="72">0%</span></div>
+                        <div class="progress-bar"><div class="progress-fill" data-width="72%" style="background:linear-gradient(90deg, #2563EB, #38BDF8)"></div></div>
                     </div>
                     <div class="skill-tags">
                         <span class="skill-tag">PHP</span>
                         <span class="skill-tag">Laravel</span>
-                        <span class="skill-tag">MySQL</span>
+                        <span class="skill-tag">CodeIgniter</span>
+                        <span class="skill-tag">Golang</span>
                         <span class="skill-tag">REST API</span>
                         <span class="skill-tag">Python</span>
+                    </div>
+                </div>
+
+                <div class="brutal-card skill-card skill-card--db skill-card--wide">
+                    <h3 class="skill-card-title"><i data-lucide="database"></i> Database</h3>
+                    <div class="skill-items-2col">
+                        <div class="skill-item">
+                            <div class="skill-info"><span>MySQL</span><span class="skill-percent" data-target="85">0%</span></div>
+                            <div class="progress-bar"><div class="progress-fill" data-width="85%" style="background:linear-gradient(90deg, #2563EB, #38BDF8)"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info"><span>SQL Server</span><span class="skill-percent" data-target="78">0%</span></div>
+                            <div class="progress-bar"><div class="progress-fill" data-width="78%" style="background:linear-gradient(90deg, #E50914, #2563EB)"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info"><span>PostgreSQL</span><span class="skill-percent" data-target="76">0%</span></div>
+                            <div class="progress-bar"><div class="progress-fill" data-width="76%" style="background:linear-gradient(90deg, #1D4ED8, #38BDF8)"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info"><span>Firebase</span><span class="skill-percent" data-target="80">0%</span></div>
+                            <div class="progress-bar"><div class="progress-fill" data-width="80%" style="background:linear-gradient(90deg, #F59E0B, #E50914)"></div></div>
+                        </div>
+                    </div>
+                    <div class="skill-tags">
+                        <span class="skill-tag">MySQL</span>
+                        <span class="skill-tag">SQL Server</span>
+                        <span class="skill-tag">PostgreSQL</span>
+                        <span class="skill-tag">Firebase</span>
                     </div>
                 </div>
 
@@ -367,15 +416,135 @@
     <!-- ===================== MARQUEE 2 ===================== -->
     <div class="giant-marquee marquee-reverse" aria-hidden="true">
         <div class="marquee-content-reverse">
-            <span>★ FLUTTER DEV ★ LARAVEL ★ REACT ★ MYSQL ★ TENSORFLOW ★ UI/UX ★ GIT ★ PYTHON &nbsp;</span>
-            <span>★ FLUTTER DEV ★ LARAVEL ★ REACT ★ MYSQL ★ TENSORFLOW ★ UI/UX ★ GIT ★ PYTHON &nbsp;</span>
+            <span>★ FLUTTER DEV ★ LARAVEL ★ CODEIGNITER ★ GOLANG ★ VUE.JS ★ REACT ★ POSTGRESQL ★ SQL SERVER ★ FIREBASE ★ GIT &nbsp;</span>
+            <span>★ FLUTTER DEV ★ LARAVEL ★ CODEIGNITER ★ GOLANG ★ VUE.JS ★ REACT ★ POSTGRESQL ★ SQL SERVER ★ FIREBASE ★ GIT &nbsp;</span>
         </div>
     </div>
+
+    <!-- ===================== EXPERIENCE SECTION (LINKEDIN-STYLE // WEB-THREAD ANIMATION) ===================== -->
+    <section id="experience" class="section experience-section">
+        <div class="container">
+            <div><span class="comic-issue-tag">[ ISSUE #03: FIELD MISSIONS ]</span></div>
+            <h2 class="section-header">EXPERIENCE</h2>
+
+            <div class="exp-panel">
+                <div class="exp-panel-head">
+                    <span class="exp-panel-title"><i data-lucide="briefcase"></i> Work Experience</span>
+                    <span class="exp-panel-count"><span class="exp-count-num">3</span> missions logged</span>
+                </div>
+
+                <!-- Web thread that "spins" down as you scroll -->
+                <div class="exp-list">
+                    <div class="exp-thread" aria-hidden="true"><div class="exp-thread-fill"></div></div>
+
+                    <!-- EXPERIENCE 1: PT CENTURY BATTERIES INDONESIA -->
+                    <article class="exp-item" data-start="2026-09">
+                        <div class="exp-logo skeleton">
+                            <img src="foto/experience/cbi.jpg" alt="PT Century Batteries Indonesia logo" loading="lazy">
+                        </div>
+                        <div class="exp-body">
+                            <div class="exp-top">
+                                <h3 class="exp-role">Web Developer</h3>
+                                <span class="exp-now"><span class="exp-now-dot"></span> Present</span>
+                            </div>
+                            <p class="exp-company">PT Century Batteries Indonesia <span class="exp-sep">·</span> <span class="exp-type">Internship</span></p>
+                            <p class="exp-meta">
+                                <i data-lucide="calendar-days"></i> Sep 2026 – Present <span class="exp-sep">·</span> <span class="exp-duration">3 mos</span>
+                            </p>
+                            <p class="exp-meta">
+                                <i data-lucide="map-pin"></i> Karawang, West Java, Indonesia <span class="exp-sep">·</span> On-site
+                            </p>
+                            <ul class="exp-points">
+                                <li>Develop and maintain robust end-to-end web applications, handling both front-end user interfaces and back-end logic.</li>
+                                <li>Write clean, efficient, and scalable code using modern frameworks, databases, and version control tools.</li>
+                                <li>Collaborate with cross-functional teams to design, test, and deploy new features that align with company goals.</li>
+                                <li>Optimize application performance for maximum speed, scalability, responsiveness, and smooth user experience.</li>
+                                <li>Troubleshoot, debug, and upgrade existing systems to ensure high availability and security.</li>
+                                <li>Build and integrate secure APIs and manage databases to ensure seamless data flow and storage.</li>
+                            </ul>
+                            <div class="exp-skills">
+                                <i data-lucide="gem"></i>
+                                <span class="exp-chip">CodeIgniter</span>
+                                <span class="exp-chip">Web Development</span>
+                                <span class="exp-chip">REST API</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- EXPERIENCE 2: UNIVERSITAS LANGLANGBUANA -->
+                    <article class="exp-item" data-start="2025-04">
+                        <div class="exp-logo skeleton">
+                            <img src="foto/experience/unla.png" alt="Universitas Langlangbuana logo" loading="lazy">
+                        </div>
+                        <div class="exp-body">
+                            <div class="exp-top">
+                                <h3 class="exp-role">Full Stack Developer</h3>
+                                <span class="exp-now"><span class="exp-now-dot"></span> Present</span>
+                            </div>
+                            <p class="exp-company">Universitas Langlangbuana <span class="exp-sep">·</span> <span class="exp-type">Internship</span></p>
+                            <p class="exp-meta">
+                                <i data-lucide="calendar-days"></i> Apr 2025 – Present <span class="exp-sep">·</span> <span class="exp-duration">1 yr 8 mos</span>
+                            </p>
+                            <p class="exp-meta">
+                                <i data-lucide="map-pin"></i> Bandung, West Java, Indonesia <span class="exp-sep">·</span> On-site
+                            </p>
+                            <div class="exp-collapse" id="exp-desc-unla">
+                                <p class="exp-desc">Built a KKN (student community service) registration application to digitally transform a process that was previously handled manually and conventionally. By implementing a web-based system, registration, validation, and reporting became faster, more accurate, and easier for both students and administrators to manage.</p>
+                                <ul class="exp-points">
+                                    <li>Designed the end-to-end student registration flow with real-time form validation.</li>
+                                    <li>Built an admin dashboard for managing participants, groups, and locations.</li>
+                                    <li>Implemented data export and notification features to support the KKN committee.</li>
+                                </ul>
+                            </div>
+                            <button type="button" class="exp-more-btn" aria-expanded="false" aria-controls="exp-desc-unla">
+                                <span class="exp-more-label">…see more</span> <i data-lucide="chevron-down"></i>
+                            </button>
+                            <div class="exp-skills">
+                                <i data-lucide="gem"></i>
+                                <span class="exp-chip">Web Development</span>
+                                <span class="exp-chip">Laravel</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- EXPERIENCE 3: BKAD TANGERANG SELATAN -->
+                    <article class="exp-item" data-start="2026-04" data-end="2026-05">
+                        <div class="exp-logo exp-logo--wide skeleton">
+                            <img src="foto/experience/bkad.jpg" alt="BKAD Kota Tangerang Selatan logo" loading="lazy">
+                        </div>
+                        <div class="exp-body">
+                            <div class="exp-top">
+                                <h3 class="exp-role">Freelance Mobile Developer</h3>
+                            </div>
+                            <p class="exp-company">BKAD Tangerang Selatan <span class="exp-sep">·</span> <span class="exp-type">Part-time</span></p>
+                            <p class="exp-meta">
+                                <i data-lucide="calendar-days"></i> Apr 2026 – May 2026 <span class="exp-sep">·</span> <span class="exp-duration">2 mos</span>
+                            </p>
+                            <p class="exp-meta">
+                                <i data-lucide="map-pin"></i> South Tangerang, Banten, Indonesia <span class="exp-sep">·</span> Remote
+                            </p>
+                            <ul class="exp-points">
+                                <li>Developed an asset monitoring application for BKAD Tangerang Selatan using Flutter and Leaflet.js.</li>
+                                <li>Built a real-time tracking system to monitor government properties efficiently.</li>
+                                <li>Improved data transparency and simplified the internal auditing process for the agency.</li>
+                            </ul>
+                            <div class="exp-skills">
+                                <i data-lucide="gem"></i>
+                                <span class="exp-chip">Flutter</span>
+                                <span class="exp-chip">Leaflet.js</span>
+                                <span class="exp-chip">Dart</span>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- ===================== JOURNEY SECTION ===================== -->
     <section id="journey" class="section">
         <div class="container">
-            <div><span class="comic-issue-tag">[ ISSUE #03: MULTIVERSE TIMELINE ]</span></div>
+            <div><span class="comic-issue-tag">[ ISSUE #04: MULTIVERSE TIMELINE ]</span></div>
             <h2 class="section-header">MY JOURNEY</h2>
             <div class="timeline-wrapper">
 
@@ -410,7 +579,7 @@
     <!-- ===================== DEV TERMINAL ===================== -->
     <section class="section terminal-section" id="interactive-terminal">
         <div class="container">
-            <div><span class="comic-issue-tag" style="background:var(--primary);color:#fff">[ ISSUE #04: SPIDER SYSTEM ]</span></div>
+            <div><span class="comic-issue-tag" style="background:var(--primary);color:#fff">[ ISSUE #05: SPIDER SYSTEM ]</span></div>
             <h2 class="section-header" style="color:#fff">DEV TERMINAL ⚡</h2>
             <div class="terminal-container brutal-card">
                 <div class="terminal-header">
@@ -445,7 +614,7 @@
     <!-- ===================== PROJECTS SECTION ===================== -->
     <section id="projects" class="section projects-section">
         <div class="container">
-            <div><span class="comic-issue-tag">[ ISSUE #05: MISSIONS &amp; PROJECTS ]</span></div>
+            <div><span class="comic-issue-tag">[ ISSUE #06: MISSIONS &amp; PROJECTS ]</span></div>
             <h2 class="section-header">PROJECTS</h2>
 
             <div class="projects-swiper-wrapper">
@@ -551,7 +720,7 @@
     <!-- ===================== CERTIFICATES SECTION ===================== -->
     <section id="certificates" class="section certs-section">
         <div class="container">
-            <div><span class="comic-issue-tag">[ ISSUE #06: ARCHIVES &amp; CERTS ]</span></div>
+            <div><span class="comic-issue-tag">[ ISSUE #07: ARCHIVES &amp; CERTS ]</span></div>
             <h2 class="section-header">CERTIFICATES</h2>
 
             <div class="swiper certs-swiper">
@@ -601,7 +770,7 @@
     <!-- ===================== CONTACT SECTION (SPIDER RED & WEB BLUE GRADIENT) ===================== -->
     <section id="contact" class="section contact-section">
         <div class="container">
-            <div><span class="comic-issue-tag">[ ISSUE #07: TRANSMIT SIGNAL ]</span></div>
+            <div><span class="comic-issue-tag">[ ISSUE #08: TRANSMIT SIGNAL ]</span></div>
             <h2 class="section-header">GET IN TOUCH</h2>
             <div class="contact-grid">
 

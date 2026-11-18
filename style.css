@@ -4,7 +4,7 @@
    AUTHENTIC SPIDER RED & WEB BLUE THEME WITH DYNAMIC GRADIENTS
    ============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:wght@400;600;700;800&family=Lexend:wght@400;600;700;800;900&display=swap');
+/* Fonts are loaded once via <link> in index.html (removed duplicate @import) */
 
 /* ── 1. DESIGN TOKENS & SPIDER-MAN PALETTE ── */
 :root {
@@ -2693,4 +2693,442 @@ button, input, textarea {
     #hero-three-canvas {
         display: none !important;
     }
+}
+
+
+/* ============================================================
+   26. EXPERIENCE (LINKEDIN-STYLE LAYOUT // WEB-THREAD ANIMATION)
+   ============================================================ */
+.experience-section {
+    background:
+        radial-gradient(circle at 12% 20%, rgba(37, 99, 235, 0.10) 0%, transparent 45%),
+        radial-gradient(circle at 88% 80%, rgba(229, 9, 20, 0.08) 0%, transparent 45%),
+        var(--bg);
+}
+.exp-panel {
+    max-width: 980px;
+    margin: 0 auto;
+    background: #0E0E18;
+    border: 3px solid #2563EB;
+    box-shadow: 6px 6px 0 #000000, 10px 10px 0 var(--primary);
+    color: #FFFFFF;
+}
+.exp-panel-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+    padding: 18px clamp(18px, 3vw, 28px);
+    border-bottom: 2px dashed rgba(255, 255, 255, 0.15);
+    background: linear-gradient(90deg, rgba(37, 99, 235, 0.18), transparent 70%);
+}
+.exp-panel-title {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 3vw, 1.9rem);
+    letter-spacing: 0.03em;
+}
+.exp-panel-title svg { width: 22px; height: 22px; color: var(--secondary-light); }
+.exp-panel-count {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--text-muted);
+}
+.exp-count-num { color: var(--secondary-light); font-weight: 800; }
+
+.exp-list {
+    position: relative;
+    --logo: 64px;
+    --item-pad: clamp(18px, 3vw, 28px);
+}
+/* the web thread connecting each company logo */
+.exp-thread {
+    position: absolute;
+    top: calc(var(--item-pad) + var(--logo) / 2);
+    bottom: calc(var(--item-pad) + var(--logo) / 2);
+    left: calc(var(--item-pad) + var(--logo) / 2 - 1px);
+    width: 2px;
+    background: repeating-linear-gradient(to bottom, rgba(255,255,255,0.18) 0 6px, transparent 6px 12px);
+    pointer-events: none;
+    z-index: 0;
+}
+.exp-thread-fill {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, var(--secondary-light), var(--secondary) 50%, var(--primary));
+    box-shadow: 0 0 8px rgba(56, 189, 248, 0.6);
+    transform-origin: top center;
+    transform: scaleY(0);
+}
+
+.exp-item {
+    position: relative;
+    display: grid;
+    grid-template-columns: var(--logo) 1fr;
+    gap: clamp(14px, 2.5vw, 22px);
+    padding: var(--item-pad);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    background-color: transparent;
+    z-index: 1;
+}
+.exp-item:last-child { border-bottom: none; }
+.exp-item::before {
+    /* highlight bar on the left when active/hovered */
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 14px;
+    bottom: 14px;
+    width: 4px;
+    background: linear-gradient(to bottom, var(--secondary-light), var(--primary));
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.exp-item:hover::before,
+.exp-item.is-active::before { transform: scaleY(1); }
+
+.exp-logo {
+    position: relative;
+    width: var(--logo);
+    height: var(--logo);
+    background: #FFFFFF;
+    border: 2.5px solid #000000;
+    box-shadow: 3px 3px 0 var(--secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transform-origin: 50% -40px; /* swings from an invisible web strand above */
+    transition: box-shadow 0.35s ease, translate 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    z-index: 2;
+}
+.exp-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 5px;
+}
+.exp-logo--wide img { padding: 3px; }
+.exp-item.is-active .exp-logo {
+    box-shadow: 3px 3px 0 var(--primary), 0 0 0 3px rgba(56, 189, 248, 0.35), 0 0 18px rgba(56, 189, 248, 0.45);
+}
+
+.exp-body { min-width: 0; }
+.exp-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+.exp-role {
+    font-family: var(--font-head);
+    font-size: clamp(1.1rem, 2.2vw, 1.3rem);
+    font-weight: 800;
+    line-height: 1.25;
+    color: #FFFFFF;
+}
+.exp-now {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    padding: 3px 9px;
+    color: #052233;
+    background: var(--secondary-light);
+    border: 2px solid #000000;
+    box-shadow: 2px 2px 0 #000000;
+    white-space: nowrap;
+}
+.exp-now-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #E50914;
+    animation: exp-now-pulse 1.4s ease-in-out infinite;
+}
+@keyframes exp-now-pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(229, 9, 20, 0.6); }
+    50%      { box-shadow: 0 0 0 5px rgba(229, 9, 20, 0); }
+}
+.exp-company {
+    margin-top: 4px;
+    font-size: 0.98rem;
+    font-weight: 600;
+    color: #E5E7EB;
+}
+.exp-type { color: var(--secondary-light); }
+.exp-sep { color: var(--text-muted); margin: 0 4px; }
+.exp-meta {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: 4px;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--text-muted);
+}
+.exp-meta svg { width: 14px; height: 14px; margin-right: 4px; flex-shrink: 0; }
+.exp-duration { color: #FFFFFF; font-weight: 700; }
+
+.exp-desc {
+    margin-top: 14px;
+    font-size: 0.93rem;
+    line-height: 1.65;
+    color: #D4D4DE;
+}
+.exp-points {
+    list-style: none;
+    margin-top: 14px;
+    display: grid;
+    gap: 8px;
+}
+.exp-points li {
+    position: relative;
+    padding-left: 22px;
+    font-size: 0.92rem;
+    line-height: 1.6;
+    color: #D4D4DE;
+}
+.exp-points li::before {
+    content: '\2726';
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--primary);
+    font-size: 0.85rem;
+}
+
+/* "...see more" collapse (LinkedIn style) */
+.exp-collapse {
+    position: relative;
+    max-height: 7.4em;
+    overflow: hidden;
+    transition: max-height 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.exp-collapse::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 2.6em;
+    background: linear-gradient(to bottom, rgba(14, 14, 24, 0), #0E0E18);
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+.exp-collapse.is-open::after { opacity: 0; }
+.exp-more-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 8px;
+    padding: 4px 10px;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 800;
+    color: var(--secondary-light);
+    background: transparent;
+    border: 1.5px dashed rgba(56, 189, 248, 0.5);
+    cursor: pointer;
+}
+.exp-more-btn svg { width: 14px; height: 14px; transition: transform 0.35s ease; }
+.exp-more-btn[aria-expanded="true"] svg { transform: rotate(180deg); }
+.exp-more-btn:hover { background: rgba(56, 189, 248, 0.1); border-style: solid; }
+
+.exp-skills {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 16px;
+}
+.exp-skills > svg { width: 16px; height: 16px; color: var(--secondary-light); margin-right: 2px; }
+.exp-chip {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 3px 9px;
+    background: #1A1A28;
+    border: 1.5px solid var(--border);
+    color: #FFFFFF;
+    transition: background-color 0.2s ease, border-color 0.2s ease, translate 0.2s ease;
+}
+.exp-chip:hover { background: var(--secondary); border-color: #FFFFFF; translate: 0 -2px; }
+
+/* Database skill card (full-width row) */
+.skill-card--db {
+    background: #0A1418 !important;
+    border: 2.5px solid #38BDF8 !important;
+    box-shadow: 6px 6px 0 #000000, 8px 8px 0 #38BDF8 !important;
+}
+.skill-card--db:hover {
+    box-shadow: 8px 8px 0 #000000, 12px 12px 0 #E50914 !important;
+}
+.skill-card--wide { grid-column: 1 / -1; }
+.skill-items-2col {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: clamp(18px, 3vw, 32px);
+}
+
+@media (max-width: 640px) {
+    .exp-list { --logo: 48px; }
+    .exp-top { flex-direction: column-reverse; gap: 6px; }
+    .exp-logo img { padding: 3px; }
+    .skill-items-2col { grid-template-columns: 1fr; }
+}
+
+/* ============================================================
+   27. MICRO-INTERACTIONS
+   ============================================================ */
+
+/* 1) BUTTON PRESS: shrink slightly + thin glow.
+      Uses the standalone `scale` property so it composes with the
+      inline transforms set by the magnetic-button script. */
+.brutal-btn, .social-btn, .t-chip, .t-send-btn, .swiper-nav-btn,
+.nav-ctrl-btn, .contact-social-btn, .footer-social-link, #back-to-top,
+.modal-close, .gallery-nav, .exp-more-btn, .hamburger, .lightbox-close {
+    transition:
+        transform 0.15s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease,
+        background-color 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease,
+        opacity 0.3s ease,
+        scale 0.16s cubic-bezier(0.34, 1.56, 0.64, 1),
+        filter 0.2s ease;
+}
+.brutal-btn:active, .social-btn:active, .t-chip:active, .t-send-btn:active,
+.swiper-nav-btn:active, .nav-ctrl-btn:active, .contact-social-btn:active,
+.footer-social-link:active, #back-to-top:active, .modal-close:active,
+.gallery-nav:active, .exp-more-btn:active, .hamburger:active, .lightbox-close:active {
+    scale: 0.94;
+    filter: drop-shadow(0 0 6px rgba(56, 189, 248, 0.55)) drop-shadow(0 0 14px rgba(56, 189, 248, 0.25));
+    transition-duration: 0.08s;
+}
+.brutal-btn:active {
+    transform: none;
+    box-shadow: 3px 3px 0 #000000, 0 0 0 2px rgba(56, 189, 248, 0.35);
+}
+.brutal-btn.danger:active {
+    filter: drop-shadow(0 0 6px rgba(229, 9, 20, 0.6)) drop-shadow(0 0 14px rgba(229, 9, 20, 0.25));
+}
+/* keyboard users get the same glow as a focus ring */
+.brutal-btn:focus-visible, .social-btn:focus-visible, .t-chip:focus-visible,
+.swiper-nav-btn:focus-visible, .exp-more-btn:focus-visible, .nav-ctrl-btn:focus-visible {
+    outline: 2px solid var(--secondary-light);
+    outline-offset: 3px;
+    filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.5));
+}
+
+/* 2) CARD HOVER: lifts smoothly, straight up. */
+:is(.brutal-card, .about-info-card, .stat-item, .exp-item) {
+    transition:
+        transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+        box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+        border-color 0.35s ease,
+        background-color 0.35s ease,
+        translate 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+@media (hover: hover) and (pointer: fine) {
+    :is(.skill-card, .cert-card, .project-card, .stat-item, .about-info-card, .timeline-card):hover {
+        transform: none;
+    }
+    :is(.brutal-card, .about-info-card, .stat-item):hover {
+        translate: 0 -8px;
+    }
+    .exp-item:hover {
+        translate: 0 -4px;
+        background-color: rgba(37, 99, 235, 0.07);
+    }
+    .exp-item:hover .exp-logo { translate: 0 -2px; }
+}
+
+/* 3) SKELETON SHIMMER LOADING */
+.project-img-box, .cert-img-box { position: relative; }
+.skeleton {
+    isolation: isolate;
+    background-color: #161624 !important;
+}
+.skeleton::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    pointer-events: none;
+    background: linear-gradient(
+        100deg,
+        rgba(255, 255, 255, 0) 20%,
+        rgba(255, 255, 255, 0.06) 38%,
+        rgba(56, 189, 248, 0.16) 50%,
+        rgba(255, 255, 255, 0.06) 62%,
+        rgba(255, 255, 255, 0) 80%
+    );
+    background-size: 220% 100%;
+    animation: skeleton-shimmer 1.25s linear infinite;
+    transition: opacity 0.4s ease;
+}
+.skeleton > img:not(.modal-slide-backdrop) { opacity: 0; transition: opacity 0.5s ease, transform 0.4s ease; }
+.skeleton.is-loaded { background-color: transparent !important; }
+.exp-logo.skeleton.is-loaded { background-color: #FFFFFF !important; }
+.skeleton.is-loaded::before { opacity: 0; animation: none; }
+.skeleton.is-loaded > img:not(.modal-slide-backdrop) { opacity: 1; }
+.skeleton.is-error::before { animation: none; opacity: 0.4; }
+@keyframes skeleton-shimmer {
+    from { background-position: 120% 0; }
+    to   { background-position: -120% 0; }
+}
+
+/* Preloader: page skeleton under the progress bar */
+.loader-skeleton {
+    width: 100%;
+    max-width: 340px;
+    margin: 26px auto 0;
+    display: grid;
+    gap: 10px;
+    text-align: left;
+}
+.sk {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    background: #151522;
+    border: 1.5px solid #22223A;
+}
+.sk::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(100deg, transparent 20%, rgba(255,255,255,0.06) 38%, rgba(56,189,248,0.18) 50%, rgba(255,255,255,0.06) 62%, transparent 80%);
+    background-size: 220% 100%;
+    animation: skeleton-shimmer 1.25s linear infinite;
+}
+.sk-row { display: flex; gap: 12px; align-items: center; }
+.sk-col { flex: 1; display: grid; gap: 8px; }
+.sk-avatar { width: 46px; height: 46px; flex-shrink: 0; }
+.sk-line { height: 10px; }
+.sk-line.w90 { width: 90%; }
+.sk-line.w80 { width: 80%; }
+.sk-line.w70 { width: 70%; }
+.sk-line.w45 { width: 45%; }
+.sk-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 4px; }
+.sk-card { height: 54px; }
+
+@media (prefers-reduced-motion: reduce) {
+    .skeleton::before, .sk::before { animation: none !important; }
+    .exp-thread-fill { transform: scaleY(1) !important; }
+    :is(.brutal-card, .about-info-card, .stat-item, .exp-item):hover { translate: none !important; }
 }

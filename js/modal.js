@@ -171,6 +171,12 @@ window.SpiderModal = (function () {
             slide.appendChild(backdrop);
             slide.appendChild(img);
 
+            // skeleton shimmer until the screenshot is loaded
+            slide.classList.add('skeleton');
+            const markLoaded = () => slide.classList.add('is-loaded');
+            if (img.complete && img.naturalWidth > 0) markLoaded();
+            else img.addEventListener('load', markLoaded);
+
             slide.addEventListener('click', () => {
                 openLightbox(src, `${projectTitle} — [ ${i + 1} / ${images.length} ]`);
             });

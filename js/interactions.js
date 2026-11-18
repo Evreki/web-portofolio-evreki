@@ -116,6 +116,81 @@ window.SpiderInteractions = (function () {
         initBackToTop();
         initButtonRipples();
         initNavbarSpy();
+        initSkeletonLoading();
+        initExperience();
+    }
+
+    // ── SKELETON SHIMMER FOR IMAGES ────────────────────────────
+    // Shows a shimmering placeholder until each image has really loaded.
+    function attachSkeleton(box, img) {
+        if (!box || !img) return;
+        box.classList.add('skeleton');
+        const done = () => {
+            if (img.naturalWidth > 0) {
+                box.classList.add('is-loaded');
+                box.classList.remove('is-error');
+            }
+        };
+        if (img.complete && img.naturalWidth > 0) { done(); return; }
+        img.addEventListener('load', done);
+        // inline onerror handlers may swap to a fallback src; only flag error if nothing loads
+        img.addEventListener('error', () => {
+            setTimeout(() => { if (!box.classList.contains('is-loaded')) box.classList.add('is-error'); }, 1500);
+        });
+    }
+
+    function initSkeletonLoading() {
+        document.querySelectorAll('.project-img-box, .cert-img-box, .polaroid-img-container, .exp-logo').forEach(box => {
+            attachSkeleton(box, box.querySelector('img'));
+        });
+    }
+
+    // ── EXPERIENCE: LIVE DURATIONS + "SEE MORE" ─────────────────
+    function initExperience() {
+        const section = document.getElementById('experience');
+        if (!section) return;
+
+        // LinkedIn-style duration (inclusive months), recalculated from today
+        const now = new Date();
+        section.querySelectorAll('.exp-item[data-start]').forEach(item => {
+            const [sy, sm] = item.dataset.start.split('-').map(Number);
+            let ey = now.getFullYear(), em = now.getMonth() + 1;
+            if (item.dataset.end) [ey, em] = item.dataset.end.split('-').map(Number);
+            const total = Math.max(1, (ey - sy) * 12 + (em - sm) + 1);
+            const yrs = Math.floor(total / 12), mos = total % 12;
+            const parts = [];
+            if (yrs) parts.push(`${yrs} yr${yrs > 1 ? 's' : ''}`);
+            if (mos) parts.push(`${mos} mo${mos > 1 ? 's' : ''}`);
+            const el = item.querySelector('.exp-duration');
+            if (el) el.textContent = parts.join(' ');
+        });
+
+        section.querySelectorAll('.exp-more-btn').forEach(btn => {
+            const box = document.getElementById(btn.getAttribute('aria-controls'));
+            const label = btn.querySelector('.exp-more-label');
+            if (!box) return;
+            const collapsed = getComputedStyle(box).maxHeight;
+
+            btn.addEventListener('click', () => {
+                const open = btn.getAttribute('aria-expanded') === 'true';
+                if (open) {
+                    box.style.maxHeight = box.scrollHeight + 'px';
+                    void box.offsetHeight; // force reflow so the collapse animates
+                    box.style.maxHeight = collapsed;
+                    box.classList.remove('is-open');
+                } else {
+                    box.style.maxHeight = box.scrollHeight + 'px';
+                    box.classList.add('is-open');
+                    box.addEventListener('transitionend', function handler() {
+                        if (box.classList.contains('is-open')) box.style.maxHeight = 'none';
+                        box.removeEventListener('transitionend', handler);
+                    });
+                }
+                btn.setAttribute('aria-expanded', String(!open));
+                if (label) label.textContent = open ? '…see more' : 'see less';
+                if (typeof ScrollTrigger !== 'undefined') setTimeout(() => ScrollTrigger.refresh(), 600);
+            });
+        });
     }
 
     // ── SPIDER-WEB CUSTOM CURSOR ───────────────────────────────
