@@ -1,11 +1,11 @@
 /**
- * SPIDER-MAN NEOBRUTALISM PORTFOLIO — MODAL & LIGHTBOX SYSTEM
+ * PORTFOLIO — MODAL & LIGHTBOX SYSTEM
  * Evreki Wan Refanja
  */
 
 'use strict';
 
-window.SpiderModal = (function () {
+window.AppModal = (function () {
     const modal      = document.getElementById('project-modal');
     const overlay    = document.getElementById('modal-overlay');
     const modalBox   = document.querySelector('.modal-box');
@@ -126,12 +126,12 @@ window.SpiderModal = (function () {
         buildGallery();
 
         // Lock background scroll
-        if (window.SpiderCore) window.SpiderCore.stop();
+        if (window.AppCore) window.AppCore.stop();
         else document.body.style.overflow = 'hidden';
 
         modal.classList.add('modal-open');
 
-        // GSAP Comic Entrance Animation
+        // GSAP entrance animation
         if (typeof gsap !== 'undefined' && modalBox) {
             gsap.fromTo(modalBox,
                 { scale: 0.85, rotation: -2, opacity: 0, y: 30 },
@@ -209,14 +209,14 @@ window.SpiderModal = (function () {
         if (images.length <= 1) return;
         currentIdx = (currentIdx + 1) % images.length;
         updateGalleryPosition();
-        if (window.SpiderAudio) window.SpiderAudio.pop();
+        if (window.AppAudio) window.AppAudio.pop();
     }
 
     function prevImage() {
         if (images.length <= 1) return;
         currentIdx = (currentIdx - 1 + images.length) % images.length;
         updateGalleryPosition();
-        if (window.SpiderAudio) window.SpiderAudio.pop();
+        if (window.AppAudio) window.AppAudio.pop();
     }
 
     function updateGalleryPosition() {
@@ -243,14 +243,14 @@ window.SpiderModal = (function () {
                 ease: 'power2.in',
                 onComplete: () => {
                     modal.classList.remove('modal-open');
-                    if (window.SpiderCore) window.SpiderCore.start();
+                    if (window.AppCore) window.AppCore.start();
                     else document.body.style.overflow = '';
                     currentIdx = 0;
                 }
             });
         } else {
             modal.classList.remove('modal-open');
-            if (window.SpiderCore) window.SpiderCore.start();
+            if (window.AppCore) window.AppCore.start();
             else document.body.style.overflow = '';
             currentIdx = 0;
         }
@@ -261,7 +261,7 @@ window.SpiderModal = (function () {
         lbImg.src = src;
         if (lbCaption) lbCaption.textContent = caption || '';
         lightbox.classList.add('lightbox-open');
-        if (window.SpiderAudio) window.SpiderAudio.laser();
+        if (window.AppAudio) window.AppAudio.laser();
     }
 
     function closeLightbox() {

@@ -5,7 +5,7 @@
 
 'use strict';
 
-window.SpiderTerminal = (function () {
+window.AppTerminal = (function () {
     const output  = document.getElementById('terminal-output');
     const input   = document.getElementById('terminal-input');
     const sendBtn = document.getElementById('terminal-send');
@@ -33,7 +33,7 @@ window.SpiderTerminal = (function () {
             if (cmd) {
                 chip.addEventListener('click', () => {
                     executeCommand(cmd);
-                    if (window.SpiderAudio) window.SpiderAudio.pop();
+                    if (window.AppAudio) window.AppAudio.pop();
                 });
             }
         });
@@ -104,11 +104,11 @@ window.SpiderTerminal = (function () {
                     colors: ['#0A66C2', '#70B5F9', '#057642', '#FFFFFF']
                 });
             }
-            if (window.SpiderAudio) window.SpiderAudio.coin();
+            if (window.AppAudio) window.AppAudio.coin();
             setTimeout(() => {
                 const contactEl = document.getElementById('contact');
                 if (contactEl) {
-                    if (window.SpiderCore) window.SpiderCore.scrollTo(contactEl);
+                    if (window.AppCore) window.AppCore.scrollTo(contactEl);
                     else contactEl.scrollIntoView({ behavior: 'smooth' });
                 }
             }, 700);
@@ -124,7 +124,7 @@ window.SpiderTerminal = (function () {
                     colors: ['#0A66C2', '#70B5F9', '#057642', '#F5C75D', '#FFFFFF']
                 });
             }
-            if (window.SpiderAudio) window.SpiderAudio.coin();
+            if (window.AppAudio) window.AppAudio.coin();
         },
 
         clear: () => {
@@ -149,7 +149,7 @@ window.SpiderTerminal = (function () {
 
         if (COMMANDS[cmdKey]) {
             COMMANDS[cmdKey]();
-            if (window.SpiderAudio) window.SpiderAudio.click();
+            if (window.AppAudio) window.AppAudio.click();
         } else {
             addLine(`<span class="t-error">Command not recognized: '${escapeHtml(raw)}'. Type <span class="t-highlight">'help'</span> for instructions.</span>`);
         }

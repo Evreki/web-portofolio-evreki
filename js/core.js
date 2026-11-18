@@ -1,11 +1,11 @@
 /**
- * SPIDER-MAN NEOBRUTALISM PORTFOLIO — CORE & SMOOTH SCROLL (LENIS + GSAP)
+ * PORTFOLIO — CORE & SMOOTH SCROLL (LENIS + GSAP)
  * Evreki Wan Refanja
  */
 
 'use strict';
 
-window.SpiderCore = (function () {
+window.AppCore = (function () {
     let lenis = null;
 
     function initLenis() {

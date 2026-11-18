@@ -72,7 +72,7 @@
     <!-- PRELOADER -->
     <div id="brutal-loader" aria-hidden="true">
         <div class="loader-content">
-            <div class="loader-spider-logo">
+            <div class="loader-logo">
                 <!-- drawn inline (not <use>) so the letter can animate in -->
                 <svg class="logo-mark logo-mark--draw" viewBox="0 0 64 64" aria-hidden="true">
                     <rect width="64" height="64" rx="15" fill="url(#logo-e-bg)"/>
@@ -238,6 +238,8 @@
                 <!-- ABOUT -->
                 <section id="about" class="li-card section">
                     <h2 class="section-header">About</h2>
+                    <div class="about-layout">
+                    <div class="about-main">
                     <div class="about-text">
                         <p>Bachelor of Informatics Engineering with experience as a Fullstack Developer. Skilled in modern web application development, REST API integration, and geospatial data processing using Leaflet.js and QGIS.</p>
                         <p>Experienced in building efficient, scalable, and user-friendly systems. Strong analytical skills and a solution-oriented mindset.</p>
@@ -254,6 +256,19 @@
                             <span>☕ Coffee Drinker &nbsp;·&nbsp; 📱 Flutter Enthusiast &nbsp;·&nbsp; 🎮 Gamer at Heart &nbsp;·&nbsp; 🚀 Always Learning &nbsp;·&nbsp; 🎨 Design Lover &nbsp;·&nbsp; 💡 Problem Solver &nbsp;·&nbsp; 🌐 Open Source Fan &nbsp;&nbsp;</span>
                             <span>☕ Coffee Drinker &nbsp;·&nbsp; 📱 Flutter Enthusiast &nbsp;·&nbsp; 🎮 Gamer at Heart &nbsp;·&nbsp; 🚀 Always Learning &nbsp;·&nbsp; 🎨 Design Lover &nbsp;·&nbsp; 💡 Problem Solver &nbsp;·&nbsp; 🌐 Open Source Fan &nbsp;&nbsp;</span>
                         </div>
+                    </div>
+                    </div>
+
+                    <!-- Personal photo (click to view full size) -->
+                    <figure class="about-photo polaroid-frame" title="Click to view full size">
+                        <img src="foto/foto%20final%202.jpeg" onerror="this.onerror=null; this.src='foto/foto-final-2.jpeg';"
+                             alt="Evreki Wan Refanja, S.Kom at Universitas Langlangbuana graduation" loading="lazy">
+                        <figcaption>
+                            <span class="about-photo-title">Evreki Wan Refanja, S.Kom</span>
+                            <span class="about-photo-sub"><i data-lucide="graduation-cap"></i> Graduation · Universitas Langlangbuana</span>
+                        </figcaption>
+                        <span class="about-photo-zoom" aria-hidden="true"><i data-lucide="maximize-2"></i></span>
+                    </figure>
                     </div>
                 </section>
 
@@ -665,7 +680,7 @@
                             </div>
                         </div>
 
-                        <form class="contact-form-comic" action="https://formsubmit.co/evrekiwanrefanja@gmail.com" method="POST">
+                        <form class="contact-form" action="https://formsubmit.co/evrekiwanrefanja@gmail.com" method="POST">
                             <input type="hidden" name="_subject" value="New message from your portfolio!">
                             <input type="hidden" name="_captcha" value="false">
                             <input type="hidden" name="_template" value="table">

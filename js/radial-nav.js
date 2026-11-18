@@ -11,7 +11,7 @@
 
 'use strict';
 
-window.SpiderRadialNav = (function () {
+window.AppRadialNav = (function () {
     let nav, dial, items, label, labelText, hub;
     let N = 0, STEP = 0;
     let rot = 0;                // current rotation in degrees (continuous)
@@ -84,7 +84,7 @@ window.SpiderRadialNav = (function () {
         nav.classList.add('show-label');
         clearTimeout(setFocus.t);
         setFocus.t = setTimeout(() => nav.classList.remove('show-label'), 1800);
-        if (window.SpiderAudio && SpiderAudio.pop) SpiderAudio.pop();
+        if (window.AppAudio && AppAudio.pop) AppAudio.pop();
     }
 
     // rotate the shortest way so item `i` sits on the pointer
@@ -103,7 +103,7 @@ window.SpiderRadialNav = (function () {
         const target = document.querySelector(items[i].dataset.target);
         if (!target) return;
         const offset = target.id === 'hero-section' ? -120 : -72;
-        if (window.SpiderCore) window.SpiderCore.scrollTo(target, { offset, duration: 1.2 });
+        if (window.AppCore) window.AppCore.scrollTo(target, { offset, duration: 1.2 });
         else target.scrollIntoView({ behavior: 'smooth' });
         if (!WIDE()) setTimeout(() => setOpen(false, false), 450);
     }

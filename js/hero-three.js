@@ -9,7 +9,7 @@
 
 'use strict';
 
-window.SpiderHeroThree = (function () {
+window.AppBanner = (function () {
     let scene, camera, renderer, clock, container, canvas;
     let points, lines, nodes = [], linePos, lineCol, pointPos;
     let group;

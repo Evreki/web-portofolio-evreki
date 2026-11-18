@@ -1,11 +1,11 @@
 /**
- * SPIDER-MAN NEOBRUTALISM PORTFOLIO — PROJECTS & CERTIFICATES (SWIPER.JS)
+ * PORTFOLIO — PROJECTS & CERTIFICATES (SWIPER.JS)
  * Evreki Wan Refanja
  */
 
 'use strict';
 
-window.SpiderProjects = (function () {
+window.AppProjects = (function () {
     let projectsSwiper = null;
     let certsSwiper = null;
 

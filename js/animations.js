@@ -1,11 +1,11 @@
 /**
- * SPIDER-MAN NEOBRUTALISM PORTFOLIO — GSAP & SCROLLTRIGGER ANIMATION SYSTEM
+ * PORTFOLIO — GSAP & SCROLLTRIGGER ANIMATION SYSTEM
  * Evreki Wan Refanja
  */
 
 'use strict';
 
-window.SpiderAnimations = (function () {
+window.AppAnimations = (function () {
 
     function init() {
         if (typeof gsap === 'undefined') return;
@@ -111,56 +111,6 @@ window.SpiderAnimations = (function () {
 
     }
 
-    function initTitleGlitchAndParallax() {
-        const title = document.querySelector('.hero-title');
-        const hero = document.getElementById('hero-section');
-        if (!title) return;
-
-        // Periodic Spider-Sense Glitch Pulse
-        setInterval(() => {
-            title.classList.add('is-glitching');
-            setTimeout(() => {
-                title.classList.remove('is-glitching');
-            }, 380);
-        }, 4200);
-
-        // Click on title -> trigger instant burst + sound
-        title.addEventListener('click', () => {
-            title.classList.add('is-glitching');
-            if (typeof confetti === 'function') {
-                confetti({
-                    particleCount: 40,
-                    spread: 60,
-                    origin: { y: 0.4 },
-                    colors: ['#E50914', '#2563EB', '#38BDF8', '#FFFFFF']
-                });
-            }
-            if (window.SpiderCore && window.SpiderCore.playSound) {
-                window.SpiderCore.playSound('web');
-            }
-            setTimeout(() => title.classList.remove('is-glitching'), 600);
-        });
-
-        // 3D Parallax on Mouse Move
-        if (hero) {
-            hero.addEventListener('mousemove', (e) => {
-                const rect = hero.getBoundingClientRect();
-                const xPct = (e.clientX - rect.left) / rect.width - 0.5;
-                const yPct = (e.clientY - rect.top) / rect.height - 0.5;
-
-                const shadowX1 = 4 + xPct * 8;
-                const shadowY1 = 4 + yPct * 8;
-                const shadowX2 = 8 + xPct * 16;
-                const shadowY2 = 8 + yPct * 16;
-
-                title.style.textShadow = `${shadowX1}px ${shadowY1}px 0 #E50914, ${shadowX2}px ${shadowY2}px 0 #2563EB, 14px 14px 0 #000000`;
-            }, { passive: true });
-
-            hero.addEventListener('mouseleave', () => {
-                title.style.textShadow = '4px 4px 0 #E50914, 8px 8px 0 #2563EB, 12px 12px 0 #000000';
-            });
-        }
-    }
 
     function initTypedRole() {
         const el = document.getElementById('typed-role');
@@ -207,7 +157,7 @@ window.SpiderAnimations = (function () {
         }, { passive: true });
     }
 
-    // ── SECTION HEADERS COMIC IMPACT ───────────────────────────
+    // ── SECTION HEADERS ────────────────────────────────────────
     function initSectionHeaders() {
         if (typeof ScrollTrigger === 'undefined') return;
 
@@ -315,7 +265,7 @@ window.SpiderAnimations = (function () {
         });
     }
 
-    // ── TIMELINE (SPIDER-VERSE MULTIVERSE) ──────────────────────
+    // ── EDUCATION TIMELINE ─────────────────────────────────────
     function initTimelineAnimations() {
         const journeySection = document.getElementById('journey');
         if (!journeySection || typeof ScrollTrigger === 'undefined') return;
@@ -401,6 +351,7 @@ window.SpiderAnimations = (function () {
     function initMarquees() {
         const track1 = document.querySelector('.marquee-content');
         const track2 = document.querySelector('.marquee-content-reverse');
+        if (!track1 && !track2) return; // no marquees on the page: don't run an empty loop every frame
         let pos1 = 0, pos2 = 0;
         let lastScrollY = window.scrollY;
         let scrollVelocity = 0;
@@ -439,13 +390,47 @@ window.SpiderAnimations = (function () {
         gsap.utils.toArray('.page-main > .li-card:not(.profile-card), .page-aside > .li-card').forEach(card => {
             gsap.from(card, {
                 scrollTrigger: { trigger: card, start: 'top 92%', toggleActions: 'play none none none' },
-                y: 28,
+                y: 32,
+                scale: 0.985,
                 opacity: 0,
-                duration: 0.6,
-                ease: 'power3.out',
+                duration: 0.75,
+                ease: 'expo.out',
                 clearProps: 'transform,opacity'
             });
         });
+
+        // Project & certificate cards: deal in one after another, like cards on a table
+        ['.project-card', '.cert-card'].forEach(sel => {
+            gsap.set(sel, { opacity: 0, y: 26, rotation: -1.5 });
+            ScrollTrigger.batch(sel, {
+                start: 'top 90%',
+                once: true,
+                onEnter: batch => gsap.to(batch, {
+                    opacity: 1, y: 0, rotation: 0,
+                    duration: 0.7, stagger: 0.09, ease: 'back.out(1.4)',
+                    clearProps: 'transform,opacity'
+                })
+            });
+        });
+
+        // Photo in About: a slow, cinematic reveal
+        const photo = document.querySelector('.about-photo');
+        if (photo) {
+            gsap.fromTo(photo,
+                { clipPath: 'inset(12% 12% 12% 12% round 10px)', opacity: 0 },
+                {
+                    clipPath: 'inset(0% 0% 0% 0% round 10px)', opacity: 1,
+                    duration: 1.1, ease: 'expo.out', clearProps: 'clipPath,opacity',
+                    scrollTrigger: { trigger: photo, start: 'top 88%', once: true }
+                });
+            const img = photo.querySelector('img');
+            if (img) {
+                gsap.fromTo(img, { scale: 1.12 }, {
+                    scale: 1, duration: 1.4, ease: 'expo.out', clearProps: 'transform',
+                    scrollTrigger: { trigger: photo, start: 'top 88%', once: true }
+                });
+            }
+        }
 
         const about = document.getElementById('about');
         if (about) {
@@ -462,7 +447,7 @@ window.SpiderAnimations = (function () {
 
         const contact = document.getElementById('contact');
         if (contact) {
-            gsap.from('#contact .contact-info-card > *, #contact .contact-form-comic > .input-group, #contact .contact-submit-btn', {
+            gsap.from('#contact .contact-info-card > *, #contact .contact-form > .input-group, #contact .contact-submit-btn', {
                 scrollTrigger: { trigger: contact, start: 'top 85%', toggleActions: 'play none none none' },
                 y: 20,
                 opacity: 0,

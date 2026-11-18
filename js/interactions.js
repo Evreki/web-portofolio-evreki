@@ -1,5 +1,5 @@
 /**
- * SPIDER-MAN NEOBRUTALISM PORTFOLIO — INTERACTIVITY SYSTEM
+ * PORTFOLIO — INTERACTIVITY SYSTEM
  * Cursor, Audio FX, 3D Card Tilt, Magnetic Physics, Stickers, Toast
  * Evreki Wan Refanja
  */
@@ -7,7 +7,7 @@
 'use strict';
 
 // ── RETRO AUDIO SYSTEM (WEB AUDIO API) ─────────────────────────
-window.SpiderAudio = (function () {
+window.AppAudio = (function () {
     let ctx = null;
     let muted = localStorage.getItem('sound_enabled') === 'false';
 
@@ -54,8 +54,8 @@ window.SpiderAudio = (function () {
             playTone(988, 'square', 0.07, 0.06);
             setTimeout(() => playTone(1319, 'square', 0.2, 0.08), 75);
         },
-        thwip: () => {
-            // Web-Slinging "THWIP" sound effect
+        swoosh: () => {
+            // Soft "swoosh" sound effect
             try {
                 if (muted) return;
                 const ac = getAudioContext();
@@ -103,7 +103,7 @@ window.SpiderAudio = (function () {
 })();
 
 // ── MAIN INTERACTIONS MODULE ──────────────────────────────────
-window.SpiderInteractions = (function () {
+window.AppInteractions = (function () {
 
     function init() {
         initCustomCursor();
@@ -117,7 +117,6 @@ window.SpiderInteractions = (function () {
         initNavbarSpy();
         initSkeletonLoading();
         initExperience();
-        initContentSkeletons();
     }
 
     // ── SKELETON SHIMMER FOR IMAGES ────────────────────────────
@@ -218,134 +217,32 @@ window.SpiderInteractions = (function () {
         if (typeof lucide !== 'undefined') lucide.createIcons();
     }
 
-    // ── CONTENT SKELETON (shown when a card scrolls into view) ──
-    // Each card first shows shimmering bars drawn exactly where its real
-    // text, images, chips and bars sit; then the real content fades in.
-    function initContentSkeletons() {
-        if (!('IntersectionObserver' in window)) return;
-
-        const CARDS = '.exp-item, .skill-card, .project-card, .cert-card, .edu-item, .stat-item';
-        const PARTS = [
-            'h3', 'h4', 'p', 'li', '.skill-info', '.progress-bar', '.skill-tag', '.exp-chip',
-            '.brutal-badge', '.project-img-box', '.cert-img-box', '.exp-logo', '.brutal-btn',
-            '.timeline-year-badge', '.exp-now', '.exp-more-btn', '.project-issue-badge',
-            '.stat-number-row', '.stat-label', '.about-info-icon', '.about-info-label', '.about-info-value',
-            '.exp-skills > svg', '.skill-card-title'
-        ].join(',');
-        const TEXT = 'h3, h4, p, li, .stat-label, .about-info-label, .about-info-value';
-
-        const cards = [...document.querySelectorAll(CARDS)];
-        cards.forEach(c => c.classList.add('is-skeleton'));
-
-        function bar(layer, x, y, w, h, cls) {
-            if (w < 2 || h < 2) return;
-            const b = document.createElement('span');
-            b.className = 'sk sk-bar' + (cls ? ' ' + cls : '');
-            b.style.cssText = `left:${x}px;top:${y}px;width:${w}px;height:${h}px`;
-            layer.appendChild(b);
-        }
-
-        function build(card) {
-            const cr = card.getBoundingClientRect();
-            if (!cr.width || !cr.height) return null;
-            const scale = cr.width / (card.offsetWidth || cr.width);
-            const layer = document.createElement('div');
-            layer.className = 'card-skeleton';
-            layer.setAttribute('aria-hidden', 'true');
-
-            const all = [...card.querySelectorAll(PARTS)];
-            const parts = all.filter(el => !all.some(o => o !== el && o.contains(el)));
-
-            parts.forEach(el => {
-                const clip = el.closest('.exp-collapse');
-                const clipBottom = clip ? clip.getBoundingClientRect().bottom : Infinity;
-                const rel = r => [(r.left - cr.left) / scale, (r.top - cr.top) / scale, r.width / scale, r.height / scale];
-
-                if (el.matches(TEXT)) {
-                    // one bar per rendered text line
-                    const range = document.createRange();
-                    range.selectNodeContents(el);
-                    const lines = [];
-                    [...range.getClientRects()].forEach(r => {
-                        if (r.width < 2 || r.top >= clipBottom) return;
-                        const line = lines.find(l => Math.abs(l.top - r.top) < 4);
-                        if (line) { line.left = Math.min(line.left, r.left); line.right = Math.max(line.right, r.right); line.h = Math.max(line.h, r.height); }
-                        else lines.push({ top: r.top, left: r.left, right: r.right, h: r.height });
-                    });
-                    lines.forEach(l => {
-                        const [x, y, w, h] = rel({ left: l.left, top: l.top, width: l.right - l.left, height: l.h });
-                        const bh = Math.max(8, Math.min(h * 0.62, 18));
-                        bar(layer, x, y + (h - bh) / 2, w, bh, 'sk-text');
-                    });
-                } else {
-                    const r = el.getBoundingClientRect();
-                    if (r.top >= clipBottom) return;
-                    const [x, y, w, h] = rel(r);
-                    bar(layer, x, y, w, h, el.matches('.project-img-box, .cert-img-box, .exp-logo') ? 'sk-media' : '');
-                }
-            });
-
-            card.appendChild(layer);
-            return layer;
-        }
-
-        function reveal(card, order) {
-            const layer = build(card);
-            const hold = 650 + order * 110;
-            setTimeout(() => {
-                card.classList.remove('is-skeleton');
-                card.classList.add('skeleton-reveal');
-                if (layer) {
-                    layer.classList.add('is-out');
-                    setTimeout(() => layer.remove(), 450);
-                }
-                setTimeout(() => card.classList.remove('skeleton-reveal'), 600);
-            }, hold);
-        }
-
-        const io = new IntersectionObserver(entries => {
-            let order = 0;
-            entries.forEach(entry => {
-                if (!entry.isIntersecting) return;
-                io.unobserve(entry.target);
-                reveal(entry.target, Math.min(order++, 4));
-            });
-        }, { threshold: 0.12 });
-
-        // wait for the preloader so the skeleton is actually seen in the content
-        const start = () => cards.forEach(c => io.observe(c));
-        const loader = document.getElementById('brutal-loader');
-        if (loader && getComputedStyle(loader).display !== 'none') {
-            const mo = new MutationObserver(() => {
-                if (loader.style.display === 'none') { mo.disconnect(); start(); }
-            });
-            mo.observe(loader, { attributes: true, attributeFilter: ['style', 'class'] });
-            setTimeout(() => { mo.disconnect(); start(); }, 4000); // safety net
-        } else {
-            start();
-        }
-    }
-
-    // ── SPIDER-WEB CUSTOM CURSOR ───────────────────────────────
+    // ── CUSTOM CURSOR RING ─────────────────────────────────────
+    // Animates only while the ring is catching up with the mouse, then sleeps.
     function initCustomCursor() {
         const cursor = document.querySelector('.brutal-cursor');
         if (!cursor || !window.matchMedia('(pointer:fine)').matches) return;
 
         let mouseX = -100, mouseY = -100;
         let cursorX = -100, cursorY = -100;
-
-        document.addEventListener('mousemove', e => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-        }, { passive: true });
+        let running = false;
 
         function renderCursor() {
             cursorX += (mouseX - cursorX) * 0.35;
             cursorY += (mouseY - cursorY) * 0.35;
-            cursor.style.transform = `translate(${cursorX}px, ${cursorY}px) translate(-50%, -50%)`;
-            requestAnimationFrame(renderCursor);
+            cursor.style.transform = `translate3d(${cursorX}px, ${cursorY}px, 0) translate(-50%, -50%)`;
+            if (Math.abs(mouseX - cursorX) > 0.3 || Math.abs(mouseY - cursorY) > 0.3) {
+                requestAnimationFrame(renderCursor);
+            } else {
+                running = false;
+            }
         }
-        requestAnimationFrame(renderCursor);
+
+        document.addEventListener('mousemove', e => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            if (!running) { running = true; requestAnimationFrame(renderCursor); }
+        }, { passive: true });
 
         // Hover expansions
         const hoverTargets = 'a, button, .brutal-btn, .social-btn, .t-chip, .open-modal-btn, .draggable-sticker, .about-info-card';
@@ -354,27 +251,6 @@ window.SpiderInteractions = (function () {
             el.addEventListener('mouseleave', () => cursor.classList.remove('hovering'));
         });
 
-        // Web cursor particle trail
-        const COLORS = ['#0A66C2', '#378FE9', '#70B5F9'];
-        let lastTrailTime = 0;
-        document.addEventListener('mousemove', e => {
-            const now = Date.now();
-            if (now - lastTrailTime < 45) return;
-            lastTrailTime = now;
-
-            const dot = document.createElement('div');
-            dot.className = 'cursor-trail-dot';
-            dot.style.left = e.clientX + 'px';
-            dot.style.top = e.clientY + 'px';
-            dot.style.backgroundColor = COLORS[Math.floor(Math.random() * COLORS.length)];
-            document.body.appendChild(dot);
-
-            setTimeout(() => {
-                dot.style.opacity = '0';
-                dot.style.transform = 'translate(-50%, -50%) scale(0.2)';
-                setTimeout(() => dot.remove(), 250);
-            }, 180);
-        }, { passive: true });
     }
 
     // ── SOUND FX CONTROLS ──────────────────────────────────────
@@ -392,24 +268,24 @@ window.SpiderInteractions = (function () {
             }
         }
 
-        updateIcon(SpiderAudio.isOn());
+        updateIcon(AppAudio.isOn());
 
         btn.addEventListener('click', () => {
-            const isOn = SpiderAudio.toggle();
+            const isOn = AppAudio.toggle();
             updateIcon(isOn);
-            if (isOn) SpiderAudio.coin();
+            if (isOn) AppAudio.coin();
         });
 
         // Attach audio to UI elements
         document.querySelectorAll('.brutal-btn, .nav-link, .social-btn, .t-chip, .modal-close, .modal-dismiss-btn').forEach(el => {
             el.addEventListener('click', () => {
                 if (el.classList.contains('danger') || el.classList.contains('open-modal-btn')) {
-                    SpiderAudio.thwip();
+                    AppAudio.swoosh();
                 } else {
-                    SpiderAudio.click();
+                    AppAudio.click();
                 }
             });
-            el.addEventListener('mouseenter', () => SpiderAudio.pop());
+            el.addEventListener('mouseenter', () => AppAudio.pop());
         });
     }
 
@@ -470,7 +346,7 @@ window.SpiderInteractions = (function () {
             function startDrag(e) {
                 isDragging = true;
                 sticker.classList.add('is-dragging');
-                SpiderAudio.pop();
+                AppAudio.pop();
 
                 const clientX = e.touches ? e.touches[0].clientX : e.clientX;
                 const clientY = e.touches ? e.touches[0].clientY : e.clientY;
@@ -525,7 +401,7 @@ window.SpiderInteractions = (function () {
         function showToast(msg) {
             toastMsg.textContent = msg;
             toast.classList.add('show');
-            SpiderAudio.coin();
+            AppAudio.coin();
             clearTimeout(timer);
             timer = setTimeout(() => toast.classList.remove('show'), 2200);
         }
@@ -572,9 +448,9 @@ window.SpiderInteractions = (function () {
         }, { passive: true });
 
         btn.addEventListener('click', () => {
-            SpiderAudio.thwip();
-            if (window.SpiderCore) {
-                window.SpiderCore.scrollTo(0, { duration: 1.2 });
+            AppAudio.swoosh();
+            if (window.AppCore) {
+                window.AppCore.scrollTo(0, { duration: 1.2 });
             } else {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }

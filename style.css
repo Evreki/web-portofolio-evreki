@@ -140,7 +140,7 @@ button { cursor: pointer; background: none; border: none; }
     justify-content: center;
 }
 .loader-content { text-align: center; width: 220px; }
-.loader-spider-logo {
+.loader-logo {
     width: 64px; height: 64px;
     margin: 0 auto 22px;
     border-radius: 12px;
@@ -241,8 +241,8 @@ button { cursor: pointer; background: none; border: none; }
     position: fixed;
     top: 0; left: 0; right: 0;
     height: var(--nav-h);
-    background: rgba(255, 255, 255, 0.96);
-    backdrop-filter: saturate(160%) blur(8px);
+    background: #FFFFFF;
+
     border-bottom: 1px solid var(--line);
     z-index: 1000;
     transition: box-shadow 0.25s ease;
@@ -395,9 +395,6 @@ button { cursor: pointer; background: none; border: none; }
     touch-action: manipulation;
     isolation: isolate;
     transition: box-shadow 0.3s ease, transform 0.3s var(--ease);
-    --spider-x: 50%;
-    --spider-y: 50%;
-    --spider-radius: 0px;
 }
 .geo-avatar:hover { box-shadow: 0 0 0 3px var(--blue-light), 0 8px 24px rgba(10, 102, 194, 0.25); }
 .geo-avatar-bg { position: absolute; inset: 0; }
@@ -957,7 +954,7 @@ button { cursor: pointer; background: none; border: none; }
 }
 .contact-social-btn svg { width: 18px; height: 18px; }
 .contact-social-btn:hover { background: var(--blue); color: #FFFFFF; border-color: var(--blue); }
-.contact-form-comic { display: grid; gap: 12px; }
+.contact-form { display: grid; gap: 12px; }
 .input-group { display: grid; gap: 4px; position: relative; }
 .input-group label { font-size: 0.88rem; font-weight: 600; color: var(--text-2); }
 .brutal-input {
@@ -1142,7 +1139,7 @@ button { cursor: pointer; background: none; border: none; }
     z-index: 4;
     width: 38px; height: 38px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.92);
+    background: #FFFFFF;
     color: var(--text);
     display: inline-flex; align-items: center; justify-content: center;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
@@ -1236,8 +1233,8 @@ button { cursor: pointer; background: none; border: none; }
     width: calc(var(--R) * 2);
     height: calc(var(--R) * 2);
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.92);
-    backdrop-filter: blur(10px) saturate(160%);
+    background: #FFFFFF;
+
     box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08), 8px 0 30px rgba(0, 0, 0, 0.10);
     pointer-events: auto;
     touch-action: none;
@@ -1395,31 +1392,6 @@ button { cursor: pointer; background: none; border: none; }
 .modal-gallery-slide.skeleton { background-color: #222 !important; }
 @keyframes skeleton-shimmer { from { background-position: 120% 0; } to { background-position: -120% 0; } }
 
-.is-skeleton { position: relative; }
-.is-skeleton > *:not(.card-skeleton) { visibility: hidden; }
-.card-skeleton {
-    position: absolute;
-    inset: 0;
-    z-index: 6;
-    pointer-events: none;
-    overflow: hidden;
-    transition: opacity 0.4s ease;
-}
-.card-skeleton.is-out { opacity: 0; }
-.sk-bar {
-    position: absolute;
-    display: block;
-    border-radius: 4px;
-    background-color: #E9E6E1;
-    background-image: linear-gradient(100deg, rgba(255,255,255,0) 30%, rgba(255,255,255,0.85) 50%, rgba(255,255,255,0) 70%);
-    background-size: 300% 100%;
-    background-attachment: fixed;
-    animation: skeleton-shimmer 1.3s linear infinite;
-}
-.sk-bar.sk-text { border-radius: 5px; }
-.sk-bar.sk-media { border-radius: 4px; background-color: #E3E0DA; }
-.skeleton-reveal > *:not(.card-skeleton) { animation: skeleton-content-in 0.45s ease both; }
-@keyframes skeleton-content-in { from { opacity: 0; } to { opacity: 1; } }
 
 /* ── 23. MICRO-INTERACTIONS ── */
 /* Press: shrink a little + thin glow (uses `scale` so it composes with inline transforms) */
@@ -1552,7 +1524,7 @@ button { cursor: pointer; background: none; border: none; }
 .nav-logo-badge .logo-mark { --ping: 0; }
 .logo-e-dot { transform-box: fill-box; transform-origin: center; }
 .nav-logo .logo-mark .logo-e-dot,
-.loader-spider-logo .logo-e-dot { animation: logo-dot 2.4s ease-in-out infinite; }
+.loader-logo .logo-e-dot { animation: logo-dot 2.4s ease-in-out infinite; }
 @keyframes logo-dot {
     0%, 100% { opacity: 1; }
     50%      { opacity: 0.55; }
@@ -1570,7 +1542,7 @@ button { cursor: pointer; background: none; border: none; }
 .nav-logo-text small { letter-spacing: 0.01em; }
 
 /* Loader: the "E" is drawn stroke by stroke, then the dot pops in */
-.loader-spider-logo {
+.loader-logo {
     background: none;
     padding: 0;
     width: 72px; height: 72px;
@@ -1589,3 +1561,64 @@ button { cursor: pointer; background: none; border: none; }
 }
 @keyframes logo-draw { to { stroke-dashoffset: 0; } }
 @keyframes logo-pop  { to { transform: scale(1); } }
+
+/* ── 28. ABOUT PHOTO ── */
+.about-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 230px;
+    gap: 24px;
+    align-items: start;
+}
+.about-main { min-width: 0; }
+.about-photo {
+    position: relative;
+    margin: 0;
+    border-radius: 10px;
+    overflow: hidden;
+    background: #E9E6E1;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08), 0 6px 18px rgba(0, 0, 0, 0.10);
+    cursor: zoom-in;
+    aspect-ratio: 3 / 4;
+    transition: box-shadow 0.4s var(--ease), translate 0.45s var(--ease);
+}
+.about-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 55% 45%;
+    transition: transform 0.8s var(--ease);
+}
+.about-photo figcaption {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    padding: 34px 12px 10px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0));
+    color: #FFFFFF;
+    display: grid;
+    gap: 1px;
+}
+.about-photo-title { font-weight: 700; font-size: 0.92rem; }
+.about-photo-sub { display: inline-flex; align-items: center; gap: 5px; font-size: 0.76rem; opacity: 0.9; }
+.about-photo-sub svg { width: 13px; height: 13px; }
+.about-photo-zoom {
+    position: absolute;
+    top: 10px; right: 10px;
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.92);
+    color: var(--text);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0;
+    scale: 0.8;
+    transition: opacity 0.3s ease, scale 0.3s var(--ease);
+}
+.about-photo-zoom svg { width: 15px; height: 15px; }
+@media (hover: hover) and (pointer: fine) {
+    .about-photo:hover { translate: 0 -6px; box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08), 0 16px 32px rgba(0, 0, 0, 0.16); }
+    .about-photo:hover img { transform: scale(1.05); }
+    .about-photo:hover .about-photo-zoom { opacity: 1; scale: 1; }
+}
+@media (max-width: 720px) {
+    .about-layout { grid-template-columns: minmax(0, 1fr); }
+    .about-photo { max-width: 320px; width: 100%; justify-self: center; aspect-ratio: 4 / 5; }
+}

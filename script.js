@@ -1,5 +1,5 @@
 /**
- * SPIDER-MAN NEOBRUTALISM PORTFOLIO — MAIN ENTRY (script.js)
+ * PORTFOLIO — MAIN ENTRY (script.js)
  * Evreki Wan Refanja — Creative Developer & Software Engineer
  */
 
@@ -12,43 +12,43 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // 2. Initialize Core Smooth Scrolling & GSAP integration
-    if (window.SpiderCore) {
-        window.SpiderCore.init();
+    if (window.AppCore) {
+        window.AppCore.init();
     }
 
-    // 3. Initialize Three.js 3D Spider-Web Hero Scene
-    if (window.SpiderHeroThree) {
-        window.SpiderHeroThree.init();
+    // 3. Initialize the profile banner animation (Three.js)
+    if (window.AppBanner) {
+        window.AppBanner.init();
     }
 
     // 4. Initialize GSAP Animation Timelines & ScrollTriggers
-    if (window.SpiderAnimations) {
-        window.SpiderAnimations.init();
+    if (window.AppAnimations) {
+        window.AppAnimations.init();
     }
 
     // 5. Initialize Micro-Interactions (Cursor, Audio, Tilt, Magnet, Stickers, Toast)
-    if (window.SpiderInteractions) {
-        window.SpiderInteractions.init();
+    if (window.AppInteractions) {
+        window.AppInteractions.init();
     }
 
     // 5b. Radial sidebar (rotatable section dial)
-    if (window.SpiderRadialNav) {
-        window.SpiderRadialNav.init();
+    if (window.AppRadialNav) {
+        window.AppRadialNav.init();
     }
 
     // 6. Initialize Swiper.js Showcases (Projects & Certificates)
-    if (window.SpiderProjects) {
-        window.SpiderProjects.init();
+    if (window.AppProjects) {
+        window.AppProjects.init();
     }
 
     // 7. Initialize Project Modal & Fullscreen Lightbox
-    if (window.SpiderModal) {
-        window.SpiderModal.init();
+    if (window.AppModal) {
+        window.AppModal.init();
     }
 
     // 8. Initialize Dev Terminal Console
-    if (window.SpiderTerminal) {
-        window.SpiderTerminal.init();
+    if (window.AppTerminal) {
+        window.AppTerminal.init();
     }
 
     // 9. Contact Message Character Counter & Form Feedback
@@ -61,14 +61,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // 10. Barba.js Architectural Preparation Hook
-    window.SpiderBarbaHook = {
+    window.AppBarbaHook = {
         beforeEnter: () => {
-            if (window.SpiderCore) window.SpiderCore.stop();
+            if (window.AppCore) window.AppCore.stop();
         },
         afterEnter: () => {
-            if (window.SpiderCore) {
-                window.SpiderCore.start();
-                window.SpiderCore.scrollTo(0, { immediate: true });
+            if (window.AppCore) {
+                window.AppCore.start();
+                window.AppCore.scrollTo(0, { immediate: true });
             }
             if (typeof lucide !== 'undefined') lucide.createIcons();
             if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
