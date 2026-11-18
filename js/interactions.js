@@ -118,6 +118,7 @@ window.SpiderInteractions = (function () {
         initNavbarSpy();
         initSkeletonLoading();
         initExperience();
+        initContentSkeletons();
     }
 
     // ── SKELETON SHIMMER FOR IMAGES ────────────────────────────
@@ -145,14 +146,18 @@ window.SpiderInteractions = (function () {
         });
     }
 
-    // ── EXPERIENCE: LIVE DURATIONS + "SEE MORE" ─────────────────
+    // ── EXPERIENCE: DURATIONS + AUTO "SEE MORE" ─────────────────
     function initExperience() {
         const section = document.getElementById('experience');
         if (!section) return;
 
-        // LinkedIn-style duration (inclusive months), recalculated from today
+        // LinkedIn-style duration (inclusive months), recalculated from today.
+        // data-duration="..." pins a fixed label instead.
         const now = new Date();
         section.querySelectorAll('.exp-item[data-start]').forEach(item => {
+            const el = item.querySelector('.exp-duration');
+            if (!el) return;
+            if (item.dataset.duration) { el.textContent = item.dataset.duration; return; }
             const [sy, sm] = item.dataset.start.split('-').map(Number);
             let ey = now.getFullYear(), em = now.getMonth() + 1;
             if (item.dataset.end) [ey, em] = item.dataset.end.split('-').map(Number);
@@ -161,22 +166,41 @@ window.SpiderInteractions = (function () {
             const parts = [];
             if (yrs) parts.push(`${yrs} yr${yrs > 1 ? 's' : ''}`);
             if (mos) parts.push(`${mos} mo${mos > 1 ? 's' : ''}`);
-            const el = item.querySelector('.exp-duration');
-            if (el) el.textContent = parts.join(' ');
+            el.textContent = parts.join(' ');
         });
 
-        section.querySelectorAll('.exp-more-btn').forEach(btn => {
-            const box = document.getElementById(btn.getAttribute('aria-controls'));
-            const label = btn.querySelector('.exp-more-label');
-            if (!box) return;
-            const collapsed = getComputedStyle(box).maxHeight;
+        // Every experience whose description is long gets a "...see more" toggle,
+        // so by default each entry stays short.
+        const COLLAPSED = 118; // px of text visible while collapsed (~4 lines)
+        section.querySelectorAll('.exp-body').forEach((body, i) => {
+            const parts = [...body.children].filter(el => el.matches('.exp-desc, .exp-points'));
+            if (!parts.length) return;
+
+            const box = document.createElement('div');
+            box.className = 'exp-collapse';
+            box.id = `exp-more-${i}`;
+            parts[0].before(box);
+            parts.forEach(p => box.appendChild(p));
+
+            if (box.scrollHeight <= COLLAPSED + 36) return; // short enough, no toggle
+
+            box.classList.add('is-collapsible');
+            box.style.maxHeight = COLLAPSED + 'px';
+
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'exp-more-btn';
+            btn.setAttribute('aria-expanded', 'false');
+            btn.setAttribute('aria-controls', box.id);
+            btn.innerHTML = '<span class="exp-more-label">…see more</span> <i data-lucide="chevron-down"></i>';
+            box.after(btn);
 
             btn.addEventListener('click', () => {
                 const open = btn.getAttribute('aria-expanded') === 'true';
                 if (open) {
                     box.style.maxHeight = box.scrollHeight + 'px';
                     void box.offsetHeight; // force reflow so the collapse animates
-                    box.style.maxHeight = collapsed;
+                    box.style.maxHeight = COLLAPSED + 'px';
                     box.classList.remove('is-open');
                 } else {
                     box.style.maxHeight = box.scrollHeight + 'px';
@@ -187,10 +211,120 @@ window.SpiderInteractions = (function () {
                     });
                 }
                 btn.setAttribute('aria-expanded', String(!open));
-                if (label) label.textContent = open ? '…see more' : 'see less';
+                btn.querySelector('.exp-more-label').textContent = open ? '…see more' : 'see less';
                 if (typeof ScrollTrigger !== 'undefined') setTimeout(() => ScrollTrigger.refresh(), 600);
             });
         });
+
+        if (typeof lucide !== 'undefined') lucide.createIcons();
+    }
+
+    // ── CONTENT SKELETON (shown when a card scrolls into view) ──
+    // Each card first shows shimmering bars drawn exactly where its real
+    // text, images, chips and bars sit; then the real content fades in.
+    function initContentSkeletons() {
+        if (!('IntersectionObserver' in window)) return;
+
+        const CARDS = '.exp-item, .skill-card, .project-card, .cert-card, .timeline-card, .about-info-card, .stat-item';
+        const PARTS = [
+            'h3', 'h4', 'p', 'li', '.skill-info', '.progress-bar', '.skill-tag', '.exp-chip',
+            '.brutal-badge', '.project-img-box', '.cert-img-box', '.exp-logo', '.brutal-btn',
+            '.timeline-year-badge', '.exp-now', '.exp-more-btn', '.project-issue-badge',
+            '.stat-number-row', '.stat-label', '.about-info-icon', '.about-info-label', '.about-info-value',
+            '.exp-skills > svg', '.skill-card-title'
+        ].join(',');
+        const TEXT = 'h3, h4, p, li, .stat-label, .about-info-label, .about-info-value';
+
+        const cards = [...document.querySelectorAll(CARDS)];
+        cards.forEach(c => c.classList.add('is-skeleton'));
+
+        function bar(layer, x, y, w, h, cls) {
+            if (w < 2 || h < 2) return;
+            const b = document.createElement('span');
+            b.className = 'sk sk-bar' + (cls ? ' ' + cls : '');
+            b.style.cssText = `left:${x}px;top:${y}px;width:${w}px;height:${h}px`;
+            layer.appendChild(b);
+        }
+
+        function build(card) {
+            const cr = card.getBoundingClientRect();
+            if (!cr.width || !cr.height) return null;
+            const scale = cr.width / (card.offsetWidth || cr.width);
+            const layer = document.createElement('div');
+            layer.className = 'card-skeleton';
+            layer.setAttribute('aria-hidden', 'true');
+
+            const all = [...card.querySelectorAll(PARTS)];
+            const parts = all.filter(el => !all.some(o => o !== el && o.contains(el)));
+
+            parts.forEach(el => {
+                const clip = el.closest('.exp-collapse');
+                const clipBottom = clip ? clip.getBoundingClientRect().bottom : Infinity;
+                const rel = r => [(r.left - cr.left) / scale, (r.top - cr.top) / scale, r.width / scale, r.height / scale];
+
+                if (el.matches(TEXT)) {
+                    // one bar per rendered text line
+                    const range = document.createRange();
+                    range.selectNodeContents(el);
+                    const lines = [];
+                    [...range.getClientRects()].forEach(r => {
+                        if (r.width < 2 || r.top >= clipBottom) return;
+                        const line = lines.find(l => Math.abs(l.top - r.top) < 4);
+                        if (line) { line.left = Math.min(line.left, r.left); line.right = Math.max(line.right, r.right); line.h = Math.max(line.h, r.height); }
+                        else lines.push({ top: r.top, left: r.left, right: r.right, h: r.height });
+                    });
+                    lines.forEach(l => {
+                        const [x, y, w, h] = rel({ left: l.left, top: l.top, width: l.right - l.left, height: l.h });
+                        const bh = Math.max(8, Math.min(h * 0.62, 18));
+                        bar(layer, x, y + (h - bh) / 2, w, bh, 'sk-text');
+                    });
+                } else {
+                    const r = el.getBoundingClientRect();
+                    if (r.top >= clipBottom) return;
+                    const [x, y, w, h] = rel(r);
+                    bar(layer, x, y, w, h, el.matches('.project-img-box, .cert-img-box, .exp-logo') ? 'sk-media' : '');
+                }
+            });
+
+            card.appendChild(layer);
+            return layer;
+        }
+
+        function reveal(card, order) {
+            const layer = build(card);
+            const hold = 650 + order * 110;
+            setTimeout(() => {
+                card.classList.remove('is-skeleton');
+                card.classList.add('skeleton-reveal');
+                if (layer) {
+                    layer.classList.add('is-out');
+                    setTimeout(() => layer.remove(), 450);
+                }
+                setTimeout(() => card.classList.remove('skeleton-reveal'), 600);
+            }, hold);
+        }
+
+        const io = new IntersectionObserver(entries => {
+            let order = 0;
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                io.unobserve(entry.target);
+                reveal(entry.target, Math.min(order++, 4));
+            });
+        }, { threshold: 0.12 });
+
+        // wait for the preloader so the skeleton is actually seen in the content
+        const start = () => cards.forEach(c => io.observe(c));
+        const loader = document.getElementById('brutal-loader');
+        if (loader && getComputedStyle(loader).display !== 'none') {
+            const mo = new MutationObserver(() => {
+                if (loader.style.display === 'none') { mo.disconnect(); start(); }
+            });
+            mo.observe(loader, { attributes: true, attributeFilter: ['style', 'class'] });
+            setTimeout(() => { mo.disconnect(); start(); }, 4000); // safety net
+        } else {
+            start();
+        }
     }
 
     // ── SPIDER-WEB CUSTOM CURSOR ───────────────────────────────
@@ -530,120 +664,272 @@ window.SpiderInteractions = (function () {
         const badge = document.getElementById('avatar-badge-spider');
         if (!avatar) return;
 
-        // Compact & refined radius: perfect for revealing eyes, nose, or chest spider
-        const RADIUS_DESKTOP = 52;
-        const RADIUS_MOBILE = 45;
+        buildSpiderSuit(avatar);
+
+        const BADGE_IDLE = '✦ EARTH-616 // DEV';
+        const BADGE_LENS = '⚡ SPIDER-SENSE ⚡';
+        const BADGE_SUIT = '🕷 SUITED UP!';
+
+        // Bigger, softer lens so the mask actually reads
+        const RADIUS_DESKTOP = 88;
+        const RADIUS_MOBILE = 72;
 
         let targetX = 0, targetY = 0;
         let currentX = 0, currentY = 0;
         let targetRadius = 0, currentRadius = 0;
         let isHovered = false;
         let isTouchActive = false;
+        let suited = false;
         let animId = null;
         let audioPlayed = false;
 
+        const fullRadius = () => {
+            const r = avatar.getBoundingClientRect();
+            return Math.hypot(r.width, r.height) * 1.05;
+        };
+
         function render() {
-            // Linear Interpolation (LERP) for silky 60-120fps physics glide
-            const ease = 0.22;
-            const radiusEase = 0.16;
+            const ease = 0.2;
+            const radiusEase = suited ? 0.09 : 0.15;
 
             currentX += (targetX - currentX) * ease;
             currentY += (targetY - currentY) * ease;
             currentRadius += (targetRadius - currentRadius) * radiusEase;
 
-            // Apply smooth CSS properties
             avatar.style.setProperty('--spider-x', `${currentX.toFixed(2)}px`);
             avatar.style.setProperty('--spider-y', `${currentY.toFixed(2)}px`);
             avatar.style.setProperty('--spider-radius', `${Math.max(0, currentRadius).toFixed(2)}px`);
 
-            // Keep animating while active or while smoothly shrinking to 0
-            if (isHovered || isTouchActive || currentRadius > 0.4) {
-                animId = requestAnimationFrame(render);
+            const settling = Math.abs(targetRadius - currentRadius) > 0.4 ||
+                             Math.abs(targetX - currentX) > 0.3 || Math.abs(targetY - currentY) > 0.3;
+
+            if (isHovered || isTouchActive || suited || settling) {
+                animId = (settling || isHovered || isTouchActive) ? requestAnimationFrame(render) : null;
             } else {
                 avatar.style.setProperty('--spider-radius', '0px');
                 avatar.classList.remove('is-spidey-lens-active');
-                if (badge) badge.textContent = '✦ EARTH-616 // DEV';
+                if (badge) badge.textContent = BADGE_IDLE;
                 audioPlayed = false;
                 animId = null;
             }
         }
 
         function startTracking() {
-            if (!animId) {
-                animId = requestAnimationFrame(render);
-            }
+            if (!animId) animId = requestAnimationFrame(render);
         }
 
         function updateCoords(clientX, clientY, isMobile = false) {
             const rect = avatar.getBoundingClientRect();
             targetX = Math.max(0, Math.min(rect.width, clientX - rect.left));
             targetY = Math.max(0, Math.min(rect.height, clientY - rect.top));
-            targetRadius = isMobile ? RADIUS_MOBILE : RADIUS_DESKTOP;
+            if (!suited) targetRadius = isMobile ? RADIUS_MOBILE : RADIUS_DESKTOP;
 
             if (!avatar.classList.contains('is-spidey-lens-active')) {
                 avatar.classList.add('is-spidey-lens-active');
-                if (badge) badge.textContent = '⚡ SPIDER-SENSE REVEAL! ⚡';
+                if (badge) badge.textContent = suited ? BADGE_SUIT : BADGE_LENS;
                 if (!audioPlayed && window.SpiderAudio) {
                     SpiderAudio.thwip();
                     audioPlayed = true;
                 }
             }
-
             startTracking();
         }
 
-        // Desktop Mouse Tracking
+        function release() {
+            if (!suited) targetRadius = 0;
+            startTracking();
+        }
+
+        // Click / tap: full "suit up" that expands from the pointer, click again to unmask
+        avatar.addEventListener('click', e => {
+            suited = !suited;
+            avatar.classList.toggle('is-suited', suited);
+            const rect = avatar.getBoundingClientRect();
+            targetX = currentX = e.clientX - rect.left;
+            targetY = currentY = e.clientY - rect.top;
+            if (suited) {
+                avatar.classList.add('is-spidey-lens-active');
+                targetRadius = fullRadius();
+                if (badge) badge.textContent = BADGE_SUIT;
+                if (window.SpiderAudio) SpiderAudio.thwip();
+            } else {
+                targetRadius = (isHovered || isTouchActive) ? RADIUS_DESKTOP : 0;
+                if (badge) badge.textContent = (isHovered || isTouchActive) ? BADGE_LENS : BADGE_IDLE;
+            }
+            startTracking();
+        });
+
+        // Desktop mouse tracking
         avatar.addEventListener('mouseenter', e => {
             isHovered = true;
             const rect = avatar.getBoundingClientRect();
-            targetX = e.clientX - rect.left;
-            targetY = e.clientY - rect.top;
-            currentX = targetX;
-            currentY = targetY;
+            targetX = currentX = e.clientX - rect.left;
+            targetY = currentY = e.clientY - rect.top;
             updateCoords(e.clientX, e.clientY, false);
         });
-
         avatar.addEventListener('mousemove', e => {
             isHovered = true;
-            updateCoords(e.clientX, e.clientY, false);
+            if (!suited) updateCoords(e.clientX, e.clientY, false);
         });
-
         avatar.addEventListener('mouseleave', () => {
             isHovered = false;
-            targetRadius = 0;
-            startTracking();
+            release();
         });
 
-        // Mobile Touch Tracking
+        // Mobile touch tracking
         avatar.addEventListener('touchstart', e => {
-            if (e.touches && e.touches.length > 0) {
-                isTouchActive = true;
-                const rect = avatar.getBoundingClientRect();
-                targetX = e.touches[0].clientX - rect.left;
-                targetY = e.touches[0].clientY - rect.top;
-                currentX = targetX;
-                currentY = targetY;
-                updateCoords(e.touches[0].clientX, e.touches[0].clientY, true);
-            }
+            if (!e.touches || !e.touches.length || suited) return;
+            isTouchActive = true;
+            const rect = avatar.getBoundingClientRect();
+            targetX = currentX = e.touches[0].clientX - rect.left;
+            targetY = currentY = e.touches[0].clientY - rect.top;
+            updateCoords(e.touches[0].clientX, e.touches[0].clientY, true);
         }, { passive: true });
-
         avatar.addEventListener('touchmove', e => {
-            if (isTouchActive && e.touches && e.touches.length > 0) {
+            if (isTouchActive && e.touches && e.touches.length) {
                 updateCoords(e.touches[0].clientX, e.touches[0].clientY, true);
             }
         }, { passive: true });
+        avatar.addEventListener('touchend', () => { isTouchActive = false; release(); });
+        avatar.addEventListener('touchcancel', () => { isTouchActive = false; release(); });
+    }
 
-        avatar.addEventListener('touchend', () => {
-            isTouchActive = false;
-            targetRadius = 0;
-            startTracking();
+    // Draws the suit in the photo's own coordinate space (427 x 584 px),
+    // lined up with the head, eyes and shoulders of foto/profile-transparent.png.
+    function buildSpiderSuit(avatar) {
+        const color = avatar.querySelector('.suit-color');
+        const detail = avatar.querySelector('.suit-detail');
+        const ring = avatar.querySelector('.spidey-lens-ring');
+        const f = n => n.toFixed(1);
+
+        // Head outline (hair + face + jaw) and neck
+        const HEAD = 'M217,62 C268,60 312,98 312,160 C312,210 300,252 282,282 C266,306 244,318 217,318 C190,318 168,306 152,282 C134,252 124,210 124,160 C124,98 166,60 217,62 Z';
+        const NECK = 'M168,290 L266,290 L276,350 L158,350 Z';
+        const CHEST = 'M160,322 L274,322 L300,420 L292,584 L142,584 L134,420 Z';
+        const SHOULDERS = 'M0,372 C40,350 100,336 160,322 L150,372 C100,384 50,400 0,420 Z M427,372 C387,350 327,336 274,322 L284,372 C334,384 377,400 427,420 Z';
+
+        if (color) {
+            color.innerHTML = `
+                <defs>
+                    <linearGradient id="suitRed" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0" stop-color="#FF3B3B"/><stop offset="1" stop-color="#C8101C"/>
+                    </linearGradient>
+                    <linearGradient id="suitBlue" x1="0" y1="0" x2="1" y2="1">
+                        <stop offset="0" stop-color="#3D5BD9"/><stop offset="1" stop-color="#14205E"/>
+                    </linearGradient>
+                </defs>
+                <rect width="427" height="584" fill="url(#suitBlue)"/>
+                <path d="${HEAD}" fill="url(#suitRed)"/>
+                <path d="${NECK}" fill="url(#suitRed)"/>
+                <path d="${CHEST}" fill="url(#suitRed)"/>
+                <path d="${SHOULDERS}" fill="url(#suitRed)"/>`;
+        }
+
+        if (!detail) return;
+
+        // Web pattern radiating from a hub between the eyes
+        const hub = { x: 217, y: 206 };
+        let headWeb = '';
+        for (let i = 0; i < 18; i++) {
+            const a = (i / 18) * Math.PI * 2 + 0.09;
+            headWeb += `<line x1="${hub.x}" y1="${hub.y}" x2="${f(hub.x + Math.cos(a) * 190)}" y2="${f(hub.y + Math.sin(a) * 190)}"/>`;
+        }
+        // curved rings that sag between spokes, like real webbing on a mask
+        for (let r = 1; r <= 7; r++) {
+            const R = r * 19;
+            let d = '';
+            for (let i = 0; i <= 18; i++) {
+                const a0 = (i / 18) * Math.PI * 2 + 0.09;
+                const x = hub.x + Math.cos(a0) * R, y = hub.y + Math.sin(a0) * R * 1.12;
+                if (i === 0) { d += `M${f(x)},${f(y)}`; continue; }
+                const am = ((i - 0.5) / 18) * Math.PI * 2 + 0.09;
+                const cx = hub.x + Math.cos(am) * R * 0.9, cy = hub.y + Math.sin(am) * R * 1.12 * 0.9;
+                d += ` Q${f(cx)},${f(cy)} ${f(x)},${f(y)}`;
+            }
+            headWeb += `<path d="${d}"/>`;
+        }
+
+        // Web on the red chest panel, radiating from the emblem
+        const chub = { x: 217, y: 430 };
+        let chestWeb = '';
+        for (let i = 0; i < 14; i++) {
+            const a = (i / 14) * Math.PI * 2;
+            chestWeb += `<line x1="${chub.x}" y1="${chub.y}" x2="${f(chub.x + Math.cos(a) * 220)}" y2="${f(chub.y + Math.sin(a) * 220)}"/>`;
+        }
+        for (let r = 1; r <= 7; r++) {
+            const R = r * 28;
+            chestWeb += `<ellipse cx="${chub.x}" cy="${chub.y}" rx="${R * 0.8}" ry="${R}"/>`;
+        }
+
+        const LENS_L = 'M146,176 C158,154 196,164 209,196 C206,216 182,222 166,211 C152,202 145,190 146,176 Z';
+        const LENS_R = 'M288,176 C276,154 238,164 225,196 C228,216 252,222 268,211 C282,202 289,190 288,176 Z';
+
+        // Chest spider emblem
+        const legs = [
+            [[210, 412], [186, 388], [180, 356]],
+            [[208, 420], [178, 410], [160, 386]],
+            [[208, 434], [178, 446], [166, 474]],
+            [[210, 442], [190, 466], [188, 502]]
+        ];
+        let legPaths = '';
+        legs.forEach(l => {
+            legPaths += `<polyline points="${l.map(p => p.join(',')).join(' ')}"/>`;
+            legPaths += `<polyline points="${l.map(p => [434 - p[0], p[1]].join(',')).join(' ')}"/>`;
         });
 
-        avatar.addEventListener('touchcancel', () => {
-            isTouchActive = false;
-            targetRadius = 0;
-            startTracking();
-        });
+        detail.innerHTML = `
+            <defs>
+                <clipPath id="clipHead"><path d="${HEAD}"/><path d="${NECK}"/></clipPath>
+                <clipPath id="clipChest"><path d="${CHEST}"/><path d="${SHOULDERS}"/></clipPath>
+                <radialGradient id="lensFill" cx="0.45" cy="0.35" r="0.75">
+                    <stop offset="0" stop-color="#FFFFFF"/><stop offset="0.7" stop-color="#E6F4FF"/><stop offset="1" stop-color="#9CC8EA"/>
+                </radialGradient>
+                <radialGradient id="headShine" cx="0.38" cy="0.28" r="0.55">
+                    <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.28"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+                </radialGradient>
+            </defs>
+
+            <!-- embossed web: light highlight under a dark thread -->
+            <g clip-path="url(#clipHead)" fill="none" stroke-linecap="round">
+                <g stroke="#FFFFFF" stroke-opacity="0.16" stroke-width="2.6" transform="translate(0.9,1.1)">${headWeb}</g>
+                <g stroke="#2A0006" stroke-opacity="0.85" stroke-width="1.7">${headWeb}</g>
+                <path d="${HEAD}" fill="url(#headShine)" stroke="none"/>
+            </g>
+            <g clip-path="url(#clipChest)" fill="none" stroke-linecap="round">
+                <g stroke="#FFFFFF" stroke-opacity="0.12" stroke-width="2.4" transform="translate(0.9,1.1)">${chestWeb}</g>
+                <g stroke="#1E0004" stroke-opacity="0.7" stroke-width="1.6">${chestWeb}</g>
+            </g>
+
+            <!-- panel seams -->
+            <g fill="none" stroke="#05060F" stroke-opacity="0.7" stroke-width="3">
+                <path d="${CHEST}"/><path d="${SHOULDERS}"/>
+            </g>
+
+            <!-- eye lenses -->
+            <g stroke-linejoin="round">
+                <path d="${LENS_L}" fill="url(#lensFill)" stroke="#06070C" stroke-width="8"/>
+                <path d="${LENS_R}" fill="url(#lensFill)" stroke="#06070C" stroke-width="8"/>
+                <path d="M160,182 C170,170 188,174 196,188" fill="none" stroke="#FFFFFF" stroke-opacity="0.9" stroke-width="3" stroke-linecap="round"/>
+                <path d="M274,182 C264,170 246,174 238,188" fill="none" stroke="#FFFFFF" stroke-opacity="0.9" stroke-width="3" stroke-linecap="round"/>
+            </g>
+
+            <!-- chest spider -->
+            <g fill="#07080F" stroke="#07080F" stroke-linecap="round" stroke-linejoin="round">
+                <g fill="none" stroke-width="5.5">${legPaths}</g>
+                <ellipse cx="217" cy="410" rx="8" ry="10"/>
+                <ellipse cx="217" cy="440" rx="11.5" ry="21"/>
+            </g>`;
+
+        // Lens ring: a tiny rotating web
+        if (ring) {
+            let w = '';
+            for (let i = 0; i < 12; i++) {
+                const a = (i / 12) * Math.PI * 2;
+                w += `<line x1="50" y1="50" x2="${f(50 + Math.cos(a) * 50)}" y2="${f(50 + Math.sin(a) * 50)}"/>`;
+            }
+            [16, 30, 44].forEach(r => { w += `<circle cx="50" cy="50" r="${r}"/>`; });
+            ring.innerHTML = `<svg viewBox="0 0 100 100"><g fill="none" stroke="#FFFFFF" stroke-width="0.5">${w}</g></svg>`;
+        }
     }
 
     return {

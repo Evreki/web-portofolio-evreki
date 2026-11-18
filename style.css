@@ -778,27 +778,47 @@ button, input, textarea {
     transition: filter 0.25s ease;
 }
 
-/* Layer 2: Authentic Miles Morales Spider-Man Hero Layer with Smooth Feathered Mask & Clip-Path */
+/* Layer 2: Spider-suit painted onto the real photo.
+   - .suit-shade  = the photo in grey, gives real face/fabric shading
+   - .suit-color  = suit colours, multiplied over that shading
+   - .suit-detail = web lines, lenses and chest emblem
+   Both SVGs are masked by the photo's alpha so the suit follows the exact silhouette.
+   The whole layer is revealed through a soft, feathered lens that follows the cursor. */
 .avatar-spidey-hero {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: top center;
+    inset: 0;
     z-index: 3;
     pointer-events: none;
     user-select: none;
-    clip-path: circle(var(--spider-radius, 0px) at var(--spider-x, 50%) var(--spider-y, 50%));
-    -webkit-clip-path: circle(var(--spider-radius, 0px) at var(--spider-x, 50%) var(--spider-y, 50%));
-    mask-image: radial-gradient(circle var(--spider-radius, 0px) at var(--spider-x, 50%) var(--spider-y, 50%), #000000 68%, rgba(0, 0, 0, 0.4) 86%, transparent 100%);
-    -webkit-mask-image: radial-gradient(circle var(--spider-radius, 0px) at var(--spider-x, 50%) var(--spider-y, 50%), #000000 68%, rgba(0, 0, 0, 0.4) 86%, transparent 100%);
-    filter: drop-shadow(0 0 8px rgba(225, 29, 72, 0.85)) drop-shadow(0 0 14px rgba(56, 189, 248, 0.7));
-    will-change: clip-path, mask-image;
+    -webkit-mask-image: radial-gradient(circle var(--spider-radius, 0px) at var(--spider-x, 50%) var(--spider-y, 50%), #000 0%, #000 72%, rgba(0,0,0,0.55) 88%, transparent 100%);
+            mask-image: radial-gradient(circle var(--spider-radius, 0px) at var(--spider-x, 50%) var(--spider-y, 50%), #000 0%, #000 72%, rgba(0,0,0,0.55) 88%, transparent 100%);
+    will-change: mask-image;
 }
+.avatar-spidey-hero > * {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+.suit-shade {
+    object-fit: cover;
+    object-position: top center;
+    filter: grayscale(1) contrast(0.6) brightness(1.45);
+}
+.suit-color,
+.suit-detail {
+    -webkit-mask-image: url('foto/profile-transparent.png');
+            mask-image: url('foto/profile-transparent.png');
+    -webkit-mask-size: cover;
+            mask-size: cover;
+    -webkit-mask-position: top center;
+            mask-position: top center;
+    -webkit-mask-repeat: no-repeat;
+            mask-repeat: no-repeat;
+}
+.suit-color { mix-blend-mode: multiply; }
 
-/* Layer 3: Dynamic Spider-Sense Flashlight Lens Ring (Refined & Compact) */
+/* Layer 3: Spider-sense lens ring, a small rotating web */
 .spidey-lens-ring {
     position: absolute;
     top: var(--spider-y, 50%);
@@ -807,18 +827,71 @@ button, input, textarea {
     height: calc(var(--spider-radius, 0px) * 2);
     transform: translate(-50%, -50%);
     border-radius: 50%;
-    border: 2px dashed #38BDF8;
-    box-shadow: 0 0 10px #E11D48, inset 0 0 8px rgba(56, 189, 248, 0.45), 0 0 18px #38BDF8;
+    box-shadow: 0 0 0 1.5px rgba(255, 255, 255, 0.55), 0 0 14px rgba(56, 189, 248, 0.55), inset 0 0 18px rgba(229, 9, 20, 0.35);
     z-index: 4;
     pointer-events: none;
     opacity: 0;
     will-change: top, left, width, height, opacity;
-    transition: opacity 0.25s ease;
+    transition: opacity 0.3s ease;
+}
+.spidey-lens-ring svg {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    opacity: 0.55;
 }
 .geo-avatar.is-spidey-lens-active .spidey-lens-ring {
     opacity: 1;
-    animation: lensSpin 5s linear infinite;
+    animation: lensSpin 14s linear infinite;
 }
+.geo-avatar.is-suited .spidey-lens-ring { opacity: 0; }
+
+/* spider-sense "tingle" lines around the head when the suit is revealed */
+.geo-avatar::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 4;
+    pointer-events: none;
+    background:
+        linear-gradient(115deg, transparent 47%, rgba(255,255,255,0.9) 48%, transparent 49.5%) 6% 10% / 22% 14% no-repeat,
+        linear-gradient(65deg,  transparent 47%, rgba(255,255,255,0.9) 48%, transparent 49.5%) 94% 10% / 22% 14% no-repeat,
+        linear-gradient(160deg, transparent 47%, rgba(255,255,255,0.8) 48%, transparent 49.5%) 2% 30% / 18% 10% no-repeat,
+        linear-gradient(20deg,  transparent 47%, rgba(255,255,255,0.8) 48%, transparent 49.5%) 98% 30% / 18% 10% no-repeat;
+    opacity: 0;
+    transform: scale(0.9);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.geo-avatar.is-suited::after {
+    animation: spiderTingle 0.9s ease-out 1;
+}
+@keyframes spiderTingle {
+    0%   { opacity: 0; transform: scale(0.85); }
+    25%  { opacity: 1; transform: scale(1); }
+    100% { opacity: 0; transform: scale(1.08); }
+}
+
+.spidey-hint {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 5;
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #FFFFFF;
+    background: rgba(5, 5, 10, 0.75);
+    border: 1.5px solid rgba(255, 255, 255, 0.6);
+    padding: 3px 8px;
+    opacity: 0;
+    translate: 0 -4px;
+    transition: opacity 0.3s ease, translate 0.3s ease;
+    pointer-events: none;
+}
+.geo-avatar.is-spidey-lens-active .spidey-hint { opacity: 1; translate: 0 0; }
+.geo-avatar.is-suited .spidey-hint { opacity: 0; }
 @keyframes lensSpin {
     from { transform: translate(-50%, -50%) rotate(0deg); }
     to { transform: translate(-50%, -50%) rotate(360deg); }
@@ -2912,11 +2985,12 @@ button, input, textarea {
 /* "...see more" collapse (LinkedIn style) */
 .exp-collapse {
     position: relative;
-    max-height: 7.4em;
+}
+.exp-collapse.is-collapsible {
     overflow: hidden;
     transition: max-height 0.55s cubic-bezier(0.22, 1, 0.36, 1);
 }
-.exp-collapse::after {
+.exp-collapse.is-collapsible::after {
     content: '';
     position: absolute;
     left: 0;
@@ -3092,43 +3166,43 @@ button, input, textarea {
     to   { background-position: -120% 0; }
 }
 
-/* Preloader: page skeleton under the progress bar */
-.loader-skeleton {
-    width: 100%;
-    max-width: 340px;
-    margin: 26px auto 0;
-    display: grid;
-    gap: 10px;
-    text-align: left;
-}
-.sk {
-    display: block;
-    position: relative;
-    overflow: hidden;
-    background: #151522;
-    border: 1.5px solid #22223A;
-}
-.sk::before {
-    content: '';
+/* Content skeleton: drawn over each card when it scrolls into view */
+.is-skeleton { position: relative; }
+.is-skeleton > *:not(.card-skeleton) { visibility: hidden; }
+.card-skeleton {
     position: absolute;
     inset: 0;
-    background: linear-gradient(100deg, transparent 20%, rgba(255,255,255,0.06) 38%, rgba(56,189,248,0.18) 50%, rgba(255,255,255,0.06) 62%, transparent 80%);
-    background-size: 220% 100%;
-    animation: skeleton-shimmer 1.25s linear infinite;
+    z-index: 6;
+    pointer-events: none;
+    overflow: hidden;
+    transition: opacity 0.4s ease;
 }
-.sk-row { display: flex; gap: 12px; align-items: center; }
-.sk-col { flex: 1; display: grid; gap: 8px; }
-.sk-avatar { width: 46px; height: 46px; flex-shrink: 0; }
-.sk-line { height: 10px; }
-.sk-line.w90 { width: 90%; }
-.sk-line.w80 { width: 80%; }
-.sk-line.w70 { width: 70%; }
-.sk-line.w45 { width: 45%; }
-.sk-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 4px; }
-.sk-card { height: 54px; }
+.card-skeleton.is-out { opacity: 0; }
+.sk-bar {
+    position: absolute;
+    display: block;
+    border-radius: 3px;
+    background-color: rgba(148, 163, 210, 0.16);
+    background-image: linear-gradient(100deg,
+        rgba(255, 255, 255, 0) 30%,
+        rgba(255, 255, 255, 0.14) 44%,
+        rgba(56, 189, 248, 0.32) 50%,
+        rgba(255, 255, 255, 0.14) 56%,
+        rgba(255, 255, 255, 0) 70%);
+    background-size: 300% 100%;
+    background-attachment: fixed; /* one shimmer wave sweeps across every bar together */
+    animation: skeleton-shimmer 1.3s linear infinite;
+}
+.sk-bar.sk-text { border-radius: 4px; }
+.sk-bar.sk-media { border-radius: 0; background-color: rgba(148, 163, 210, 0.12); }
+.skeleton-reveal > *:not(.card-skeleton) { animation: skeleton-content-in 0.45s ease both; }
+@keyframes skeleton-content-in {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
 
 @media (prefers-reduced-motion: reduce) {
-    .skeleton::before, .sk::before { animation: none !important; }
+    .skeleton::before, .sk-bar { animation: none !important; }
     .exp-thread-fill { transform: scaleY(1) !important; }
     :is(.brutal-card, .about-info-card, .stat-item, .exp-item):hover { translate: none !important; }
 }

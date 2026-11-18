@@ -62,16 +62,6 @@
             <div class="loader-progress-track">
                 <div class="loader-progress-bar"></div>
             </div>
-            <!-- Skeleton shimmer preview of the page -->
-            <div class="loader-skeleton">
-                <div class="sk-row">
-                    <span class="sk sk-avatar"></span>
-                    <span class="sk-col"><span class="sk sk-line w70"></span><span class="sk sk-line w45"></span></span>
-                </div>
-                <span class="sk sk-line w90"></span>
-                <span class="sk sk-line w80"></span>
-                <div class="sk-cards"><span class="sk sk-card"></span><span class="sk sk-card"></span><span class="sk sk-card"></span></div>
-            </div>
         </div>
     </div>
 
@@ -118,8 +108,14 @@
                 <div class="geo-avatar" id="hero-avatar" title="Hover or Touch to reveal Spider-Man!">
                     <div class="geo-avatar-bg"></div>
                     <img class="avatar-img" id="avatar-human-img" src="foto/profile-transparent.png" alt="Evreki Wan Refanja Avatar" loading="eager">
-                    <img class="avatar-spidey-hero" id="avatar-spidey-hero" src="foto/spiderman-hero.png" alt="Spider-Man Hero Reveal" loading="eager">
+                    <!-- Spider-suit layer: painted onto the real photo (shape + shading), revealed through the lens -->
+                    <div class="avatar-spidey-hero" id="avatar-spidey-hero" aria-hidden="true">
+                        <img class="suit-shade" src="foto/profile-transparent.png" alt="" loading="eager">
+                        <svg class="suit-color" viewBox="0 0 427 584" preserveAspectRatio="xMidYMin slice"></svg>
+                        <svg class="suit-detail" viewBox="0 0 427 584" preserveAspectRatio="xMidYMin slice"></svg>
+                    </div>
                     <div class="spidey-lens-ring" id="spidey-lens-ring" aria-hidden="true"></div>
+                    <div class="spidey-hint" aria-hidden="true">Click to suit up</div>
                     <div class="avatar-badge-spider" id="avatar-badge-spider">✦ EARTH-616 // DEV</div>
                 </div>
             </div>
@@ -438,7 +434,7 @@
                     <div class="exp-thread" aria-hidden="true"><div class="exp-thread-fill"></div></div>
 
                     <!-- EXPERIENCE 1: PT CENTURY BATTERIES INDONESIA -->
-                    <article class="exp-item" data-start="2026-09">
+                    <article class="exp-item" data-start="2026-09" data-duration="6 mos">
                         <div class="exp-logo skeleton">
                             <img src="foto/experience/cbi.jpg" alt="PT Century Batteries Indonesia logo" loading="lazy">
                         </div>
@@ -449,7 +445,7 @@
                             </div>
                             <p class="exp-company">PT Century Batteries Indonesia <span class="exp-sep">·</span> <span class="exp-type">Internship</span></p>
                             <p class="exp-meta">
-                                <i data-lucide="calendar-days"></i> Sep 2026 – Present <span class="exp-sep">·</span> <span class="exp-duration">3 mos</span>
+                                <i data-lucide="calendar-days"></i> Sep 2026 – Present <span class="exp-sep">·</span> <span class="exp-duration">6 mos</span>
                             </p>
                             <p class="exp-meta">
                                 <i data-lucide="map-pin"></i> Karawang, West Java, Indonesia <span class="exp-sep">·</span> On-site
@@ -488,17 +484,12 @@
                             <p class="exp-meta">
                                 <i data-lucide="map-pin"></i> Bandung, West Java, Indonesia <span class="exp-sep">·</span> On-site
                             </p>
-                            <div class="exp-collapse" id="exp-desc-unla">
-                                <p class="exp-desc">Built a KKN (student community service) registration application to digitally transform a process that was previously handled manually and conventionally. By implementing a web-based system, registration, validation, and reporting became faster, more accurate, and easier for both students and administrators to manage.</p>
-                                <ul class="exp-points">
-                                    <li>Designed the end-to-end student registration flow with real-time form validation.</li>
-                                    <li>Built an admin dashboard for managing participants, groups, and locations.</li>
-                                    <li>Implemented data export and notification features to support the KKN committee.</li>
-                                </ul>
-                            </div>
-                            <button type="button" class="exp-more-btn" aria-expanded="false" aria-controls="exp-desc-unla">
-                                <span class="exp-more-label">…see more</span> <i data-lucide="chevron-down"></i>
-                            </button>
+                            <p class="exp-desc">Built a KKN (student community service) registration application to digitally transform a process that was previously handled manually and conventionally. By implementing a web-based system, registration, validation, and reporting became faster, more accurate, and easier for both students and administrators to manage.</p>
+                            <ul class="exp-points">
+                                <li>Designed the end-to-end student registration flow with real-time form validation.</li>
+                                <li>Built an admin dashboard for managing participants, groups, and locations.</li>
+                                <li>Implemented data export and notification features to support the KKN committee.</li>
+                            </ul>
                             <div class="exp-skills">
                                 <i data-lucide="gem"></i>
                                 <span class="exp-chip">Web Development</span>
