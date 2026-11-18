@@ -35,26 +35,15 @@ window.SpiderProjects = (function () {
                 el: '.projects-pagination',
                 clickable: true,
                 renderBullet: function (index, className) {
-                    return `<span class="${className}">ISSUE #00${index + 1}</span>`;
+                    return `<span class="${className}">0${index + 1}</span>`;
                 }
             },
+            // breakpoints follow the card's width, not the window (the main column is narrow)
+            breakpointsBase: 'container',
             breakpoints: {
-                320: {
-                    slidesPerView: 1,
-                    spaceBetween: 16
-                },
-                680: {
-                    slidesPerView: 1.4,
-                    spaceBetween: 20
-                },
-                992: {
-                    slidesPerView: 2.2,
-                    spaceBetween: 24
-                },
-                1240: {
-                    slidesPerView: 3,
-                    spaceBetween: 28
-                }
+                0:   { slidesPerView: 1.08, spaceBetween: 12 },
+                480: { slidesPerView: 1.6,  spaceBetween: 14 },
+                640: { slidesPerView: 2.15, spaceBetween: 16 }
             }
         });
     }
@@ -72,23 +61,11 @@ window.SpiderProjects = (function () {
                 nextEl: '.cert-nav-next',
                 prevEl: '.cert-nav-prev'
             },
+            breakpointsBase: 'container',
             breakpoints: {
-                320: {
-                    slidesPerView: 1,
-                    spaceBetween: 16
-                },
-                580: {
-                    slidesPerView: 1.8,
-                    spaceBetween: 20
-                },
-                992: {
-                    slidesPerView: 2.8,
-                    spaceBetween: 24
-                },
-                1240: {
-                    slidesPerView: 4,
-                    spaceBetween: 24
-                }
+                0:   { slidesPerView: 1.15, spaceBetween: 12 },
+                480: { slidesPerView: 2,    spaceBetween: 14 },
+                640: { slidesPerView: 2.6,  spaceBetween: 16 }
             }
         });
     }

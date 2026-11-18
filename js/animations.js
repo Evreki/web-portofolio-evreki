@@ -31,11 +31,11 @@ window.SpiderAnimations = (function () {
         if (!loader) return;
 
         const messages = [
-            '01 // CONNECTING WEB...',
-            '02 // SCANNING TECH ARSENAL...',
-            '03 // SYNCING SPIDER-VERSE...',
-            '04 // INITIALIZING EVREKI...',
-            '05 // SPIDER SYSTEM READY!'
+            'Loading profile…',
+            'Fetching experience…',
+            'Loading projects…',
+            'Almost there…',
+            'Welcome!'
         ];
 
         let step = 0;
@@ -108,7 +108,7 @@ window.SpiderAnimations = (function () {
             setTimeout(triggerHeroEntrance, 300);
         }
         initTypedRole();
-        initTitleGlitchAndParallax();
+
     }
 
     function initTitleGlitchAndParallax() {
@@ -165,7 +165,7 @@ window.SpiderAnimations = (function () {
     function initTypedRole() {
         const el = document.getElementById('typed-role');
         if (!el) return;
-        const roles = ['SOFTWARE ENGINEER', 'FULLSTACK DEVELOPER', 'MOBILE & WEB DEV', 'PROBLEM SOLVER'];
+        const roles = ['Software Engineer', 'Fullstack Developer', 'Mobile & Web Developer', 'Problem Solver'];
         let roleIdx = 0, charIdx = 0, isDeleting = false;
 
         function tick() {
@@ -435,29 +435,23 @@ window.SpiderAnimations = (function () {
     function initGenericScrollReveals() {
         if (typeof ScrollTrigger === 'undefined') return;
 
-        // About Polaroid & Text — with clearProps to ensure photo is 100% visible
+        // Every profile card rises in softly as it enters (LinkedIn feed feel)
+        gsap.utils.toArray('.page-main > .li-card:not(.profile-card), .page-aside > .li-card').forEach(card => {
+            gsap.from(card, {
+                scrollTrigger: { trigger: card, start: 'top 92%', toggleActions: 'play none none none' },
+                y: 28,
+                opacity: 0,
+                duration: 0.6,
+                ease: 'power3.out',
+                clearProps: 'transform,opacity'
+            });
+        });
+
         const about = document.getElementById('about');
         if (about) {
-            gsap.from('.polaroid-wrapper', {
-                scrollTrigger: {
-                    trigger: about,
-                    start: 'top 85%',
-                    toggleActions: 'play none none none'
-                },
-                y: 35,
-                scale: 0.92,
-                opacity: 0,
-                duration: 0.65,
-                ease: 'back.out(1.4)',
-                clearProps: 'all'
-            });
-            gsap.from('.about-text p, .about-info-grid, .about-ticker', {
-                scrollTrigger: {
-                    trigger: about,
-                    start: 'top 85%',
-                    toggleActions: 'play none none none'
-                },
-                y: 25,
+            gsap.from('#about .about-text p, #about .about-top-skills, #about .about-ticker', {
+                scrollTrigger: { trigger: about, start: 'top 85%', toggleActions: 'play none none none' },
+                y: 18,
                 opacity: 0,
                 stagger: 0.08,
                 duration: 0.5,
@@ -466,18 +460,13 @@ window.SpiderAnimations = (function () {
             });
         }
 
-        // Contact Section
         const contact = document.getElementById('contact');
         if (contact) {
-            gsap.from('#contact .contact-info > *, #contact .contact-form', {
-                scrollTrigger: {
-                    trigger: contact,
-                    start: 'top 85%',
-                    toggleActions: 'play none none none'
-                },
-                y: 30,
+            gsap.from('#contact .contact-info-card > *, #contact .contact-form-comic > .input-group, #contact .contact-submit-btn', {
+                scrollTrigger: { trigger: contact, start: 'top 85%', toggleActions: 'play none none none' },
+                y: 20,
                 opacity: 0,
-                stagger: 0.08,
+                stagger: 0.06,
                 duration: 0.5,
                 ease: 'power2.out',
                 clearProps: 'all'
@@ -489,7 +478,7 @@ window.SpiderAnimations = (function () {
     function initFooterTyping() {
         const el = document.getElementById('footer-typing');
         if (!el) return;
-        const text = '© 2026 Evreki Wan Refanja. Spider-Man NeoBrutalism.';
+        const text = '© ' + new Date().getFullYear() + ' Evreki Wan Refanja · Software Engineer · Bandung, Indonesia';
         let started = false;
 
         const obs = new IntersectionObserver(entries => {

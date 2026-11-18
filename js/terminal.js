@@ -1,5 +1,5 @@
 /**
- * SPIDER-MAN NEOBRUTALISM PORTFOLIO — SPIDER SYSTEM DEV TERMINAL
+ * PORTFOLIO — DEVELOPER CONSOLE
  * Evreki Wan Refanja
  */
 
@@ -50,20 +50,20 @@ window.SpiderTerminal = (function () {
 
     const COMMANDS = {
         help: () => {
-            addLine(`<span class="t-highlight">⚡ SPIDER SYSTEM AVAILABLE COMMANDS:</span>`);
-            addLine(`• <span class="t-cmd">skills</span>   : View full engineering stack & percentages`);
-            addLine(`• <span class="t-cmd">projects</span> : List featured mission deployments`);
-            addLine(`• <span class="t-cmd">about</span>    : Developer profile & background dossier`);
-            addLine(`• <span class="t-cmd">contact</span>  : Direct communication frequencies`);
-            addLine(`• <span class="t-cmd">hire</span>     : Initiate collaboration protocol`);
-            addLine(`• <span class="t-cmd">confetti</span> : Deploy Spider-Verse celebration`);
-            addLine(`• <span class="t-cmd">clear</span>    : Wipe terminal screen buffers`);
-            addLine(`• <span class="t-cmd">date</span>     : Sync local universe timestamp`);
-            addLine(`• <span class="t-cmd">sudo</span>     : Check root authorization level`);
+            addLine(`<span class="t-highlight">Available commands:</span>`);
+            addLine(`• <span class="t-cmd">skills</span>   : View the full tech stack`);
+            addLine(`• <span class="t-cmd">projects</span> : List featured projects`);
+            addLine(`• <span class="t-cmd">about</span>    : Profile & background`);
+            addLine(`• <span class="t-cmd">contact</span>  : Contact details`);
+            addLine(`• <span class="t-cmd">hire</span>     : Start a collaboration`);
+            addLine(`• <span class="t-cmd">confetti</span> : Celebrate`);
+            addLine(`• <span class="t-cmd">clear</span>    : Clear the console`);
+            addLine(`• <span class="t-cmd">date</span>     : Show local date & time`);
+            addLine(`• <span class="t-cmd">sudo</span>     : Check access level`);
         },
 
         skills: () => {
-            addLine(`<span style="color:#F4E409;font-weight:700">⚡ TECH ARSENAL MATRIX:</span>`);
+            addLine(`<span style="color:#70B5F9;font-weight:700">Tech stack:</span>`);
             addLine(`[FRONTEND] HTML5, CSS3, React, Vue.js, JavaScript, Tailwind (90%)`);
             addLine(`[BACKEND]  Laravel, PHP, CodeIgniter, Golang, REST API, Python (88%)`);
             addLine(`[DATABASE] MySQL, SQL Server, PostgreSQL, Firebase (85%)`);
@@ -72,14 +72,14 @@ window.SpiderTerminal = (function () {
         },
 
         projects: () => {
-            addLine(`<span style="color:#38BDF8;font-weight:700">📁 ACTIVE MISSIONS / PROJECTS:</span>`);
+            addLine(`<span style="color:#38BDF8;font-weight:700">Featured projects:</span>`);
             addLine(`1. <span class="t-highlight">KKNM System</span> — Laravel, PHP, MySQL & Admin Dashboard`);
             addLine(`2. <span class="t-highlight">AI vs Real Image Detector</span> — Flutter, Dart, TensorFlow Lite & CNN`);
             addLine(`3. <span class="t-highlight">SITEPAD</span> — Geospatial Monitoring, Laravel, QGIS & Leaflet.js`);
         },
 
         about: () => {
-            addLine(`<span style="color:#35E86B;font-weight:700">👤 DEVELOPER IDENTITY:</span>`);
+            addLine(`<span style="color:#35E86B;font-weight:700">Profile:</span>`);
             addLine(`Name: Evreki Wan Refanja`);
             addLine(`Title: Bachelor of Informatics Engineering | Fullstack Developer`);
             addLine(`Location: Bandung, Indonesia`);
@@ -87,7 +87,7 @@ window.SpiderTerminal = (function () {
         },
 
         contact: () => {
-            addLine(`<span style="color:#FF5D73;font-weight:700">📬 TRANSMIT SIGNAL / CONTACT:</span>`);
+            addLine(`<span style="color:#FF5D73;font-weight:700">Contact:</span>`);
             addLine(`• Email   : evrekiwanrefanja@gmail.com`);
             addLine(`• Phone   : +62 831-4749-9369`);
             addLine(`• GitHub  : github.com/Evreki`);
@@ -95,13 +95,13 @@ window.SpiderTerminal = (function () {
         },
 
         hire: () => {
-            addLine(`<span style="color:#F4E409;font-weight:800;font-size:1.05rem">🚀 INITIATING COLLABORATION PROTOCOL...</span>`);
+            addLine(`<span style="color:#70B5F9;font-weight:800;font-size:1.05rem">Great! Taking you to the contact form…</span>`);
             if (typeof confetti === 'function') {
                 confetti({
                     particleCount: 90,
                     spread: 75,
                     origin: { y: 0.6 },
-                    colors: ['#E50914', '#2563EB', '#F4E409', '#050505', '#FFFFFF']
+                    colors: ['#0A66C2', '#70B5F9', '#057642', '#FFFFFF']
                 });
             }
             if (window.SpiderAudio) window.SpiderAudio.coin();
@@ -115,13 +115,13 @@ window.SpiderTerminal = (function () {
         },
 
         confetti: () => {
-            addLine('🎉 Spider-Verse Multiverse Confetti deployed!');
+            addLine('🎉 Thanks for stopping by!');
             if (typeof confetti === 'function') {
                 confetti({
                     particleCount: 120,
                     spread: 90,
                     origin: { y: 0.5 },
-                    colors: ['#E50914', '#2563EB', '#F4E409', '#050505', '#38BDF8', '#FFFFFF']
+                    colors: ['#0A66C2', '#70B5F9', '#057642', '#F5C75D', '#FFFFFF']
                 });
             }
             if (window.SpiderAudio) window.SpiderAudio.coin();
@@ -132,11 +132,11 @@ window.SpiderTerminal = (function () {
         },
 
         date: () => {
-            addLine('🕒 Local Universe Time: ' + new Date().toLocaleString());
+            addLine('🕒 Local time: ' + new Date().toLocaleString());
         },
 
         sudo: () => {
-            addLine('<span style="color:#F4E409">👑 AUTHORIZATION GRANTED: You already have Root Level 10 Access to Evreki\'s Portfolio!</span>');
+            addLine('<span style="color:#70B5F9">👑 AUTHORIZATION GRANTED: You already have Root Level 10 Access to Evreki\'s Portfolio!</span>');
         }
     };
 
@@ -144,7 +144,7 @@ window.SpiderTerminal = (function () {
         raw = (raw || '').trim();
         if (!raw) return;
 
-        addLine(`<span class="t-prompt">guest@spider-box:~$</span> <span style="color:#fff;font-weight:700">${escapeHtml(raw)}</span>`);
+        addLine(`<span class="t-prompt">guest@portfolio:~$</span> <span style="color:#fff;font-weight:700">${escapeHtml(raw)}</span>`);
         const cmdKey = raw.toLowerCase().split(' ')[0];
 
         if (COMMANDS[cmdKey]) {

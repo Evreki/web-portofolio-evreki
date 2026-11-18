@@ -31,6 +31,11 @@ document.addEventListener('DOMContentLoaded', () => {
         window.SpiderInteractions.init();
     }
 
+    // 5b. Radial sidebar (rotatable section dial)
+    if (window.SpiderRadialNav) {
+        window.SpiderRadialNav.init();
+    }
+
     // 6. Initialize Swiper.js Showcases (Projects & Certificates)
     if (window.SpiderProjects) {
         window.SpiderProjects.init();
