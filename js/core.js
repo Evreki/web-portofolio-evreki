@@ -11,8 +11,11 @@ window.AppCore = (function () {
     function initLenis() {
         // Check if user prefers reduced motion
         const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        if (prefersReducedMotion || typeof Lenis === 'undefined') {
-            document.documentElement.style.scrollBehavior = 'smooth';
+        // Phones & tablets: native scrolling is the smoothest there (it runs off the main thread)
+        const isTouch = window.matchMedia('(pointer: coarse)').matches;
+        if (prefersReducedMotion || isTouch || typeof Lenis === 'undefined') {
+            if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') gsap.registerPlugin(ScrollTrigger);
+            initNativeAnchors();
             return;
         }
 
@@ -73,10 +76,32 @@ window.AppCore = (function () {
     function scrollTo(target, options = {}) {
         if (lenis) {
             lenis.scrollTo(target, options);
+            return;
+        }
+        // native fallback that still honours `offset` and `immediate`
+        let top = 0;
+        if (typeof target === 'number') {
+            top = target;
         } else {
             const el = typeof target === 'string' ? document.querySelector(target) : target;
-            if (el) el.scrollIntoView({ behavior: 'smooth' });
+            if (!el) return;
+            top = el.getBoundingClientRect().top + window.scrollY;
         }
+        window.scrollTo({ top: Math.max(0, top + (options.offset || 0)), behavior: options.immediate ? 'auto' : 'smooth' });
+    }
+
+    // In-page links without Lenis: smooth native scroll that clears the fixed top bar
+    function initNativeAnchors() {
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', e => {
+                const id = anchor.getAttribute('href');
+                if (!id || id === '#') return;
+                const el = document.querySelector(id);
+                if (!el) return;
+                e.preventDefault();
+                scrollTo(el, { offset: -64 });
+            });
+        });
     }
 
     return {

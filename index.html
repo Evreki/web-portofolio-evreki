@@ -24,8 +24,6 @@
     <!-- Lenis Smooth Scroll -->
     <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
 
-    <!-- Three.js (web animation in the profile banner) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
     <!-- GSAP & ScrollTrigger -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -102,10 +100,6 @@
                 </span>
             </a>
             <div class="nav-extra-controls">
-                <button id="sound-btn" class="nav-ctrl-btn" aria-label="Toggle sound effects" title="Toggle sound">
-                    <i data-lucide="volume-2" id="sound-icon-on"></i>
-                    <i data-lucide="volume-x" id="sound-icon-off" style="display:none"></i>
-                </button>
                 <a href="https://github.com/Evreki" target="_blank" rel="noopener" class="brutal-btn secondary nav-ghost">
                     <i data-lucide="github"></i><span>GitHub</span>
                 </a>
@@ -127,8 +121,7 @@
                 <button type="button" class="radial-item" data-target="#projects"            data-label="Projects"       style="--i:4"><span><i data-lucide="folder-kanban"></i></span></button>
                 <button type="button" class="radial-item" data-target="#skills"              data-label="Skills"         style="--i:5"><span><i data-lucide="cpu"></i></span></button>
                 <button type="button" class="radial-item" data-target="#certificates"        data-label="Certifications" style="--i:6"><span><i data-lucide="award"></i></span></button>
-                <button type="button" class="radial-item" data-target="#interactive-terminal" data-label="Terminal"      style="--i:7"><span><i data-lucide="terminal"></i></span></button>
-                <button type="button" class="radial-item" data-target="#contact"             data-label="Contact"        style="--i:8"><span><i data-lucide="mail"></i></span></button>
+                <button type="button" class="radial-item" data-target="#contact"             data-label="Contact"        style="--i:7"><span><i data-lucide="mail"></i></span></button>
             </div>
             <div class="radial-pointer" aria-hidden="true"></div>
         </div>
@@ -156,7 +149,7 @@
                     <div class="profile-body">
                         <div class="geo-avatar-container">
                             <div class="geo-avatar" id="hero-avatar">
-                                <img class="avatar-img" id="avatar-human-img" src="foto/profile-transparent.png" alt="Evreki Wan Refanja" loading="eager">
+                                <img class="avatar-img" id="avatar-human-img" src="foto/profile.jpg" alt="Evreki Wan Refanja" width="160" height="160" fetchpriority="high" decoding="async">
                             </div>
                         </div>
 
@@ -184,16 +177,6 @@
                                 </div>
                             </div>
 
-                            <ul class="profile-orgs">
-                                <li>
-                                    <img src="foto/experience/cbi.jpg" alt="" loading="eager">
-                                    <span>PT Century Batteries Indonesia</span>
-                                </li>
-                                <li>
-                                    <img src="foto/experience/unla.png" alt="" loading="eager">
-                                    <span>Universitas Langlangbuana</span>
-                                </li>
-                            </ul>
                         </div>
 
                         <div class="social-links-hero">
@@ -262,7 +245,7 @@
                     <!-- Personal photo (click to view full size) -->
                     <figure class="about-photo polaroid-frame" title="Click to view full size">
                         <img src="foto/foto%20final%202.jpeg" onerror="this.onerror=null; this.src='foto/foto-final-2.jpeg';"
-                             alt="Evreki Wan Refanja, S.Kom at Universitas Langlangbuana graduation" loading="lazy">
+                             alt="Evreki Wan Refanja, S.Kom at Universitas Langlangbuana graduation" loading="lazy" decoding="async">
                         <figcaption>
                             <span class="about-photo-title">Evreki Wan Refanja, S.Kom</span>
                             <span class="about-photo-sub"><i data-lucide="graduation-cap"></i> Graduation · Universitas Langlangbuana</span>
@@ -284,7 +267,7 @@
 
                         <article class="exp-item" data-start="2026-09" data-duration="6 mos">
                             <div class="exp-logo">
-                                <img src="foto/experience/cbi.jpg" alt="PT Century Batteries Indonesia logo" loading="lazy">
+                                <img src="foto/experience/cbi.jpg" alt="PT Century Batteries Indonesia logo" loading="lazy" decoding="async">
                             </div>
                             <div class="exp-body">
                                 <div class="exp-top">
@@ -311,17 +294,16 @@
                             </div>
                         </article>
 
-                        <article class="exp-item" data-start="2025-04">
+                        <article class="exp-item" data-start="2025-04" data-end="2026-05">
                             <div class="exp-logo">
-                                <img src="foto/experience/unla.png" alt="Universitas Langlangbuana logo" loading="lazy">
+                                <img src="foto/experience/unla.png" alt="Universitas Langlangbuana logo" loading="lazy" decoding="async">
                             </div>
                             <div class="exp-body">
                                 <div class="exp-top">
                                     <h3 class="exp-role">Full Stack Developer</h3>
-                                    <span class="exp-now"><span class="exp-now-dot"></span> Present</span>
                                 </div>
                                 <p class="exp-company">Universitas Langlangbuana <span class="exp-sep">·</span> <span class="exp-type">Internship</span></p>
-                                <p class="exp-meta"><i data-lucide="calendar-days"></i> Apr 2025 – Present <span class="exp-sep">·</span> <span class="exp-duration">1 yr 8 mos</span></p>
+                                <p class="exp-meta"><i data-lucide="calendar-days"></i> Apr 2025 – May 2026 <span class="exp-sep">·</span> <span class="exp-duration">1 yr 2 mos</span></p>
                                 <p class="exp-meta"><i data-lucide="map-pin"></i> Bandung, West Java, Indonesia <span class="exp-sep">·</span> On-site</p>
                                 <p class="exp-desc">Built a KKN (student community service) registration application to digitally transform a process that was previously handled manually and conventionally. By implementing a web-based system, registration, validation, and reporting became faster, more accurate, and easier for both students and administrators to manage.</p>
                                 <ul class="exp-points">
@@ -339,7 +321,7 @@
 
                         <article class="exp-item" data-start="2026-04" data-end="2026-05">
                             <div class="exp-logo exp-logo--wide">
-                                <img src="foto/experience/bkad.jpg" alt="BKAD Kota Tangerang Selatan logo" loading="lazy">
+                                <img src="foto/experience/bkad.jpg" alt="BKAD Kota Tangerang Selatan logo" loading="lazy" decoding="async">
                             </div>
                             <div class="exp-body">
                                 <div class="exp-top">
@@ -369,7 +351,7 @@
                     <h2 class="section-header">Education</h2>
                     <div class="edu-list">
                         <article class="timeline-card edu-item">
-                            <div class="edu-logo"><img src="foto/experience/unla.png" alt="Universitas Langlangbuana logo" loading="lazy"></div>
+                            <div class="edu-logo"><img src="foto/experience/unla.png" alt="Universitas Langlangbuana logo" loading="lazy" decoding="async"></div>
                             <div class="edu-body">
                                 <h3>Universitas Langlangbuana</h3>
                                 <p class="edu-degree">Bachelor of Informatics Engineering (S.Kom)</p>
@@ -378,7 +360,7 @@
                             </div>
                         </article>
                         <article class="timeline-card edu-item">
-                            <div class="edu-logo"><img src="foto/experience/man2.png" alt="MAN 2 Kabupaten Bandung logo" loading="lazy"></div>
+                            <div class="edu-logo"><img src="foto/experience/man2.png" alt="MAN 2 Kabupaten Bandung logo" loading="lazy" decoding="async"></div>
                             <div class="edu-body">
                                 <h3>MAN 2 Kabupaten Bandung</h3>
                                 <p class="edu-degree">Science Major</p>
@@ -406,7 +388,7 @@
                                 <div class="swiper-slide">
                                     <div class="brutal-card project-card">
                                         <div class="project-img-box">
-                                            <img src="foto/project/webkknm/Picture1.png" alt="KKNM System" onerror="this.src='foto/project/webkknm/Picture2.png'">
+                                            <img loading="lazy" decoding="async" src="foto/project/webkknm/Picture1.jpg" alt="KKNM System" onerror="this.src='foto/project/webkknm/Picture2.jpg'">
                                             <span class="project-issue-badge">Web App</span>
                                         </div>
                                         <h3 class="project-title">KKNM System</h3>
@@ -420,7 +402,7 @@
                                             data-title="KKNM System"
                                             data-category="Web Application & Admin"
                                             data-desc="A comprehensive web application for managing student community service (KKNM) registrations. Features include an admin dashboard, student registration flow, real-time validation, data export, and notification system."
-                                            data-images="foto/project/webkknm/Picture1.png,foto/project/webkknm/Picture2.png,foto/project/webkknm/Picture3.png,foto/project/webkknm/Picture4.png,foto/project/webkknm/Picture5.png"
+                                            data-images="foto/project/webkknm/Picture1.jpg,foto/project/webkknm/Picture2.jpg,foto/project/webkknm/Picture3.jpg,foto/project/webkknm/Picture4.jpg,foto/project/webkknm/Picture5.jpg"
                                             data-tech="Laravel,PHP,MySQL,Bootstrap"
                                             data-link="https://github.com/Lightdraa511/WebsitePendaftaranKKNM.git">
                                             View details <i data-lucide="arrow-up-right"></i>
@@ -431,7 +413,7 @@
                                 <div class="swiper-slide">
                                     <div class="brutal-card project-card">
                                         <div class="project-img-box">
-                                            <img src="foto/project/ai detector/WhatsApp Image 2025-12-07 at 15.35.05_7f45f625.jpg" alt="AI Image Detector" onerror="this.src='foto/project/ai detector/WhatsApp Image 2025-12-07 at 15.35.05_b15b0462.jpg'">
+                                            <img loading="lazy" decoding="async" src="foto/project/ai detector/WhatsApp Image 2025-12-07 at 15.35.05_7f45f625.jpg" alt="AI Image Detector" onerror="this.src='foto/project/ai detector/WhatsApp Image 2025-12-07 at 15.35.05_b15b0462.jpg'">
                                             <span class="project-issue-badge">Mobile AI</span>
                                         </div>
                                         <h3 class="project-title">AI vs Real Image Detector</h3>
@@ -456,7 +438,7 @@
                                 <div class="swiper-slide">
                                     <div class="brutal-card project-card">
                                         <div class="project-img-box">
-                                            <img src="foto/project/sitepad/WhatsApp Image 2026-04-10 at 16.44.44.jpeg" alt="SITEPAD" onerror="this.src='foto/project/sitepad/WhatsApp Image 2026-04-10 at 16.44.45 (1).jpeg'">
+                                            <img loading="lazy" decoding="async" src="foto/project/sitepad/WhatsApp Image 2026-04-10 at 16.44.44.jpeg" alt="SITEPAD" onerror="this.src='foto/project/sitepad/WhatsApp Image 2026-04-10 at 16.44.45 (1).jpeg'">
                                             <span class="project-issue-badge">GIS</span>
                                         </div>
                                         <h3 class="project-title">SITEPAD</h3>
@@ -598,65 +580,32 @@
                         <div class="swiper-wrapper">
                             <div class="swiper-slide">
                                 <div class="brutal-card cert-card">
-                                    <div class="cert-img-box"><img src="foto/certificate/certificate1.jpg" alt="Dicoding - Project Management" loading="lazy"></div>
+                                    <div class="cert-img-box"><img src="foto/certificate/certificate1.jpg" alt="Dicoding - Project Management" loading="lazy" decoding="async"></div>
                                     <h3 class="cert-title">Project Management</h3>
                                     <p class="cert-issuer">Dicoding Indonesia</p>
                                 </div>
                             </div>
                             <div class="swiper-slide">
                                 <div class="brutal-card cert-card">
-                                    <div class="cert-img-box"><img src="foto/certificate/certificate2.png" alt="BISA.AI - Python Basics" loading="lazy"></div>
+                                    <div class="cert-img-box"><img src="foto/certificate/certificate2.jpg" alt="BISA.AI - Python Basics" loading="lazy" decoding="async"></div>
                                     <h3 class="cert-title">Python Basics</h3>
                                     <p class="cert-issuer">BISA.AI</p>
                                 </div>
                             </div>
                             <div class="swiper-slide">
                                 <div class="brutal-card cert-card">
-                                    <div class="cert-img-box"><img src="foto/certificate/certificate3.jpg" alt="Langlangbuana University - Leadership" loading="lazy"></div>
+                                    <div class="cert-img-box"><img src="foto/certificate/certificate3.jpg" alt="Langlangbuana University - Leadership" loading="lazy" decoding="async"></div>
                                     <h3 class="cert-title">Leadership</h3>
                                     <p class="cert-issuer">Universitas Langlangbuana</p>
                                 </div>
                             </div>
                             <div class="swiper-slide">
                                 <div class="brutal-card cert-card">
-                                    <div class="cert-img-box"><img src="foto/certificate/sertifikat-vinix.jpg" alt="Vinix Certificate" loading="lazy"></div>
+                                    <div class="cert-img-box"><img src="foto/certificate/sertifikat-vinix.jpg" alt="Vinix Certificate" loading="lazy" decoding="async"></div>
                                     <h3 class="cert-title">Professional Certificate</h3>
                                     <p class="cert-issuer">Vinix</p>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- DEV TERMINAL -->
-                <section class="li-card section terminal-section" id="interactive-terminal">
-                    <div class="card-head">
-                        <h2 class="section-header">Developer console</h2>
-                        <span class="card-sub">Try a command</span>
-                    </div>
-                    <div class="terminal-container">
-                        <div class="terminal-header">
-                            <div class="terminal-dots">
-                                <span class="t-dot dot-red"></span><span class="t-dot dot-yellow"></span><span class="t-dot dot-green"></span>
-                            </div>
-                            <div class="terminal-title"><i data-lucide="terminal"></i> evreki@portfolio: ~</div>
-                            <div class="terminal-badge">v2.4</div>
-                        </div>
-                        <div class="terminal-chips">
-                            <span class="chip-label">Quick run:</span>
-                            <button class="t-chip" data-cmd="skills"><span>skills</span></button>
-                            <button class="t-chip" data-cmd="projects"><span>projects</span></button>
-                            <button class="t-chip" data-cmd="hire"><span>hire</span></button>
-                            <button class="t-chip" data-cmd="confetti"><span>celebrate</span></button>
-                            <button class="t-chip" data-cmd="clear"><span>clear</span></button>
-                        </div>
-                        <div class="terminal-body" id="terminal-output">
-                            <div class="t-line t-welcome">Welcome to Evreki's console. Type <span class="t-highlight">'help'</span> or click a quick action above.</div>
-                        </div>
-                        <div class="terminal-input-row">
-                            <span class="t-prompt">guest@portfolio:~$</span>
-                            <input type="text" id="terminal-input" class="t-input" placeholder="Type a command (try: skills, hire, help)…" autocomplete="off" spellcheck="false">
-                            <button id="terminal-send" class="t-send-btn"><i data-lucide="corner-down-left"></i> Run</button>
                         </div>
                     </div>
                 </section>
@@ -811,7 +760,6 @@
     <script src="js/radial-nav.js"></script>
     <script src="js/projects.js"></script>
     <script src="js/modal.js"></script>
-    <script src="js/terminal.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

@@ -32,6 +32,7 @@ window.AppRadialNav = (function () {
         hub = document.getElementById('radial-hub');
         N = items.length;
         STEP = 360 / N;
+        nav.style.setProperty('--step', `${STEP}deg`);
 
         setOpen(WIDE(), false);
         setRot(0);
@@ -84,7 +85,6 @@ window.AppRadialNav = (function () {
         nav.classList.add('show-label');
         clearTimeout(setFocus.t);
         setFocus.t = setTimeout(() => nav.classList.remove('show-label'), 1800);
-        if (window.AppAudio && AppAudio.pop) AppAudio.pop();
     }
 
     // rotate the shortest way so item `i` sits on the pointer

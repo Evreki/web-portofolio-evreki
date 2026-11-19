@@ -46,10 +46,6 @@ document.addEventListener('DOMContentLoaded', () => {
         window.AppModal.init();
     }
 
-    // 8. Initialize Dev Terminal Console
-    if (window.AppTerminal) {
-        window.AppTerminal.init();
-    }
 
     // 9. Contact Message Character Counter & Form Feedback
     const msgInput = document.getElementById('msg-textarea');

@@ -1,113 +1,16 @@
 /**
  * PORTFOLIO — INTERACTIVITY SYSTEM
- * Cursor, Audio FX, 3D Card Tilt, Magnetic Physics, Stickers, Toast
+ * Cursor, 3D card tilt, magnetic buttons, toast, experience, image loading
  * Evreki Wan Refanja
  */
 
 'use strict';
-
-// ── RETRO AUDIO SYSTEM (WEB AUDIO API) ─────────────────────────
-window.AppAudio = (function () {
-    let ctx = null;
-    let muted = localStorage.getItem('sound_enabled') === 'false';
-
-    function getAudioContext() {
-        if (!ctx) {
-            const AudioCtx = window.AudioContext || window.webkitAudioContext;
-            if (AudioCtx) ctx = new AudioCtx();
-        }
-        if (ctx && ctx.state === 'suspended') ctx.resume();
-        return ctx;
-    }
-
-    function playTone(freq, type = 'sine', duration = 0.08, gainVal = 0.1) {
-        if (muted) return;
-        try {
-            const ac = getAudioContext();
-            if (!ac) return;
-            const osc = ac.createOscillator();
-            const gain = ac.createGain();
-
-            osc.type = type;
-            osc.frequency.setValueAtTime(freq, ac.currentTime);
-            gain.gain.setValueAtTime(gainVal, ac.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.0001, ac.currentTime + duration);
-
-            osc.connect(gain);
-            gain.connect(ac.destination);
-
-            osc.start();
-            osc.stop(ac.currentTime + duration);
-        } catch (_) {}
-    }
-
-    return {
-        toggle() {
-            muted = !muted;
-            localStorage.setItem('sound_enabled', String(!muted));
-            return !muted;
-        },
-        isOn: () => !muted,
-        click: () => playTone(280, 'triangle', 0.05, 0.08),
-        pop: () => playTone(440, 'sine', 0.05, 0.06),
-        coin: () => {
-            playTone(988, 'square', 0.07, 0.06);
-            setTimeout(() => playTone(1319, 'square', 0.2, 0.08), 75);
-        },
-        swoosh: () => {
-            // Soft "swoosh" sound effect
-            try {
-                if (muted) return;
-                const ac = getAudioContext();
-                if (!ac) return;
-                const osc = ac.createOscillator();
-                const gain = ac.createGain();
-
-                osc.type = 'sawtooth';
-                osc.frequency.setValueAtTime(1400, ac.currentTime);
-                osc.frequency.exponentialRampToValueAtTime(200, ac.currentTime + 0.12);
-
-                gain.gain.setValueAtTime(0.12, ac.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.001, ac.currentTime + 0.12);
-
-                osc.connect(gain);
-                gain.connect(ac.destination);
-
-                osc.start();
-                osc.stop(ac.currentTime + 0.12);
-            } catch (_) {}
-        },
-        laser: () => {
-            try {
-                if (muted) return;
-                const ac = getAudioContext();
-                if (!ac) return;
-                const osc = ac.createOscillator();
-                const gain = ac.createGain();
-
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(900, ac.currentTime);
-                osc.frequency.exponentialRampToValueAtTime(100, ac.currentTime + 0.18);
-
-                gain.gain.setValueAtTime(0.1, ac.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.001, ac.currentTime + 0.18);
-
-                osc.connect(gain);
-                gain.connect(ac.destination);
-
-                osc.start();
-                osc.stop(ac.currentTime + 0.18);
-            } catch (_) {}
-        }
-    };
-})();
 
 // ── MAIN INTERACTIONS MODULE ──────────────────────────────────
 window.AppInteractions = (function () {
 
     function init() {
         initCustomCursor();
-        initSoundControls();
         initMagneticButtons();
         init3DCardTilt();
         initDraggableStickers();
@@ -253,42 +156,6 @@ window.AppInteractions = (function () {
 
     }
 
-    // ── SOUND FX CONTROLS ──────────────────────────────────────
-    function initSoundControls() {
-        const btn = document.getElementById('sound-btn');
-        const iconOn = document.getElementById('sound-icon-on');
-        const iconOff = document.getElementById('sound-icon-off');
-        if (!btn) return;
-
-        function updateIcon(isOn) {
-            if (iconOn && iconOff) {
-                iconOn.style.display = isOn ? 'block' : 'none';
-                iconOff.style.display = isOn ? 'none' : 'block';
-                if (typeof lucide !== 'undefined') lucide.createIcons();
-            }
-        }
-
-        updateIcon(AppAudio.isOn());
-
-        btn.addEventListener('click', () => {
-            const isOn = AppAudio.toggle();
-            updateIcon(isOn);
-            if (isOn) AppAudio.coin();
-        });
-
-        // Attach audio to UI elements
-        document.querySelectorAll('.brutal-btn, .nav-link, .social-btn, .t-chip, .modal-close, .modal-dismiss-btn').forEach(el => {
-            el.addEventListener('click', () => {
-                if (el.classList.contains('danger') || el.classList.contains('open-modal-btn')) {
-                    AppAudio.swoosh();
-                } else {
-                    AppAudio.click();
-                }
-            });
-            el.addEventListener('mouseenter', () => AppAudio.pop());
-        });
-    }
-
     // ── MAGNETIC BUTTONS ───────────────────────────────────────
     function initMagneticButtons() {
         if (!window.matchMedia('(pointer:fine)').matches) return;
@@ -346,7 +213,6 @@ window.AppInteractions = (function () {
             function startDrag(e) {
                 isDragging = true;
                 sticker.classList.add('is-dragging');
-                AppAudio.pop();
 
                 const clientX = e.touches ? e.touches[0].clientX : e.clientX;
                 const clientY = e.touches ? e.touches[0].clientY : e.clientY;
@@ -401,7 +267,6 @@ window.AppInteractions = (function () {
         function showToast(msg) {
             toastMsg.textContent = msg;
             toast.classList.add('show');
-            AppAudio.coin();
             clearTimeout(timer);
             timer = setTimeout(() => toast.classList.remove('show'), 2200);
         }
@@ -448,7 +313,6 @@ window.AppInteractions = (function () {
         }, { passive: true });
 
         btn.addEventListener('click', () => {
-            AppAudio.swoosh();
             if (window.AppCore) {
                 window.AppCore.scrollTo(0, { duration: 1.2 });
             } else {

@@ -143,17 +143,22 @@ window.AppAnimations = (function () {
         const bar = document.getElementById('scroll-progress');
         if (!bar) return;
 
-        window.addEventListener('scroll', () => {
-            const totalScroll = document.documentElement.scrollHeight - window.innerHeight;
-            if (totalScroll <= 0) return;
-            const pct = (window.scrollY / totalScroll) * 100;
-            bar.style.width = Math.min(pct, 100) + '%';
+        // transform-only + at most once per frame (no layout work while scrolling)
+        let ticking = false;
+        let total = 1;
+        const measure = () => { total = Math.max(1, document.documentElement.scrollHeight - window.innerHeight); };
+        measure();
+        window.addEventListener('resize', measure, { passive: true });
+        window.addEventListener('load', measure);
+        if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.addEventListener('refresh', measure);
 
-            if (pct >= 99) {
-                bar.classList.add('pulse-completed');
-            } else {
-                bar.classList.remove('pulse-completed');
-            }
+        window.addEventListener('scroll', () => {
+            if (ticking) return;
+            ticking = true;
+            requestAnimationFrame(() => {
+                bar.style.setProperty('--progress', Math.min(window.scrollY / total, 1).toFixed(4));
+                ticking = false;
+            });
         }, { passive: true });
     }
 

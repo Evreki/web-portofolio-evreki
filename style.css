@@ -864,79 +864,6 @@ button { cursor: pointer; background: none; border: none; }
 .cert-title { font-size: 0.98rem; font-weight: 700; padding: 12px 14px 0; }
 .cert-issuer { font-size: 0.88rem; color: var(--text-2); padding: 0 14px 14px; }
 
-/* ── 16. TERMINAL ── */
-.terminal-container {
-    border-radius: 8px;
-    overflow: hidden;
-    background: #1D2226;
-    color: #E6EDF3;
-    font-family: var(--font-mono);
-    font-size: 0.86rem;
-}
-.terminal-header {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 10px 14px;
-    background: #2B3137;
-}
-.terminal-dots { display: flex; gap: 6px; }
-.t-dot { width: 11px; height: 11px; border-radius: 50%; }
-.dot-red { background: #FF5F57; }
-.dot-yellow { background: #FEBC2E; }
-.dot-green { background: #28C840; }
-.terminal-title { display: flex; align-items: center; gap: 6px; flex: 1; color: #AEB8C2; font-size: 0.8rem; }
-.terminal-title svg { width: 14px; height: 14px; }
-.terminal-badge { font-size: 0.72rem; color: #AEB8C2; border: 1px solid #48525C; border-radius: var(--pill); padding: 1px 8px; }
-.terminal-chips {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 6px;
-    padding: 10px 14px;
-    border-bottom: 1px solid #2F363D;
-}
-.chip-label { color: #8B96A1; font-size: 0.78rem; }
-.t-chip {
-    padding: 2px 10px;
-    border-radius: var(--pill);
-    border: 1px solid #48525C;
-    color: #E6EDF3;
-    font-family: var(--font-mono);
-    font-size: 0.78rem;
-}
-.t-chip:hover { border-color: var(--blue-light); color: var(--blue-light); }
-.terminal-body { height: 220px; overflow-y: auto; padding: 14px; line-height: 1.65; }
-.t-line { white-space: pre-wrap; word-break: break-word; }
-.t-welcome { color: #8B96A1; }
-.t-highlight { color: var(--blue-light); font-weight: 700; }
-.t-cmd { color: #7FC15E; }
-.t-error { color: #FF7B72; }
-.t-prompt { color: #7FC15E; white-space: nowrap; }
-.terminal-input-row {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px 14px;
-    border-top: 1px solid #2F363D;
-}
-.t-input { flex: 1; min-width: 0; background: transparent; border: none; outline: none; color: #E6EDF3; font-family: var(--font-mono); }
-.t-input::placeholder { color: #5E6A75; }
-.t-send-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 4px 12px;
-    border-radius: var(--pill);
-    background: var(--blue);
-    color: #FFFFFF;
-    font-family: var(--font);
-    font-weight: 600;
-    font-size: 0.85rem;
-}
-.t-send-btn svg { width: 14px; height: 14px; }
-.t-send-btn:hover { background: var(--blue-hover); }
-
 /* ── 17. CONTACT ── */
 .contact-grid { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: 24px; }
 .contact-heading { font-size: 1.15rem; font-weight: 700; }
@@ -1215,7 +1142,7 @@ button { cursor: pointer; background: none; border: none; }
 .radial-nav {
     --R: 150px;           /* dial radius */
     --orbit: 112px;       /* radius the items sit on */
-    --step: 40deg;        /* 360 / 9 items */
+    --step: 45deg;        /* 360 / 8 items */
     --rot: 0deg;
     position: fixed;
     left: 0;
@@ -1395,7 +1322,7 @@ button { cursor: pointer; background: none; border: none; }
 
 /* ── 23. MICRO-INTERACTIONS ── */
 /* Press: shrink a little + thin glow (uses `scale` so it composes with inline transforms) */
-.brutal-btn, .social-btn, .t-chip, .t-send-btn, .swiper-nav-btn, .nav-ctrl-btn,
+.brutal-btn, .social-btn, .swiper-nav-btn, .nav-ctrl-btn,
 .contact-social-btn, .footer-social-link, #back-to-top, .modal-close, .gallery-nav,
 .exp-more-btn, .lightbox-close, .radial-hub, .radial-label {
     transition:
@@ -1403,7 +1330,7 @@ button { cursor: pointer; background: none; border: none; }
         color 0.2s ease, border-color 0.2s ease, opacity 0.3s ease,
         scale 0.16s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.2s ease;
 }
-.brutal-btn:active, .social-btn:active, .t-chip:active, .t-send-btn:active, .swiper-nav-btn:active,
+.brutal-btn:active, .social-btn:active, .swiper-nav-btn:active,
 .nav-ctrl-btn:active, .contact-social-btn:active, .footer-social-link:active, #back-to-top:active,
 .modal-close:active, .gallery-nav:active, .exp-more-btn:active, .lightbox-close:active,
 .radial-hub:active, .radial-label:active, .radial-item:active > span {
@@ -1413,7 +1340,7 @@ button { cursor: pointer; background: none; border: none; }
 }
 .brutal-btn:focus-visible, .social-btn:focus-visible, .swiper-nav-btn:focus-visible,
 .exp-more-btn:focus-visible, .nav-ctrl-btn:focus-visible, .radial-item:focus-visible > span,
-.radial-hub:focus-visible, .t-chip:focus-visible {
+.radial-hub:focus-visible {
     outline: 2px solid var(--blue);
     outline-offset: 2px;
 }
@@ -1621,4 +1548,57 @@ button { cursor: pointer; background: none; border: none; }
 @media (max-width: 720px) {
     .about-layout { grid-template-columns: minmax(0, 1fr); }
     .about-photo { max-width: 320px; width: 100%; justify-self: center; aspect-ratio: 4 / 5; }
+}
+
+/* ── 29. LIGHT BANNER (phones / no WebGL): a drifting network pattern ── */
+/* Only `transform` is animated, so it runs on the GPU without repainting. */
+.profile-banner::before {
+    content: '';
+    position: absolute;
+    top: 0; bottom: 0; left: 0;
+    width: 200%;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='130' viewBox='0 0 260 130'%3E%3Cg stroke='%23A9D2FF' stroke-opacity='.35' stroke-width='.8' fill='none'%3E%3Cpath d='M18 24L74 58L132 20L190 64L246 30M74 58L60 112L132 92L190 64L214 118M132 20L132 92M18 24L-10 70M246 30L270 80'/%3E%3C/g%3E%3Cg fill='%23FFFFFF'%3E%3Ccircle cx='18' cy='24' r='2.2' opacity='.8'/%3E%3Ccircle cx='74' cy='58' r='1.8' opacity='.7'/%3E%3Ccircle cx='132' cy='20' r='2.4' opacity='.9'/%3E%3Ccircle cx='190' cy='64' r='1.8' opacity='.7'/%3E%3Ccircle cx='246' cy='30' r='2' opacity='.8'/%3E%3Ccircle cx='60' cy='112' r='1.6' opacity='.6'/%3E%3Ccircle cx='132' cy='92' r='2' opacity='.75'/%3E%3Ccircle cx='214' cy='118' r='1.6' opacity='.6'/%3E%3C/g%3E%3C/svg%3E");
+    background-size: 260px 130px;
+    animation: banner-drift 48s linear infinite;
+    will-change: transform;
+    pointer-events: none;
+}
+.profile-banner.is-webgl::before { display: none; }
+@keyframes banner-drift {
+    from { transform: translate3d(0, 0, 0); }
+    to   { transform: translate3d(-50%, 0, 0); }
+}
+
+/* ── 30. PERFORMANCE: compositor-friendly pulses & progress bar ── */
+/* Pulsing dots: animate a pseudo-element's transform/opacity instead of box-shadow (no repaint) */
+.avail-dot, .exp-now-dot { position: relative; animation: none !important; box-shadow: none !important; }
+.avail-dot::after, .exp-now-dot::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: currentColor;
+    color: var(--green);
+    opacity: 0.45;
+    animation: dot-ping 1.8s ease-out infinite;
+}
+@keyframes dot-ping {
+    0%   { transform: scale(1);   opacity: 0.45; }
+    100% { transform: scale(2.6); opacity: 0; }
+}
+#scroll-progress {
+    width: 100% !important;
+    transform-origin: 0 50%;
+    transform: scaleX(var(--progress, 0));
+    transition: none;
+    will-change: transform;
+}
+/* Phones: drop hover-only work and heavy shadows while scrolling */
+@media (pointer: coarse) {
+    .li-card, .project-card, .cert-card, .skill-card, .stat-item, .exp-item, .edu-item { transition: none; }
+    .radial-dial { box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08), 4px 0 14px rgba(0, 0, 0, 0.10); }
+    .about-ticker-inner { animation-duration: 40s; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .profile-banner::before, .avail-dot::after, .exp-now-dot::after { animation: none !important; }
 }

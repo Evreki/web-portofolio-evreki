@@ -209,14 +209,12 @@ window.AppModal = (function () {
         if (images.length <= 1) return;
         currentIdx = (currentIdx + 1) % images.length;
         updateGalleryPosition();
-        if (window.AppAudio) window.AppAudio.pop();
     }
 
     function prevImage() {
         if (images.length <= 1) return;
         currentIdx = (currentIdx - 1 + images.length) % images.length;
         updateGalleryPosition();
-        if (window.AppAudio) window.AppAudio.pop();
     }
 
     function updateGalleryPosition() {
@@ -261,7 +259,6 @@ window.AppModal = (function () {
         lbImg.src = src;
         if (lbCaption) lbCaption.textContent = caption || '';
         lightbox.classList.add('lightbox-open');
-        if (window.AppAudio) window.AppAudio.laser();
     }
 
     function closeLightbox() {

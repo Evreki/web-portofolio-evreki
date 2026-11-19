@@ -29,10 +29,38 @@ window.AppBanner = (function () {
         }
     }
 
+    const THREE_URL = 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js';
+
+    // Desktop with a mouse: load Three.js on demand (after the page is ready).
+    // Phones / tablets / reduced motion: keep the light CSS banner and never download Three.js.
     function init() {
+        const banner = document.getElementById('profile-banner');
+        const capable = window.matchMedia('(pointer: fine) and (min-width: 900px)').matches &&
+                        !window.matchMedia('(prefers-reduced-motion: reduce)').matches &&
+                        isWebGLAvailable();
+        if (!capable) return; // CSS fallback animation stays on
+
+        const start = () => {
+            if (typeof THREE !== 'undefined') return boot();
+            const s = document.createElement('script');
+            s.src = THREE_URL;
+            s.async = true;
+            s.onload = boot;
+            document.head.appendChild(s);
+        };
+        if ('requestIdleCallback' in window) requestIdleCallback(start, { timeout: 2500 });
+        else setTimeout(start, 1200);
+
+        function boot() {
+            if (banner) banner.classList.add('is-webgl');
+            setup();
+        }
+    }
+
+    function setup() {
         container = document.getElementById('profile-banner') || document.getElementById('hero-section');
         canvas = document.getElementById('hero-three-canvas');
-        if (!container || !canvas || !isWebGLAvailable() || typeof THREE === 'undefined') return;
+        if (!container || !canvas || typeof THREE === 'undefined') return;
 
         clock = new THREE.Clock();
         width = container.offsetWidth;
@@ -44,7 +72,7 @@ window.AppBanner = (function () {
 
         renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true, powerPreference: 'high-performance' });
         renderer.setSize(width, height, false);
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
 
         measure();
         group = new THREE.Group();
